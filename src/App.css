@@ -12,7 +12,7 @@
   top: 0;
   left: 0;
   z-index: 0;
-  touch-action: none;
+  touch-action: none !important;
 }
 
 .htmlScreen iframe {
@@ -21,4 +21,14 @@
   border: none;
   border-radius: 20px;
   background: #000000;
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  z-index: 2;
+  margin: 0.5rem;
 }
