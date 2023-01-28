@@ -138,6 +138,10 @@ const HtmlPage = () => {
             text="Space Portfolio"
             url="https://scroll-portfolio.vercel.app/"
           />
+          <Button
+            text="Bizcord - 3D Landing"
+            url="https://bizcord-3d-landing.vercel.app/"
+          />
         </div>
       </div>
       <span className="background background0" />
