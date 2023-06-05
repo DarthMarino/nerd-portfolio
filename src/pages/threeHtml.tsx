@@ -182,7 +182,7 @@ const ThreePage = () => {
           onIncline={() => setDpr(2)}
           onDecline={() => setDpr(1)}
         >
-          <Environment preset={"city"} />
+          <Environment files="/potsdamer_platz_1k.hdr" />
           <ambientLight intensity={0.1} />
           <directionalLight color="red" position={[0, 0, 0]} />
           <color args={["#5b695e"]} attach="background" />
