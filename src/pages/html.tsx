@@ -136,12 +136,16 @@ const HtmlPage = () => {
         <div className="button-list">
           <Button text="Blog Page" url="https://alphablog.vercel.app/" />
           <Button
-            text="Space Portfolio"
-            url="https://scroll-portfolio.vercel.app/"
-          />
-          <Button
             text="Bizcord - 3D Landing"
             url="https://bizcord-3d-landing.vercel.app/"
+          />
+           <Button
+            text="Tinacos Hércules"
+            url="https://tinacos-hercules.vercel.app/"
+          />
+           <Button
+            text="Space Portfolio"
+            url="https://scroll-portfolio.vercel.app/"
           />
         </div>
       </div>
