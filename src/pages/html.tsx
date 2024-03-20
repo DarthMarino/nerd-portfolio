@@ -95,7 +95,7 @@ const HtmlPage = () => {
           />
           <Range
             year1={2022}
-            year2={2023}
+            year2={2024}
             role="Frontend Engineer"
             company="Tecno-Logica"
           />
@@ -106,6 +106,7 @@ const HtmlPage = () => {
             "React",
             "Typescript",
             "Javascript",
+            "NodeJs",
             "CSS",
             "Three.js",
             "Tailwindcss",
