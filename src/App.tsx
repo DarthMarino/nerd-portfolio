@@ -1,11 +1,11 @@
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import "./App.css";
-import "./pages/style.css";
 import HtmlPage from "./pages/html";
 import ThreePage from "./pages/threeHtml";
 import Button from "./components/Button";
+import i18n from "i18next";
+import PdfViewer from "./pages/cv";
+import "./App.css";
+import "./pages/style.css";
 
 function App() {
   return (
@@ -16,7 +16,17 @@ function App() {
           element={
             <>
               <div className="absolute">
-                <Button text="2D Page" url="/html" target="_self" />
+                <div
+                  className="button-list"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "auto",
+                  }}
+                >
+                  <Button text={i18n.t("2d")} url="/html" target="_self" />
+                  <Button text="CV" url="/cv" target="_blank" />
+                </div>
               </div>
               <ThreePage />
             </>
@@ -27,12 +37,23 @@ function App() {
           element={
             <>
               <div className="absolute">
-                <Button text="3D Page" url="/" target="_self" />
+                <div
+                  className="button-list"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "auto",
+                  }}
+                >
+                  <Button text={i18n.t("3d")} url="/" target="_self" />
+                  <Button text="CV" url="/cv" target="_self" />
+                </div>
               </div>
               <HtmlPage />
             </>
           }
         />
+        <Route path="/cv" element={<PdfViewer />} />
       </Routes>
     </BrowserRouter>
   );

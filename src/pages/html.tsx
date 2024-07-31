@@ -1,10 +1,12 @@
+import i18n from "i18next";
 import Button from "../components/Button";
 import "./style.css";
+import { technologies } from "../statics/objects";
 
 const HtmlPage = () => {
   const Range = ({
     year1 = 0,
-    year2 = 100,
+    year2,
     company = "",
     role = "",
     link,
@@ -35,7 +37,7 @@ const HtmlPage = () => {
         <p>
           <i className="arrow" />
         </p>
-        <span className="yearBox">{year2}</span>
+        <span className="yearBox">{year2 ? year2 : "Present"}</span>
       </div>
     </div>
   );
@@ -58,13 +60,9 @@ const HtmlPage = () => {
       <div className="content">
         <div className="title">
           <h1>MARINO GOMEZ</h1>
-          <h2>Software Engineer / Frontend Developer</h2>
+          <h2>Software Engineer</h2>
         </div>
-        <p>
-          I am a Software Engineer specialized in frontend software development,
-          my passion is to make projects, pages, and applications that just look
-          good.
-        </p>
+        <p>{i18n.t("cv_intro")}</p>
         <h1 className="subtitle">CONTACT</h1>
         <div className="button-list">
           <Button text="Github" url="https://github.com/DarthMarino" />
@@ -87,33 +85,16 @@ const HtmlPage = () => {
             marginTop: "-15px",
           }}
         >
+          <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
           <Range
             year1={2021}
             year2={2023}
             role="Software Engineer"
             company="Curbo Technologies"
           />
-          <Range
-            year1={2022}
-            year2={2024}
-            role="Frontend Engineer"
-            company="Tecno-Logica"
-          />
         </div>
         <h1 className="subtitle">SKILLS</h1>
-        <Skills
-          skillArray={[
-            "React",
-            "Typescript",
-            "Javascript",
-            "NodeJs",
-            "CSS",
-            "Three.js",
-            "Tailwindcss",
-            "Figma",
-            "Blender",
-          ]}
-        />
+        <Skills skillArray={technologies} />
         <h1 className="subtitle">STUDIES</h1>
         <div
           style={{
@@ -127,8 +108,25 @@ const HtmlPage = () => {
           <Range
             year1={2017}
             year2={2021}
-            role="Software Engineer"
-            company="Santo Domingo Institute of Technology"
+            role={i18n.t("software_eng")}
+            company={i18n.t("intec")}
+            link="https://www.intec.edu.do/en/"
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: "1rem",
+            marginTop: "15px",
+          }}
+        >
+          <Range
+            year1={2017}
+            year2={2021}
+            role={i18n.t("digital_electronics")}
+            company={i18n.t("loyola")}
             link="https://www.intec.edu.do/en/"
           />
         </div>
@@ -139,11 +137,11 @@ const HtmlPage = () => {
             text="Bizcord - 3D Landing"
             url="https://bizcord-3d-landing.vercel.app/"
           />
-           <Button
+          <Button
             text="Tinacos Hércules"
             url="https://tinacos-hercules.vercel.app/"
           />
-           <Button
+          <Button
             text="Space Portfolio"
             url="https://scroll-portfolio.vercel.app/"
           />

@@ -164,15 +164,14 @@ const ThreePage = () => {
         <div
           style={{
             width: "100%",
-            height: "100%",
+            height: "100vh",
             position: "absolute",
-            top: 0,
-            left: 0,
             display: "flex",
+            alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <img src={infinity} alt="infinity" />
+          <img src={infinity} alt="infinity" height="30%" width="30%" />
         </div>
       }
     >
