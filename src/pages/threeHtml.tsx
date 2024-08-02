@@ -204,7 +204,7 @@ const ThreePage = () => {
           <Environment files="/potsdamer_platz_1k.hdr" />
           <ambientLight intensity={0.1} />
           <directionalLight color="red" position={[0, 0, 0]} />
-          <color args={["#5b695e"]} attach="background" />
+          <color args={["#202321"]} attach="background" />
           <PresentationControls
             global
             rotation={[active ? 0.25 : 0, 0, 0]}
