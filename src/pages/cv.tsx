@@ -68,57 +68,17 @@ function PdfViewer() {
       align: "justify",
     });
 
-    // Education Section
-    genPdfSection({
-      doc,
-      x: leftSide,
-      y: 76,
-      title: i18n.t("education_title"),
-    });
-
-    genPdfBoldRow({
-      doc,
-      x: leftSide,
-      y: 86,
-      title: "2017 - 2021",
-      boldText: i18n.t("intec"),
-      description: i18n.t("software_eng"),
-    });
-    genPdfBoldRow({
-      doc,
-      x: leftSide,
-      y: 92,
-      title: "2014 - 2017",
-      boldText: i18n.t("loyola"),
-      description: i18n.t("digital_electronics"),
-    });
-
-    // Technical Skills Section
-    genPdfSection({
-      doc,
-      x: leftSide,
-      y: 98,
-      title: i18n.t("skills_title"),
-    });
-    genPdfRow({
-      doc,
-      x: leftSide,
-      y: 108,
-      title: i18n.t("coding_tools_title"),
-      description: technologies.join(", "),
-    });
-
     // Work Experience Section
     genPdfSection({
       doc,
       x: leftSide,
-      y: 118,
+      y: 76,
       title: i18n.t("experience_title"),
     });
     genPdfWorkExp({
       doc,
       x: leftSide,
-      y: 128,
+      y: 86,
       title: i18n.t("tecno_date"),
       boldText: i18n.t("software_eng_title"),
       company: "Tecno-Logica",
@@ -132,7 +92,7 @@ function PdfViewer() {
     genPdfWorkExp({
       doc,
       x: leftSide,
-      y: 175,
+      y: 132,
       title: i18n.t("curbo_date"),
       boldText: i18n.t("frontend_eng_title"),
       company: "Curbo Tecnologies",
@@ -143,17 +103,57 @@ function PdfViewer() {
       ],
     });
 
+    // Technical Skills Section
+    genPdfSection({
+      doc,
+      x: leftSide,
+      y: 162,
+      title: i18n.t("skills_title"),
+    });
+    genPdfRow({
+      doc,
+      x: leftSide,
+      y: 172,
+      title: i18n.t("coding_tools_title"),
+      description: technologies.join(", "),
+    });
+
+    // Education Section
+    genPdfSection({
+      doc,
+      x: leftSide,
+      y: 184,
+      title: i18n.t("education_title"),
+    });
+
+    genPdfBoldRow({
+      doc,
+      x: leftSide,
+      y: 194,
+      title: "2017 - 2021",
+      boldText: i18n.t("intec"),
+      description: i18n.t("software_eng"),
+    });
+    genPdfBoldRow({
+      doc,
+      x: leftSide,
+      y: 200,
+      title: "2014 - 2017",
+      boldText: i18n.t("loyola"),
+      description: i18n.t("digital_electronics"),
+    });
+
     // Extra Certifications Section
     genPdfSection({
       doc,
       x: leftSide,
-      y: 204,
+      y: 208,
       title: i18n.t("certifications_title"),
     });
     genPdfBoldRowWithLink({
       doc,
       x: leftSide,
-      y: 214,
+      y: 218,
       boldText: certifications[0].title,
       title: format(certifications[0].date, "MMM yyyy"),
       description: certifications[0].description,
@@ -162,7 +162,7 @@ function PdfViewer() {
     genPdfBoldRowWithLink({
       doc,
       x: leftSide,
-      y: 220,
+      y: 224,
       boldText: certifications[1].title,
       title: format(certifications[1].date, "MMM yyyy"),
       description: certifications[1].description,
@@ -173,20 +173,20 @@ function PdfViewer() {
     genPdfSection({
       doc,
       x: leftSide,
-      y: 226,
+      y: 232,
       title: i18n.t("languages"),
     });
     genPdfBoldRow({
       doc,
       x: leftSide,
-      y: 236,
+      y: 242,
       boldText: i18n.t("lang_1"),
       description: i18n.t("lang_1_level"),
     });
     genPdfBoldRow({
       doc,
       x: leftSide,
-      y: 242,
+      y: 248,
       boldText: i18n.t("lang_2"),
       description: i18n.t("lang_2_level"),
     });

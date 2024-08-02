@@ -77,7 +77,7 @@ const resources: Resource = {
       lang_1: "Inglés",
       lang_2: "Mandarín",
       lang_1_level: "Profesional",
-      lang_2_level: "Básico",
+      lang_2_level: "Basic",
     },
   },
 };
