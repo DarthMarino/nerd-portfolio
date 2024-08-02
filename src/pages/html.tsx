@@ -132,14 +132,20 @@ const HtmlPage = () => {
         </div>
         <h1 className="subtitle">PROJECTS</h1>
         <div className="button-list">
-          <Button text="Blog Page" url="https://alphablog.vercel.app/" />
-          <Button
-            text="Bizcord - 3D Landing"
-            url="https://bizcord-3d-landing.vercel.app/"
-          />
+          <Button text="SentinelsLabs" url="https://www.sentinelslabs.com/" />
+          <Button text="Curbo" url="https://curbo.do/" />
           <Button
             text="Tinacos Hércules"
             url="https://tinacos-hercules.vercel.app/"
+          />
+          <Button text="Blog Page" url="https://alphablog.vercel.app/" />
+          <Button
+            text="YokoHaan Art"
+            url="https://darthmarino.github.io/yoko-haan-art/"
+          />
+          <Button
+            text="Bizcord - 3D Landing"
+            url="https://bizcord-3d-landing.vercel.app/"
           />
           <Button
             text="Space Portfolio"
