@@ -5,7 +5,7 @@ const resources: Resource = {
       "2d": "2D Page",
       "3d": "3D Page",
       cv_intro:
-        "I am a 24-year-old Software Engineer, specialized in front-end software development. My passion is making projects, pages and applications that simply look good. Therefore, Ilearned to code and design, covering all the bases. Iconsider myself a technology person and always immersed in new products and devices from all over the world.",
+        "I am a 24-year-old Software Engineer, specialized in front-end software development. My passion is making projects, pages and applications that simply look good. Therefore, I learned to code and design, covering all the bases. I consider myself a technology person and always immersed in new products and devices from all over the world.",
       education_title: "Education",
       intec: "Instituto Tecnológico de Santo Domingo, Dominican Republic",
       software_eng: "Software Engineering",
