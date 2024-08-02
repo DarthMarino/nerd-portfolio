@@ -10,14 +10,15 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Euler, Group, Quaternion, Vector3 } from "three";
 import HtmlPage from "./html";
 
 import infinity from "../assets/infinity.svg";
+import { useNavigate } from "react-router-dom";
 
 const focusedCamera: CameraProps = {
-  position: new Vector3(0, 0.2, 2),
+  position: new Vector3(0, 0.6, 2),
   rotation: new Euler(-0.4, 0, 0),
 };
 
@@ -31,19 +32,26 @@ type LaptopProps = {
   onPointerOver?: () => void;
   onPointerOut?: () => void;
   active?: boolean;
+  setActive: (active: boolean) => void;
 };
+
 const Laptop = ({
   v = new Vector3(),
   onPointerOver,
   onPointerOut,
   active = false,
+  setActive,
 }: LaptopProps) => {
   const groupRef = useRef<Group>(new Group());
   const width = window.innerWidth;
-  const [zoom, set] = useState(false);
+  const [zoom, setZoom] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const computer = useGLTF(
-    "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
+  const computer = useMemo(
+    () =>
+      useGLTF(
+        "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
+      ),
+    []
   );
 
   const handleChangeClicked = () => {
@@ -54,37 +62,41 @@ const Laptop = ({
 
   const zSizeZoomed = () => {
     if (width < 400) {
-      return 5;
+      return 7.5;
     } else if (width < 450) {
-      return 4.5;
+      return 6.5;
     } else if (width < 500) {
-      return 4;
+      return 5.5;
     } else if (width < 600) {
-      return 3;
+      return 4.5;
     } else if (width < 700) {
-      return 2.5;
+      return 3.5;
     } else if (width < 800) {
+      return 3;
+    } else if (width < 900) {
+      return 2.5;
+    } else if (width < 1000) {
       return 2;
     } else {
       return 1.5;
     }
   };
 
-  const focused = new Vector3(0, 0.2, zSizeZoomed());
+  const focused = new Vector3(0, 0.3, zSizeZoomed());
 
   useEffect(() => {
     if (active && width > 350) {
-      set(true);
+      setZoom(true);
     } else {
-      if (!clicked) set(false);
+      setZoom(false);
     }
   }, [active]);
 
   useEffect(() => {
     if (clicked && !active) {
-      set(true);
-    } else {
-      if (!active) set(false);
+      setActive(true);
+    } else if (!clicked && active) {
+      setActive(false);
     }
   }, [clicked]);
 
@@ -158,6 +170,14 @@ const ThreePage = () => {
     setActive(false);
   };
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.innerWidth < 350) {
+      navigate("/html");
+    }
+  }, []);
+
   return (
     <Suspense
       fallback={
@@ -187,16 +207,18 @@ const ThreePage = () => {
           <color args={["#5b695e"]} attach="background" />
           <PresentationControls
             global
-            rotation={[0, 0, 0]}
+            rotation={[active ? 0.25 : 0, 0, 0]}
             polar={[-0.1, 0.2]}
             azimuth={[-1.5, 1.5]}
             config={{ mass: 2, tension: 400 }}
+            enabled={!active}
           >
             <Float rotationIntensity={0.04} floatIntensity={0.3}>
               <Laptop
                 onPointerOut={onPointerOut}
                 onPointerOver={onPointerOver}
                 active={active}
+                setActive={setActive}
               />
             </Float>
           </PresentationControls>
