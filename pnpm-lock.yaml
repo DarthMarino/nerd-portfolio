@@ -38,9 +38,15 @@ importers:
       react-i18next:
         specifier: ^15.0.0
         version: 15.0.0(i18next@23.12.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-photo-view:
+        specifier: ^1.2.6
+        version: 1.2.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       three:
         specifier: ^0.159.0
         version: 0.159.0
+      zustand:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/react@18.0.26)(react@18.2.0)
     devDependencies:
       '@types/react':
         specifier: ^18.0.26
@@ -767,6 +773,12 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-photo-view@1.2.6:
+    resolution: {integrity: sha512-Fq17yxkMIv0oFp7HOJr39HgCZRP6A9K5T5rixJ4flSUYT2OO3V8vNxEExjhIKgIrfmTu+mDnHYEsI9RRWi1JHw==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react-reconciler@0.27.0:
     resolution: {integrity: sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==}
@@ -1713,6 +1725,11 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
 
   react-is@16.13.1: {}
+
+  react-photo-view@1.2.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   react-reconciler@0.27.0(react@18.2.0):
     dependencies:

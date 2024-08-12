@@ -1,7 +1,13 @@
 import i18n from "i18next";
 import Button from "../components/Button";
-import "./style.css";
 import { technologies } from "../statics/objects";
+import Dropdown from "../components/Dropdown";
+import sic1 from "../assets/images/sic-1.png";
+import sic2 from "../assets/images/sic-2.png";
+import sic3 from "../assets/images/sic-3.png";
+import sic4 from "../assets/images/sic-4.png";
+import sic5 from "../assets/images/sic-5.png";
+import "./style.css";
 
 const HtmlPage = () => {
   const Range = ({
@@ -21,7 +27,6 @@ const HtmlPage = () => {
       <div className="range" style={{ gap: "0.5rem" }}>
         <h4>{role}</h4>
         <h4 style={{ opacity: 0.7 }}>at</h4>
-
         <h4>
           {link ? (
             <a href={link} target="_blank">
@@ -86,6 +91,11 @@ const HtmlPage = () => {
           }}
         >
           <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
+          <Dropdown
+            text="PVenta Mobile"
+            images={[sic1, sic2, sic3, sic4, sic5]}
+          />
+          <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
           <Range
             year1={2021}
             year2={2023}
@@ -127,7 +137,7 @@ const HtmlPage = () => {
             year2={2021}
             role={i18n.t("digital_electronics")}
             company={i18n.t("loyola")}
-            link="https://www.intec.edu.do/en/"
+            link="https://ipl.edu.do/"
           />
         </div>
         <h1 className="subtitle">PROJECTS</h1>
