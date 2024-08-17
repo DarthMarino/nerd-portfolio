@@ -139,9 +139,10 @@ const Laptop = ({
         distanceFactor={1.17}
         position={[0, 0.25, -1.39]}
         rotation={[-0.25, 0, 0]}
+        scale={0.5}
       >
         <div
-          style={{ width: "1024px", height: "670px" }}
+          style={{ width: "1024px", height: "670px", transform: "scale(2)" }}
           onPointerOver={onPointerOver}
           onPointerOut={onPointerOut}
         >
@@ -195,7 +196,13 @@ const ThreePage = () => {
         </div>
       }
     >
-      <Canvas dpr={dpr} className="canvas">
+      <Canvas
+        dpr={dpr}
+        className="canvas"
+        gl={{
+          pixelRatio: window.devicePixelRatio,
+        }}
+      >
         <PerspectiveCamera makeDefault far={2000} near={0.1} fov={45} />
         <PerformanceMonitor
           onIncline={() => setDpr(2)}
