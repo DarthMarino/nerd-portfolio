@@ -12,7 +12,7 @@ import { isPhone } from "./utils/detect_phone";
 function App() {
   useEffect(() => {
     if (isPhone()) {
-      window.location.href = "path/to/your/html/page.html";
+      window.location.href = "/";
     }
   }, []);
   return (
