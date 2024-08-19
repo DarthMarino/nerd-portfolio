@@ -49,9 +49,9 @@ const Laptop = ({
   const computer = useMemo(
     () =>
       useGLTF(
-        "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
+        "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf",
       ),
-    []
+    [],
   );
 
   const handleChangeClicked = () => {
@@ -110,9 +110,9 @@ const Laptop = ({
       v.set(
         zoom ? focusedCamera.position.x : unfocusedCamera.position.x,
         zoom ? focusedCamera.position.y : unfocusedCamera.position.y,
-        zoom ? focused.z : unfocusedCamera.position.z
+        zoom ? focused.z : unfocusedCamera.position.z,
       ),
-      0.1
+      0.1,
     );
 
     state.camera.setRotationFromQuaternion(cameraRotation);
@@ -136,13 +136,16 @@ const Laptop = ({
       <Html
         transform
         wrapperClass="htmlScreen"
-        distanceFactor={1.17}
+        distanceFactor={0.58}
         position={[0, 0.25, -1.39]}
         rotation={[-0.25, 0, 0]}
-        scale={0.5}
+        scale={1}
       >
         <div
-          style={{ width: "1024px", height: "670px", transform: "scale(2)" }}
+          style={{
+            width: "2048px",
+            height: "1360px",
+          }}
           onPointerOver={onPointerOver}
           onPointerOut={onPointerOut}
         >
@@ -196,13 +199,7 @@ const ThreePage = () => {
         </div>
       }
     >
-      <Canvas
-        dpr={dpr}
-        className="canvas"
-        gl={{
-          pixelRatio: window.devicePixelRatio,
-        }}
-      >
+      <Canvas dpr={dpr} className="canvas">
         <PerspectiveCamera makeDefault far={2000} near={0.1} fov={45} />
         <PerformanceMonitor
           onIncline={() => setDpr(2)}

@@ -7,6 +7,10 @@ import sic2 from "../assets/images/sic-2.png";
 import sic3 from "../assets/images/sic-3.png";
 import sic4 from "../assets/images/sic-4.png";
 import sic5 from "../assets/images/sic-5.png";
+import pventa1 from "../assets/images/pventa-1.png";
+import pventa2 from "../assets/images/pventa-2.png";
+import pventa3 from "../assets/images/pventa-3.png";
+import pventa4 from "../assets/images/pventa-4.png";
 import "./style.css";
 
 const HtmlPage = () => {
@@ -86,14 +90,14 @@ const HtmlPage = () => {
             display: "flex",
             flexDirection: "column",
             flexWrap: "wrap",
-            gap: "1rem",
+            gap: "1.5rem",
             marginTop: "-15px",
           }}
         >
           <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
           <Dropdown
             text="PVenta Mobile"
-            images={[sic1, sic2, sic3, sic4, sic5]}
+            images={[pventa1, pventa2, pventa3, pventa3, pventa4]}
           />
           <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
           <Range
@@ -142,8 +146,12 @@ const HtmlPage = () => {
         </div>
         <h1 className="subtitle">PROJECTS</h1>
         <div className="button-list">
-          <Button text="SentinelsLabs" url="https://www.sentinelslabs.com/" />
           <Button text="Curbo" url="https://curbo.do/" />
+          <Button
+            text="PVenta"
+            url="https://play.google.com/store/apps/details?id=pventa.mobile"
+          />
+          <Button text="SentinelsLabs" url="https://www.sentinelslabs.com/" />
           <Button
             text="Tinacos Hércules"
             url="https://tinacos-hercules.vercel.app/"

@@ -26,7 +26,7 @@ const Dropdown = ({
       >
         <span className="dropdown-title">{text}</span>
         <div className="chevron">
-          <img src={chevron} alt="chevron-arrow" height="28px" />
+          <img src={chevron} alt="chevron-arrow" height="38px" />
         </div>
       </button>
       <div className={`dropdown-container ${isActive ? "expanded" : ""}`}>
