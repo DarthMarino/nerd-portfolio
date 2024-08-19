@@ -6,8 +6,15 @@ import i18n from "i18next";
 import PdfViewer from "./pages/cv";
 import "./App.css";
 import "./pages/style.css";
+import { useEffect } from "react";
+import { isPhone } from "./utils/detect_phone";
 
 function App() {
+  useEffect(() => {
+    if (isPhone()) {
+      window.location.href = "path/to/your/html/page.html";
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Routes>

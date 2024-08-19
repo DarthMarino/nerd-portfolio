@@ -1,5 +1,5 @@
 export const isPhone = (): boolean => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  const userAgent = navigator.userAgent;
 
   // List of mobile device identifiers
   const phoneRegex =
