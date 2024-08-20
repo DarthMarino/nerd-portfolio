@@ -16,6 +16,7 @@ import HtmlPage from "./html";
 
 import infinity from "../assets/infinity.svg";
 import { useNavigate } from "react-router-dom";
+import { isPhone } from "../utils/detect_phone";
 
 const focusedCamera: CameraProps = {
   position: new Vector3(0, 0.6, 2),
@@ -49,9 +50,9 @@ const Laptop = ({
   const computer = useMemo(
     () =>
       useGLTF(
-        "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf",
+        "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
       ),
-    [],
+    []
   );
 
   const handleChangeClicked = () => {
@@ -110,9 +111,9 @@ const Laptop = ({
       v.set(
         zoom ? focusedCamera.position.x : unfocusedCamera.position.x,
         zoom ? focusedCamera.position.y : unfocusedCamera.position.y,
-        zoom ? focused.z : unfocusedCamera.position.z,
+        zoom ? focused.z : unfocusedCamera.position.z
       ),
-      0.1,
+      0.1
     );
 
     state.camera.setRotationFromQuaternion(cameraRotation);
@@ -177,7 +178,7 @@ const ThreePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.innerWidth < 350) {
+    if (isPhone() && window.innerWidth < 350) {
       navigate("/html");
     }
   }, []);
