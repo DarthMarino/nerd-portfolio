@@ -31,6 +31,12 @@
   padding: 2% 5% 5% 5%;
 }
 
+@media only screen and (max-width: 750px) {
+  .content {
+    margin-top: 2rem;
+  }
+}
+
 .content h1 {
   font-size: 7rem;
   margin-bottom: auto;
@@ -93,7 +99,7 @@
   text-transform: uppercase;
   padding: 22px 24px;
   letter-spacing: 0.5px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   overflow: hidden;
   width: auto;
   background: rgba(255, 255, 255, 0.149);
@@ -233,6 +239,7 @@
   align-items: center;
   overflow: hidden;
   position: relative;
+  margin-top: 1rem;
 }
 
 .carousel {
@@ -328,6 +335,9 @@
 }
 
 @media only screen and (max-width: 620px) {
+  .button {
+    font-size: 1.5em;
+  }
   .content h1 {
     font-size: 4em;
   }

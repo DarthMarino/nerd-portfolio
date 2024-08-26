@@ -15,8 +15,7 @@ import { Euler, Group, Quaternion, Vector3 } from "three";
 import HtmlPage from "./html";
 
 import infinity from "../assets/infinity.svg";
-import { useNavigate } from "react-router-dom";
-import { isPhone } from "../utils/detect_phone";
+import toast from "react-hot-toast";
 
 const focusedCamera: CameraProps = {
   position: new Vector3(0, 0.6, 2),
@@ -175,11 +174,20 @@ const ThreePage = () => {
     setActive(false);
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    if (isPhone() && window.innerWidth < 350) {
-      navigate("/html");
+    if (window.innerWidth < 450) {
+      toast(
+        "This 3D render is not well supported on small screens. Please use the 2DPage button to have a better experience.",
+        {
+          icon: "❗",
+          style: {
+            borderRadius: "10px",
+            minWidth: "200px",
+            maxWidth: "300px",
+          },
+          duration: 10000,
+        }
+      );
     }
   }, []);
 

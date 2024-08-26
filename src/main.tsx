@@ -8,6 +8,7 @@ import { PhotoProvider } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import "./index.css";
 import { ImagePreviewProvider } from "./providers/PreviewProvider";
+import { Toaster } from "react-hot-toast";
 
 // initialize i18next with catalog and language to use
 i18n.init({
@@ -17,6 +18,7 @@ i18n.init({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <Toaster position="bottom-left" reverseOrder={false} gutter={8} />
     <ImagePreviewProvider>
       <I18nextProvider i18n={i18n}>
         <App />

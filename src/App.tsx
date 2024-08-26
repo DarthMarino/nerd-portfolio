@@ -46,7 +46,7 @@ function App() {
                   }}
                 >
                   <Button text={i18n.t("3d")} url="/" target="_self" />
-                  <Button text="CV" url="/cv" target="_self" />
+                  <Button text="CV" url="/cv" target="_blank" />
                 </div>
               </div>
               <HtmlPage />

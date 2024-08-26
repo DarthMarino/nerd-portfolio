@@ -11,6 +11,11 @@ import pventa1 from "../assets/images/pventa-1.png";
 import pventa2 from "../assets/images/pventa-2.png";
 import pventa3 from "../assets/images/pventa-3.png";
 import pventa4 from "../assets/images/pventa-4.png";
+import curbo1 from "../assets/images/curbo-1.png";
+import curbo2 from "../assets/images/curbo-2.jpeg";
+import curbo3 from "../assets/images/curbo-3.png";
+import curbo4 from "../assets/images/curbo-4.png";
+
 import "./style.css";
 
 const HtmlPage = () => {
@@ -97,7 +102,8 @@ const HtmlPage = () => {
           <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
           <Dropdown
             text="PVenta Mobile"
-            images={[pventa1, pventa2, pventa3, pventa3, pventa4]}
+            images={[pventa1, pventa2, pventa3, pventa4]}
+            url={"https://play.google.com/store/apps/details?id=pventa.mobile"}
           />
           <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
           <Range
@@ -105,6 +111,11 @@ const HtmlPage = () => {
             year2={2023}
             role="Software Engineer"
             company="Curbo Technologies"
+          />
+          <Dropdown
+            text="Curbo"
+            images={[curbo1, curbo2, curbo3, curbo4]}
+            url={"https://curbo.do/"}
           />
         </div>
         <h1 className="subtitle">SKILLS</h1>
