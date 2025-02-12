@@ -1,4 +1,5 @@
 import { Resource } from "i18next";
+
 const resources: Resource = {
   en: {
     translation: {
