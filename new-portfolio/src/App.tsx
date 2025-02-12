@@ -5,6 +5,7 @@ import logo from "./logo.svg";
 import styles from "./App.module.css";
 import Button from "./components/Button";
 import { fetchDictionary, Locale } from "./localizations/resources";
+import HtmlPage from "./pages/html";
 
 const App: Component = () => {
   const [locale, setLocale] = createSignal<Locale>("en");
