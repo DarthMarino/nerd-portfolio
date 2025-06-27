@@ -52,6 +52,7 @@
 
 .content .title h1 {
   letter-spacing: -5px;
+  font-weight: 800;
 }
 
 .content .title h2 {
@@ -109,6 +110,14 @@
   cursor: pointer;
   height: auto;
   min-height: auto;
+}
+
+/* PDF viewer container with gray backdrop for better contrast */
+.pdf-button-container {
+  background: rgba(128, 128, 128, 0.15);
+  padding: 8px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
 }
 
 .btn-custom:hover .label-hover {
@@ -273,8 +282,12 @@
   right: 20px;
   background: rgba(255, 255, 255, 0.8);
   border: none;
-  border-radius: 99%;
-  padding: 10px 15px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   font-size: 20px;
   color: black;

@@ -64,7 +64,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
     <div class="flex flex-wrap gap-4 max-w-4xl">
       <For each={skillArray}>
         {(skill) => (
-          <div class="badge badge-primary badge-lg p-3 text-base font-bold">
+          <div class="badge badge-primary badge-lg p-3 text-base font-normal">
             {skill}
           </div>
         )}
