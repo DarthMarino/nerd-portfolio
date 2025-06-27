@@ -1,59 +1,66 @@
 import { createResource, createSignal, Show, type Component } from "solid-js";
 import * as i18n from "@solid-primitives/i18n";
 
-import logo from "./logo.svg";
-import styles from "./App.module.css";
 import Button from "./components/Button";
 import { fetchDictionary, Locale } from "./localizations/resources";
 import HtmlPage from "./pages/html";
+import { ImagePreviewProvider } from "./providers/PreviewProvider";
 
 const App: Component = () => {
   const [locale, setLocale] = createSignal<Locale>("en");
 
   const [dict] = createResource(locale, fetchDictionary);
 
-  dict();
+  const toggleLanguage = () => {
+    setLocale(locale() === "en" ? "es" : "en");
+  };
 
-  const t = i18n.translator(dict);
-
-  t("tecno_exp_1"); // => string | undefined
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-        <Show when={dict()}>
+    <ImagePreviewProvider>
+      <div class="min-h-screen bg-base-100">
+        {/* Language Toggle Button */}
+        <div class="fixed top-4 right-4 z-50">
+          <Show when={dict()}>
+            {(dict) => {
+              const t = i18n.translator(dict);
+              return (
+                <div class="flex gap-2">
+                  <a href="#" class="btn-custom">
+                    <span class="label" style={{ color: "white" }}>
+                      {t(locale() === "en" ? "3d" : "2d")}
+                    </span>
+                    <span class="label-hover">
+                      <span class="inner">{t(locale() === "en" ? "3d" : "2d")}</span>
+                    </span>
+                    <span class="border"></span>
+                  </a>
+                  <button 
+                    onClick={toggleLanguage}
+                    class="btn-custom"
+                  >
+                    <span class="label" style={{ color: "white" }}>
+                      {locale() === "en" ? "ES" : "EN"}
+                    </span>
+                    <span class="label-hover">
+                      <span class="inner">{locale() === "en" ? "ES" : "EN"}</span>
+                    </span>
+                    <span class="border"></span>
+                  </button>
+                </div>
+              );
+            }}
+          </Show>
+        </div>
+
+        {/* Main Content */}
+        <Show when={dict()} fallback={<div class="flex justify-center items-center min-h-screen"><span class="loading loading-spinner loading-lg"></span></div>}>
           {(dict) => {
-            dict(); // => Dictionary (narrowed by Show)
-
             const t = i18n.translator(dict);
-
-            return (
-              <div>
-                <p>Current locale: {locale()}</p>
-                <p>DAyum: {t("lang_1")}</p>
-              </div>
-            );
+            return <HtmlPage t={t} />;
           }}
         </Show>
-
-        <Button
-          text="Learn Solid"
-          url="https://github.com/solidjs/solid"
-          target="_blank"
-        />
-      </header>
-    </div>
+      </div>
+    </ImagePreviewProvider>
   );
 };
 

@@ -1,6 +1,9 @@
-import i18n from "i18next";
+import { For, type Component } from "solid-js";
+import * as i18n from "@solid-primitives/i18n";
 import Button from "../components/Button";
+import Dropdown from "../components/Dropdown";
 import { technologies } from "../statics/objects";
+import "./html.css";
 import sic1 from "../assets/images/sic-1.png";
 import sic2 from "../assets/images/sic-2.png";
 import sic3 from "../assets/images/sic-3.png";
@@ -15,7 +18,11 @@ import curbo2 from "../assets/images/curbo-2.jpeg";
 import curbo3 from "../assets/images/curbo-3.png";
 import curbo4 from "../assets/images/curbo-4.png";
 
-const HtmlPage = () => {
+type HtmlPageProps = {
+  t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
+};
+
+const HtmlPage: Component<HtmlPageProps> = (props) => {
   const Range = ({
     year1 = 0,
     year2,
@@ -30,7 +37,7 @@ const HtmlPage = () => {
     link?: string;
   }) => (
     <div>
-      <div class="range" style={{ gap: "0.5rem" }}>
+      <div class="year-range" style={{ gap: "0.5rem" }}>
         <h4>{role}</h4>
         <h4 style={{ opacity: 0.7 }}>at</h4>
         <h4>
@@ -43,7 +50,7 @@ const HtmlPage = () => {
           )}
         </h4>
       </div>
-      <div class="range" style={{ height: "2rem" }}>
+      <div class="year-range" style={{ height: "2rem" }}>
         <span class="yearBox">{year1}</span>
         <p>
           <i class="arrow" />
@@ -54,15 +61,14 @@ const HtmlPage = () => {
   );
 
   const Skills = ({ skillArray = [] }: { skillArray: string[] }) => (
-    <div
-      class="range"
-      style={{ gap: "1rem", "max-width": "80%", "flex-wrap": "wrap" }}
-    >
-      {skillArray.map((skill) => (
-        <span id={skill} class="yearBox">
-          {skill}
-        </span>
-      ))}
+    <div class="flex flex-wrap gap-4 max-w-4xl">
+      <For each={skillArray}>
+        {(skill) => (
+          <div class="badge badge-primary badge-lg p-3 text-base font-bold">
+            {skill}
+          </div>
+        )}
+      </For>
     </div>
   );
 
@@ -73,9 +79,9 @@ const HtmlPage = () => {
           <h1>MARINO GOMEZ</h1>
           <h2>Software Engineer</h2>
         </div>
-        <p>{i18n.t("cv_intro")}</p>
+        <p>{props.t("cv_intro")}</p>
         <h1 class="subtitle">CONTACT</h1>
-        <div class="button-list">
+        <div class="flex flex-wrap gap-4 my-6">
           <Button text="Github" url="https://github.com/DarthMarino" />
           <Button
             text="Linkedin"
@@ -96,13 +102,24 @@ const HtmlPage = () => {
             "margin-top": "-15px",
           }}
         >
-          <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
+          <Range year1={2022} role={props.t("frontend_eng_title")} company="Tecno-Logica" />
+          <Dropdown
+            text="PVenta Mobile"
+            images={[pventa1, pventa2, pventa3, pventa4]}
+            url={"https://play.google.com/store/apps/details?id=pventa.mobile"}
+          />
+          <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
 
           <Range
             year1={2021}
             year2={2023}
-            role="Software Engineer"
+            role={props.t("software_eng_title")}
             company="Curbo Technologies"
+          />
+          <Dropdown
+            text="Curbo"
+            images={[curbo1, curbo2, curbo3, curbo4]}
+            url={"https://curbo.do/"}
           />
         </div>
         <h1 class="subtitle">SKILLS</h1>
@@ -120,8 +137,8 @@ const HtmlPage = () => {
           <Range
             year1={2017}
             year2={2021}
-            role={i18n.t("software_eng")}
-            company={i18n.t("intec")}
+            role={props.t("software_eng")}
+            company={props.t("intec")}
             link="https://www.intec.edu.do/en/"
           />
         </div>
@@ -137,13 +154,13 @@ const HtmlPage = () => {
           <Range
             year1={2017}
             year2={2021}
-            role={i18n.t("digital_electronics")}
-            company={i18n.t("loyola")}
+            role={props.t("digital_electronics")}
+            company={props.t("loyola")}
             link="https://ipl.edu.do/"
           />
         </div>
         <h1 class="subtitle">PROJECTS</h1>
-        <div class="button-list">
+        <div class="flex flex-wrap gap-4 my-6">
           <Button text="Curbo" url="https://curbo.do/" />
           <Button
             text="PVenta"

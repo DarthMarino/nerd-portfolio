@@ -1,0 +1,410 @@
+.bodyDiv {
+  overflow: scroll;
+  height: 100vh;
+  width: 100%;
+  background: #188a66;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.background0 {
+  background: linear-gradient(to left top, #92fc94, rgba(252, 207, 146, 0) 70%);
+}
+
+.background1 {
+  background: linear-gradient(
+    to right top,
+    #28b6b9,
+    rgba(250, 189, 160, 0) 70%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 2% 5% 5% 5%;
+}
+
+@media only screen and (max-width: 750px) {
+  .content {
+    margin-top: 2rem;
+  }
+}
+
+.content h1 {
+  font-size: 7rem;
+  margin-bottom: auto;
+  margin-top: 2rem;
+}
+
+.content .title {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.content .title h1 {
+  letter-spacing: -5px;
+}
+
+.content .title h2 {
+  margin-top: -10px;
+  font-size: 3rem;
+}
+
+.content p {
+  font-size: 2rem;
+  margin-top: 5px;
+  width: 90%;
+  line-height: 1;
+}
+
+.content h3 {
+  font-size: 1.5em;
+  margin-top: 5px;
+  width: 70%;
+}
+
+.content .subtitle {
+  font-size: 5rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+}
+
+/* DaisyUI Badge override for skills */
+.badge.badge-primary {
+  background: #fff !important;
+  color: #28b6b9 !important;
+  border: none !important;
+  font-size: 2rem !important;
+  height: 2.3rem !important;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+}
+
+/* Custom DaisyUI button variant to match page styling */
+.btn-custom {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 22px 24px;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  overflow: hidden;
+  width: auto;
+  background: rgba(255, 255, 255, 0.149);
+  color: #000;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+  height: auto;
+  min-height: auto;
+}
+
+.btn-custom:hover .label-hover {
+  transform: translateX(0%);
+}
+
+.btn-custom:hover .label-hover .inner {
+  transform: translateX(0%);
+}
+
+.btn-custom .border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid #fff;
+  pointer-events: none;
+}
+
+.btn-custom .label-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.25, 1);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.btn-custom .label-hover .inner {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #28b6b9;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.25, 1);
+  will-change: transform;
+}
+
+.content a {
+  color: inherit;
+  outline: none;
+}
+
+.button {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 22px 24px;
+  letter-spacing: 0.5px;
+  font-size: 2rem;
+  overflow: hidden;
+  width: auto;
+  background: rgba(255, 255, 255, 0.149);
+  color: #000;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.3s ease;
+}
+
+.button:hover .label-hover {
+  transform: translateX(0%);
+}
+
+.button:hover .label-hover .inner {
+  transform: translateX(0%);
+}
+
+.button .border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid #fff;
+}
+
+.button .label-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.25, 1);
+  will-change: transform;
+}
+
+.button .label-hover .inner {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #28b6b9;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.25, 1);
+  will-change: transform;
+}
+
+.content h4 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: auto;
+  line-height: 0.95;
+}
+
+.year-range {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.year-range p {
+  margin: 0;
+  width: auto;
+}
+
+.yearBox {
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  color: #28b6b9;
+  background: #fff;
+  font-size: 2rem;
+  line-height: normal;
+  height: 2.3rem;
+  border-radius: 0 !important;
+}
+
+.arrow {
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  font-size: 15px;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 99%;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  z-index: 1002;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.dropdown-container {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.1s ease-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.dropdown-container.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.dropdown-button {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdown-button:hover {
+  cursor: pointer;
+}
+
+.dropdown-title {
+  font-size: 2rem;
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 3px;
+}
+
+.chevron {
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: white;
+}
+
+.chevron img {
+  height: 2rem;
+  width: auto;
+}
+
+.dropdown-button .chevron {
+  transition: transform 0.15s ease-in-out;
+}
+
+.dropdown-button.active .chevron {
+  transform: rotate(90deg);
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  width: 100%;
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.carousel:active {
+  cursor: grabbing;
+}
+
+.carousel img {
+  max-width: 100%;
+  height: 350px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 815px) {
+  .content h1 {
+    font-size: 5em;
+  }
+  .content .title h2 {
+    margin-top: 0px;
+    font-size: x-large;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .content h1 {
+    font-size: 4em;
+  }
+  .button-list {
+    width: auto;
+  }
+  .content h4 {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 435px) {
+  .content h1 {
+    font-size: 3.5em;
+  }
+  .content .title h2 {
+    font-size: large;
+  }
+
+  .content .subtitle {
+    font-size: 3em;
+  }
+  .content h4 {
+    font-size: 1.2em;
+  }
+
+  .yearBox {
+    font-size: 1.2em;
+    height: 1.5rem;
+  }
+}
