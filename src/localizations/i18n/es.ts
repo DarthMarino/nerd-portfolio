@@ -11,9 +11,9 @@ export const dict = {
 
   // Personal Info
   name: "MARINO GOMEZ",
-  title: "Ingeniero de Software",
+  title: "Ingeniero de Software Frontend",
   cv_intro:
-    "Soy un Ingeniero de Software de 24 años, especializado en desarrollo de software front-end. Mi pasión es hacer proyectos, páginas y aplicaciones que simplemente se vean bien. Por lo tanto, aprendí a codificar y diseñar, cubriendo todas las bases. Me considero alguien de tecnología y siempre inmerso en nuevos productos y dispositivos de todo el mundo.",
+    "Ingeniero de Software Frontend apasionado de 24 años con 3+ años de experiencia especializado en desarrollo web moderno, integración de IA y automatización DevOps. Experto en React, TypeScript y tecnologías de vanguardia incluyendo MCP (Model Context Protocol), integración con Claude Code y pipelines de despliegue automatizado. Dedicado a crear aplicaciones escalables y centradas en el usuario que aprovechan lo último en tecnologías web y flujos de trabajo de desarrollo asistido por IA.",
 
   // Contact section
   contact_title: "CONTACTO",
