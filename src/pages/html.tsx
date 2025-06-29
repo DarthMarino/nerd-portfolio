@@ -1,7 +1,9 @@
-import i18n from "i18next";
+import { For, type Component } from "solid-js";
+import * as i18n from "@solid-primitives/i18n";
 import Button from "../components/Button";
-import { technologies } from "../statics/objects";
 import Dropdown from "../components/Dropdown";
+import { technologies } from "../statics/objects";
+import "./html.css";
 import sic1 from "../assets/images/sic-1.png";
 import sic2 from "../assets/images/sic-2.png";
 import sic3 from "../assets/images/sic-3.png";
@@ -16,9 +18,11 @@ import curbo2 from "../assets/images/curbo-2.jpeg";
 import curbo3 from "../assets/images/curbo-3.png";
 import curbo4 from "../assets/images/curbo-4.png";
 
-import "./style.css";
+type HtmlPageProps = {
+  t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
+};
 
-const HtmlPage = () => {
+const HtmlPage: Component<HtmlPageProps> = (props) => {
   const Range = ({
     year1 = 0,
     year2,
@@ -33,7 +37,7 @@ const HtmlPage = () => {
     link?: string;
   }) => (
     <div>
-      <div className="range" style={{ gap: "0.5rem" }}>
+      <div class="year-range" style={{ gap: "0.5rem" }}>
         <h4>{role}</h4>
         <h4 style={{ opacity: 0.7 }}>at</h4>
         <h4>
@@ -46,39 +50,38 @@ const HtmlPage = () => {
           )}
         </h4>
       </div>
-      <div className="range" style={{ height: "2rem" }}>
-        <span className="yearBox">{year1}</span>
+      <div class="year-range" style={{ height: "2rem" }}>
+        <span class="yearBox">{year1}</span>
         <p>
-          <i className="arrow" />
+          <i class="arrow" />
         </p>
-        <span className="yearBox">{year2 ? year2 : "Present"}</span>
+        <span class="yearBox">{year2 ? year2 : "Present"}</span>
       </div>
     </div>
   );
 
   const Skills = ({ skillArray = [] }: { skillArray: string[] }) => (
-    <div
-      className="range"
-      style={{ gap: "1rem", maxWidth: "80%", flexWrap: "wrap" }}
-    >
-      {skillArray.map((skill) => (
-        <span key={skill} className="yearBox">
-          {skill}
-        </span>
-      ))}
+    <div class="flex flex-wrap gap-4 max-w-4xl">
+      <For each={skillArray}>
+        {(skill) => (
+          <div class="badge badge-primary badge-lg p-3 text-base font-normal">
+            {skill}
+          </div>
+        )}
+      </For>
     </div>
   );
 
   return (
-    <div className="bodyDiv">
-      <div className="content">
-        <div className="title">
+    <div class="bodyDiv">
+      <div class="content">
+        <div class="title">
           <h1>MARINO GOMEZ</h1>
           <h2>Software Engineer</h2>
         </div>
-        <p>{i18n.t("cv_intro")}</p>
-        <h1 className="subtitle">CONTACT</h1>
-        <div className="button-list">
+        <p>{props.t("cv_intro")}</p>
+        <h1 class="subtitle">CONTACT</h1>
+        <div class="flex flex-wrap gap-4 my-6">
           <Button text="Github" url="https://github.com/DarthMarino" />
           <Button
             text="Linkedin"
@@ -89,27 +92,28 @@ const HtmlPage = () => {
             url="mailto:marinogomez24@gmail.com"
           />
         </div>
-        <h1 className="subtitle">EXPERIENCE</h1>
+        <h1 class="subtitle">EXPERIENCE</h1>
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap",
+            "flex-direction": "column",
+            "flex-wrap": "wrap",
             gap: "1.5rem",
-            marginTop: "-15px",
+            "margin-top": "-15px",
           }}
         >
-          <Range year1={2022} role="Frontend Engineer" company="Tecno-Logica" />
+          <Range year1={2022} role={props.t("frontend_eng_title")} company="Tecno-Logica" />
           <Dropdown
             text="PVenta Mobile"
             images={[pventa1, pventa2, pventa3, pventa4]}
             url={"https://play.google.com/store/apps/details?id=pventa.mobile"}
           />
           <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
+
           <Range
             year1={2021}
             year2={2023}
-            role="Software Engineer"
+            role={props.t("software_eng_title")}
             company="Curbo Technologies"
           />
           <Dropdown
@@ -118,45 +122,45 @@ const HtmlPage = () => {
             url={"https://curbo.do/"}
           />
         </div>
-        <h1 className="subtitle">SKILLS</h1>
+        <h1 class="subtitle">SKILLS</h1>
         <Skills skillArray={technologies} />
-        <h1 className="subtitle">STUDIES</h1>
+        <h1 class="subtitle">STUDIES</h1>
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
+            "flex-direction": "row",
+            "flex-wrap": "wrap",
             gap: "1rem",
-            marginTop: "-15px",
+            "margin-top": "-15px",
           }}
         >
           <Range
             year1={2017}
             year2={2021}
-            role={i18n.t("software_eng")}
-            company={i18n.t("intec")}
+            role={props.t("software_eng")}
+            company={props.t("intec")}
             link="https://www.intec.edu.do/en/"
           />
         </div>
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
+            "flex-direction": "row",
+            "flex-wrap": "wrap",
             gap: "1rem",
-            marginTop: "15px",
+            "margin-top": "15px",
           }}
         >
           <Range
             year1={2017}
             year2={2021}
-            role={i18n.t("digital_electronics")}
-            company={i18n.t("loyola")}
+            role={props.t("digital_electronics")}
+            company={props.t("loyola")}
             link="https://ipl.edu.do/"
           />
         </div>
-        <h1 className="subtitle">PROJECTS</h1>
-        <div className="button-list">
+        <h1 class="subtitle">PROJECTS</h1>
+        <div class="flex flex-wrap gap-4 my-6">
           <Button text="Curbo" url="https://curbo.do/" />
           <Button
             text="PVenta"
@@ -177,8 +181,8 @@ const HtmlPage = () => {
           />
         </div>
       </div>
-      <span className="background background0" />
-      <span className="background background1" />
+      <span class="background background0" />
+      <span class="background background1" />
     </div>
   );
 };

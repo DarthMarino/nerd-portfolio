@@ -21,19 +21,10 @@ const Navigation: Component = () => {
       <div class={`flex ${flexDirection()} gap-2`}>
         <a href="/" class={buttonClass()}>
           <span class="label" style={{ color: labelColor() }}>
-            3D
+            HOME
           </span>
           <span class="label-hover">
-            <span class="inner">3D</span>
-          </span>
-          <span class="border"></span>
-        </a>
-        <a href="/html" class={buttonClass()}>
-          <span class="label" style={{ color: labelColor() }}>
-            HTML
-          </span>
-          <span class="label-hover">
-            <span class="inner">HTML</span>
+            <span class="inner">HOME</span>
           </span>
           <span class="border"></span>
         </a>

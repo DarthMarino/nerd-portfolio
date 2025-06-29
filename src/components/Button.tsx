@@ -1,6 +1,3 @@
-import { HTMLAttributeAnchorTarget } from "react";
-import "../pages/style.css";
-
 const Button = ({
   text = "",
   url = "",
@@ -8,16 +5,16 @@ const Button = ({
 }: {
   text: string;
   url?: string;
-  target?: HTMLAttributeAnchorTarget;
+  target?: HTMLAnchorElement["target"];
 }) => (
-  <a href={url} className="button" target={target}>
-    <span className="border" />
-    <span className="label" style={{ color: "white" }}>
+  <a href={url} class="button" target={target}>
+    <span class="label" style={{ color: "white" }}>
       {text}
     </span>
-    <span className="label-hover">
-      <span className="inner">{text}</span>
+    <span class="label-hover">
+      <span class="inner">{text}</span>
     </span>
+    <span class="border"></span>
   </a>
 );
 

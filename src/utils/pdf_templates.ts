@@ -9,6 +9,7 @@ const color_blue = [37, 124, 163];
 const setColorBlue = (doc: jsPDF) => {
   doc.setTextColor(color_blue[0], color_blue[1], color_blue[2]);
 };
+
 // Load fonts
 const loadFonts = async (doc: jsPDF) => {
   const fonts = [
