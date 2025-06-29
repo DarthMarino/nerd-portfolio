@@ -4,7 +4,7 @@ import { useLanguage } from "../providers/LanguageProvider";
 import "../pages/html.css"; // Import the CSS that contains .btn-custom styles
 
 const Navigation: Component = () => {
-  const { t, locale, toggleLanguage } = useLanguage();
+  const { locale, toggleLanguage } = useLanguage();
   const location = useLocation();
 
   // Use PDF variant when on CV route
@@ -21,10 +21,19 @@ const Navigation: Component = () => {
       <div class={`flex ${flexDirection()} gap-2`}>
         <a href="/" class={buttonClass()}>
           <span class="label" style={{ color: labelColor() }}>
-            {t("2d")}
+            3D
           </span>
           <span class="label-hover">
-            <span class="inner">{t("2d")}</span>
+            <span class="inner">3D</span>
+          </span>
+          <span class="border"></span>
+        </a>
+        <a href="/html" class={buttonClass()}>
+          <span class="label" style={{ color: labelColor() }}>
+            HTML
+          </span>
+          <span class="label-hover">
+            <span class="inner">HTML</span>
           </span>
           <span class="border"></span>
         </a>

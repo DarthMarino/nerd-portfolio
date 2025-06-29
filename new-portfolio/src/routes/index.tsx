@@ -1,15 +1,8 @@
-import { Show, type Component } from "solid-js";
-import { useLanguage } from "../providers/LanguageProvider";
-import HtmlPage from "../pages/html";
+import { type Component } from "solid-js";
+import ThreePage from "../pages/three";
 
 const HomePage: Component = () => {
-  const { dict, t } = useLanguage();
-
-  return (
-    <Show when={dict()} fallback={<div class="flex justify-center items-center min-h-screen"><span class="loading loading-spinner loading-lg"></span></div>}>
-      <HtmlPage t={t} />
-    </Show>
-  );
+  return <ThreePage />;
 };
 
 export default HomePage;
