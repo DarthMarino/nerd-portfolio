@@ -6,7 +6,14 @@ const HtmlRoute: Component = () => {
   const { dict, t } = useLanguage();
 
   return (
-    <Show when={dict()} fallback={<div class="flex justify-center items-center min-h-screen"><span class="loading loading-spinner loading-lg"></span></div>}>
+    <Show
+      when={dict()}
+      fallback={
+        <div class="flex justify-center items-center min-h-screen">
+          <span class="loading loading-spinner loading-lg"></span>
+        </div>
+      }
+    >
       <HtmlPage t={t} />
     </Show>
   );

@@ -1,6 +1,13 @@
-import { createSignal, onMount, Show, type Component } from "solid-js";
+import {
+  createSignal,
+  onMount,
+  Show,
+  createEffect,
+  type Component,
+} from "solid-js";
 import { jsPDF } from "jspdf";
 import * as i18n from "@solid-primitives/i18n";
+import { type Locale } from "../localizations/resources";
 import {
   genPdfBoldRow,
   genPdfBoldRowWithLink,
@@ -16,18 +23,20 @@ import { format } from "date-fns";
 
 type CVPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
+  locale: Locale;
 };
 
 const CVPage: Component<CVPageProps> = (props) => {
   const [pdfUrl, setPdfUrl] = createSignal<string>();
   const [isLoading, setIsLoading] = createSignal(true);
+  const [previousLocale, setPreviousLocale] = createSignal<Locale>();
 
   const leftSide = 14;
 
   const createPDF = async () => {
     try {
       setIsLoading(true);
-      
+
       // Initialize jsPDF with Letter size
       const doc = new jsPDF({
         orientation: "portrait",
@@ -50,7 +59,7 @@ const CVPage: Component<CVPageProps> = (props) => {
       } catch (error) {
         console.error("Error loading image", error);
       }
-      
+
       doc.setFont("Satoshi", "medium");
       doc.setFontSize(34);
       doc.setCharSpace(-0.5);
@@ -84,14 +93,14 @@ const CVPage: Component<CVPageProps> = (props) => {
         y: 76,
         title: props.t("experience_title"),
       });
-      
+
       genPdfWorkExp({
         doc,
         x: leftSide,
         y: 86,
         title: props.t("tecno_date"),
         boldText: props.t("software_eng_title"),
-        company: "Tecno-Logica",
+        company: props.t("tecno_company"),
         list: [
           props.t("tecno_exp_1"),
           props.t("tecno_exp_2"),
@@ -99,14 +108,14 @@ const CVPage: Component<CVPageProps> = (props) => {
           props.t("tecno_exp_4"),
         ],
       });
-      
+
       genPdfWorkExp({
         doc,
         x: leftSide,
         y: 132,
         title: props.t("curbo_date"),
         boldText: props.t("frontend_eng_title"),
-        company: "Curbo Tecnologies",
+        company: props.t("curbo_company"),
         list: [
           props.t("curbo_exp_1"),
           props.t("curbo_exp_2"),
@@ -121,7 +130,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         y: 162,
         title: props.t("skills_title"),
       });
-      
+
       genPdfRow({
         doc,
         x: leftSide,
@@ -146,7 +155,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         boldText: props.t("intec"),
         description: props.t("software_eng"),
       });
-      
+
       genPdfBoldRow({
         doc,
         x: leftSide,
@@ -163,7 +172,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         y: 208,
         title: props.t("certifications_title"),
       });
-      
+
       genPdfBoldRowWithLink({
         doc,
         x: leftSide,
@@ -173,7 +182,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         description: certifications[0].description,
         url: `https://${certifications[0].description}`,
       });
-      
+
       genPdfBoldRowWithLink({
         doc,
         x: leftSide,
@@ -191,7 +200,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         y: 232,
         title: props.t("languages"),
       });
-      
+
       genPdfBoldRow({
         doc,
         x: leftSide,
@@ -199,7 +208,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         boldText: props.t("lang_1"),
         description: props.t("lang_1_level"),
       });
-      
+
       genPdfBoldRow({
         doc,
         x: leftSide,
@@ -218,27 +227,37 @@ const CVPage: Component<CVPageProps> = (props) => {
   };
 
   onMount(() => {
+    setPreviousLocale(props.locale);
     createPDF();
+  });
+
+  // Watch for locale changes and regenerate PDF
+  createEffect(() => {
+    // Only regenerate if locale actually changed and we have a previous PDF
+    if (previousLocale() !== undefined && previousLocale() !== props.locale) {
+      setPreviousLocale(props.locale);
+      createPDF();
+    }
   });
 
   return (
     <div class="min-h-screen bg-base-100">
-      <Show 
-        when={!isLoading()} 
+      <Show
+        when={!isLoading()}
         fallback={
           <div class="flex justify-center items-center min-h-screen">
             <div class="flex flex-col items-center gap-4">
               <span class="loading loading-spinner loading-lg"></span>
-              <p class="text-lg">Generating PDF...</p>
+              <p class="text-lg">{props.t("generating_pdf")}</p>
             </div>
           </div>
         }
       >
-        <Show 
-          when={pdfUrl()} 
+        <Show
+          when={pdfUrl()}
           fallback={
             <div class="flex justify-center items-center min-h-screen">
-              <p class="text-lg">No PDF to display.</p>
+              <p class="text-lg">{props.t("no_pdf_display")}</p>
             </div>
           }
         >

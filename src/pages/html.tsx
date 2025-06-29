@@ -39,7 +39,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
     <div>
       <div class="year-range" style={{ gap: "0.5rem" }}>
         <h4>{role}</h4>
-        <h4 style={{ opacity: 0.7 }}>at</h4>
+        <h4 style={{ opacity: 0.7 }}>{props.t("at")}</h4>
         <h4>
           {link ? (
             <a href={link} target="_blank">
@@ -55,7 +55,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
         <p>
           <i class="arrow" />
         </p>
-        <span class="yearBox">{year2 ? year2 : "Present"}</span>
+        <span class="yearBox">{year2 ? year2 : props.t("present")}</span>
       </div>
     </div>
   );
@@ -76,23 +76,26 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
     <div class="bodyDiv">
       <div class="content">
         <div class="title">
-          <h1>MARINO GOMEZ</h1>
-          <h2>Software Engineer</h2>
+          <h1>{props.t("name")}</h1>
+          <h2>{props.t("title")}</h2>
         </div>
         <p>{props.t("cv_intro")}</p>
-        <h1 class="subtitle">CONTACT</h1>
+        <h1 class="subtitle">{props.t("contact_title")}</h1>
         <div class="flex flex-wrap gap-4 my-6">
-          <Button text="Github" url="https://github.com/DarthMarino" />
           <Button
-            text="Linkedin"
+            text={props.t("github")}
+            url="https://github.com/DarthMarino"
+          />
+          <Button
+            text={props.t("linkedin")}
             url="https://www.linkedin.com/in/maghiworks/"
           />
           <Button
-            text="marinogomez24@gmail.com"
+            text={props.t("email")}
             url="mailto:marinogomez24@gmail.com"
           />
         </div>
-        <h1 class="subtitle">EXPERIENCE</h1>
+        <h1 class="subtitle">{props.t("experience_title_caps")}</h1>
         <div
           style={{
             display: "flex",
@@ -102,29 +105,36 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
             "margin-top": "-15px",
           }}
         >
-          <Range year1={2022} role={props.t("frontend_eng_title")} company="Tecno-Logica" />
+          <Range
+            year1={2022}
+            role={props.t("software_eng_title")}
+            company={props.t("tecno_company")}
+          />
           <Dropdown
-            text="PVenta Mobile"
+            text={props.t("pventa_mobile")}
             images={[pventa1, pventa2, pventa3, pventa4]}
             url={"https://play.google.com/store/apps/details?id=pventa.mobile"}
           />
-          <Dropdown text="SIC" images={[sic1, sic2, sic3, sic4, sic5]} />
+          <Dropdown
+            text={props.t("sic_project")}
+            images={[sic1, sic2, sic3, sic4, sic5]}
+          />
 
           <Range
             year1={2021}
             year2={2023}
-            role={props.t("software_eng_title")}
-            company="Curbo Technologies"
+            role={props.t("frontend_eng_title")}
+            company={props.t("curbo_company")}
           />
           <Dropdown
-            text="Curbo"
+            text={props.t("curbo_project")}
             images={[curbo1, curbo2, curbo3, curbo4]}
             url={"https://curbo.do/"}
           />
         </div>
-        <h1 class="subtitle">SKILLS</h1>
+        <h1 class="subtitle">{props.t("skills_title_caps")}</h1>
         <Skills skillArray={technologies} />
-        <h1 class="subtitle">STUDIES</h1>
+        <h1 class="subtitle">{props.t("studies_title")}</h1>
         <div
           style={{
             display: "flex",
@@ -159,24 +169,27 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
             link="https://ipl.edu.do/"
           />
         </div>
-        <h1 class="subtitle">PROJECTS</h1>
+        <h1 class="subtitle">{props.t("projects_title")}</h1>
         <div class="flex flex-wrap gap-4 my-6">
-          <Button text="Curbo" url="https://curbo.do/" />
+          <Button text={props.t("curbo_project")} url="https://curbo.do/" />
           <Button
-            text="PVenta"
+            text={props.t("pventa_mobile")}
             url="https://play.google.com/store/apps/details?id=pventa.mobile"
           />
-          <Button text="SentinelsLabs" url="https://www.sentinelslabs.com/" />
           <Button
-            text="Tinacos Hércules"
+            text={props.t("sentinels_labs")}
+            url="https://www.sentinelslabs.com/"
+          />
+          <Button
+            text={props.t("tinacos_hercules")}
             url="https://tinacos-hercules.vercel.app/"
           />
           <Button
-            text="Bizcord - 3D Landing"
+            text={props.t("bizcord_3d")}
             url="https://bizcord-3d-landing.vercel.app/"
           />
           <Button
-            text="Space Portfolio"
+            text={props.t("space_portfolio")}
             url="https://scroll-portfolio.vercel.app/"
           />
         </div>
