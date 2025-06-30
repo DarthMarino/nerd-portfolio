@@ -26,27 +26,27 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
   const Range = ({
     year1 = 0,
     year2,
-    company = "",
-    role = "",
+    companyKey = "",
+    roleKey = "",
     link,
   }: {
     year1?: number;
     year2?: number;
-    company?: string;
-    role?: string;
+    companyKey?: string;
+    roleKey?: string;
     link?: string;
   }) => (
     <div>
       <div class="year-range" style={{ gap: "0.5rem" }}>
-        <h4>{role}</h4>
+        <h4>{roleKey ? props.t(roleKey) : ""}</h4>
         <h4 style={{ opacity: 0.7 }}>{props.t("at")}</h4>
         <h4>
           {link ? (
             <a href={link} target="_blank">
-              {company}
+              {companyKey ? props.t(companyKey) : ""}
             </a>
           ) : (
-            <>{company}</>
+            <>{companyKey ? props.t(companyKey) : ""}</>
           )}
         </h4>
       </div>
@@ -111,8 +111,8 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
         >
           <Range
             year1={2022}
-            role={props.t("software_eng_title")}
-            company={props.t("tecno_company")}
+            roleKey="software_eng_title"
+            companyKey="tecno_company"
           />
           <Dropdown
             text={props.t("pventa_mobile")}
@@ -127,8 +127,8 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Range
             year1={2021}
             year2={2023}
-            role={props.t("frontend_eng_title")}
-            company={props.t("curbo_company")}
+            roleKey="frontend_eng_title"
+            companyKey="curbo_company"
           />
           <Dropdown
             text={props.t("curbo_project")}
@@ -151,8 +151,8 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Range
             year1={2017}
             year2={2021}
-            role={props.t("software_eng")}
-            company={props.t("intec")}
+            roleKey="software_eng"
+            companyKey="intec"
             link="https://www.intec.edu.do/en/"
           />
         </div>
@@ -168,8 +168,8 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Range
             year1={2017}
             year2={2021}
-            role={props.t("digital_electronics")}
-            company={props.t("loyola")}
+            roleKey="digital_electronics"
+            companyKey="loyola"
             link="https://ipl.edu.do/"
           />
         </div>
