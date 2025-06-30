@@ -46,8 +46,11 @@ const CVPage: Component<CVPageProps> = (props) => {
       });
 
       doc.setProperties({
-        title: "Marino Gómez English CV",
-        subject: "Subject of the PDF",
+        title: "marino_gomez_cv",
+        author: "Marino Gomez",
+        subject: "Software Engineer CV",
+        keywords: "Software Engineer, React, TypeScript, Node.js, Full-Stack Developer",
+        creator: "Marino Gomez Portfolio",
       });
 
       // Add custom fonts to jsPDF
@@ -228,8 +231,15 @@ const CVPage: Component<CVPageProps> = (props) => {
         description: props.t("lang_2_level"),
       });
 
-      const pdfBlob = doc.output("blob");
-      setPdfUrl(URL.createObjectURL(pdfBlob));
+      // Generate PDF and create blob URL with filename hint
+      const pdfArrayBuffer = doc.output('arraybuffer');
+      const blob = new Blob([pdfArrayBuffer], { 
+        type: 'application/pdf' 
+      });
+      
+      // Create object URL
+      const url = URL.createObjectURL(blob);
+      setPdfUrl(url + '#filename=marino_gomez_cv.pdf');
       setIsLoading(false);
     } catch (error) {
       console.error("Error creating PDF:", error);
@@ -277,7 +287,7 @@ const CVPage: Component<CVPageProps> = (props) => {
               id="pdf-viewer"
               class="w-full h-full border-0"
               src={pdfUrl()!}
-              title="Curriculum"
+              title="marino_gomez_cv"
             />
           </div>
         </Show>

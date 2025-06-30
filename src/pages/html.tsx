@@ -79,7 +79,11 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <h1>{props.t("name")}</h1>
           <h2>{props.t("title")}</h2>
         </div>
-        <p>{typeof props.t("cv_intro") === "function" ? props.t("cv_intro")() : props.t("cv_intro")}</p>
+        <p>
+          {typeof props.t("cv_intro") === "function"
+            ? props.t("cv_intro")()
+            : props.t("cv_intro")}
+        </p>
         <h1 class="subtitle">{props.t("contact_title")}</h1>
         <div class="flex flex-wrap gap-4 my-6">
           <Button
@@ -171,7 +175,6 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
         </div>
         <h1 class="subtitle">{props.t("projects_title")}</h1>
         <div class="flex flex-wrap gap-4 my-6">
-          <Button text={props.t("curbo_project")} url="https://curbo.do/" />
           <Button
             text={props.t("pventa_mobile")}
             url="https://play.google.com/store/apps/details?id=pventa.mobile"
@@ -181,16 +184,12 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
             url="https://www.sentinelslabs.com/"
           />
           <Button
-            text={props.t("tinacos_hercules")}
-            url="https://tinacos-hercules.vercel.app/"
+            text={props.t("find_machines")}
+            url="https://www.findmachines.com.do/"
           />
           <Button
-            text={props.t("bizcord_3d")}
-            url="https://bizcord-3d-landing.vercel.app/"
-          />
-          <Button
-            text={props.t("space_portfolio")}
-            url="https://scroll-portfolio.vercel.app/"
+            text={props.t("the_qr_king")}
+            url="https://www.theqrking.com/"
           />
         </div>
       </div>

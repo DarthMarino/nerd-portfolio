@@ -87,9 +87,8 @@ export const dict = {
   sic_project: "SIC",
   curbo_project: "Curbo",
   sentinels_labs: "SentinelsLabs",
-  tinacos_hercules: "Tinacos Hércules",
-  bizcord_3d: "Bizcord - Landing 3D",
-  space_portfolio: "Portafolio Espacial",
+  find_machines: "FindMachines",
+  the_qr_king: "TheQRKing",
 
   // Common words
   at: "en",
