@@ -15,6 +15,7 @@ import {
   genPdfSection,
   genPdfWorkExp,
   loadFonts,
+  PDF_SPACING,
 } from "../utils/pdf_templates";
 import { loadImageAsBase64 } from "../utils/image_as_base64";
 import profile from "../assets/profile.jpg";
@@ -81,23 +82,31 @@ const CVPage: Component<CVPageProps> = (props) => {
       doc.setFont("Satoshi", "regular");
       doc.setFontSize(12);
       doc.setCharSpace(0.07);
-      doc.text(props.t("cv_intro"), leftSide, 56, {
-        maxWidth: 186,
-        align: "justify",
+      const introLines = doc.splitTextToSize(props.t("cv_intro"), 186);
+      introLines.forEach((line: string, index: number) => {
+        doc.text(line, leftSide, 56 + index * PDF_SPACING.LINE_HEIGHT, {
+          align: "justify",
+        });
       });
 
+      // Dynamic Y position tracker
+      let currentY =
+        56 +
+        introLines.length * PDF_SPACING.LINE_HEIGHT +
+        PDF_SPACING.INTRO_TO_FIRST;
+
       // Work Experience Section
-      genPdfSection({
+      currentY = genPdfSection({
         doc,
         x: leftSide,
-        y: 76,
+        y: currentY,
         title: props.t("experience_title"),
       });
 
-      genPdfWorkExp({
+      currentY = genPdfWorkExp({
         doc,
         x: leftSide,
-        y: 86,
+        y: currentY,
         title: props.t("tecno_date"),
         boldText: props.t("software_eng_title"),
         company: props.t("tecno_company"),
@@ -109,10 +118,10 @@ const CVPage: Component<CVPageProps> = (props) => {
         ],
       });
 
-      genPdfWorkExp({
+      currentY = genPdfWorkExp({
         doc,
         x: leftSide,
-        y: 132,
+        y: currentY,
         title: props.t("curbo_date"),
         boldText: props.t("frontend_eng_title"),
         company: props.t("curbo_company"),
@@ -124,95 +133,97 @@ const CVPage: Component<CVPageProps> = (props) => {
       });
 
       // Technical Skills Section
-      genPdfSection({
+      currentY = genPdfSection({
         doc,
         x: leftSide,
-        y: 162,
+        y: currentY,
         title: props.t("skills_title"),
       });
 
-      genPdfRow({
+      currentY = genPdfRow({
         doc,
         x: leftSide,
-        y: 172,
+        y: currentY,
         title: props.t("coding_tools_title"),
         description: technologies.join(", "),
       });
 
       // Education Section
-      genPdfSection({
+      currentY = genPdfSection({
         doc,
         x: leftSide,
-        y: 184,
+        y: currentY,
         title: props.t("education_title"),
       });
 
-      genPdfBoldRow({
+      currentY = genPdfBoldRow({
         doc,
         x: leftSide,
-        y: 194,
+        y: currentY,
         title: "2017 - 2021",
         boldText: props.t("intec"),
         description: props.t("software_eng"),
       });
 
-      genPdfBoldRow({
+      currentY = genPdfBoldRow({
         doc,
         x: leftSide,
-        y: 200,
+        y: currentY,
         title: "2014 - 2017",
         boldText: props.t("loyola"),
         description: props.t("digital_electronics"),
       });
 
       // Extra Certifications Section
-      genPdfSection({
+      currentY = genPdfSection({
         doc,
         x: leftSide,
-        y: 208,
+        y: currentY,
         title: props.t("certifications_title"),
       });
 
-      genPdfBoldRowWithLink({
+      currentY = genPdfBoldRowWithLink({
         doc,
         x: leftSide,
-        y: 218,
+        y: currentY,
         boldText: certifications[0].title,
         title: format(certifications[0].date, "MMM yyyy"),
         description: certifications[0].description,
         url: `https://${certifications[0].description}`,
+        tight: true,
       });
 
-      genPdfBoldRowWithLink({
+      currentY = genPdfBoldRowWithLink({
         doc,
         x: leftSide,
-        y: 224,
+        y: currentY,
         boldText: certifications[1].title,
         title: format(certifications[1].date, "MMM yyyy"),
         description: certifications[1].description,
         url: `https://${certifications[1].description}`,
+        tight: true,
       });
 
       // Languages Section
-      genPdfSection({
+      currentY = genPdfSection({
         doc,
         x: leftSide,
-        y: 232,
+        y: currentY,
         title: props.t("languages"),
       });
 
-      genPdfBoldRow({
+      currentY = genPdfBoldRow({
         doc,
         x: leftSide,
-        y: 242,
+        y: currentY,
         boldText: props.t("lang_1"),
         description: props.t("lang_1_level"),
       });
 
-      genPdfBoldRow({
+      currentY = genPdfBoldRow({
         doc,
         x: leftSide,
-        y: 248,
+        y: currentY,
         boldText: props.t("lang_2"),
         description: props.t("lang_2_level"),
       });

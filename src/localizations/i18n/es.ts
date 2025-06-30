@@ -11,9 +11,16 @@ export const dict = {
 
   // Personal Info
   name: "MARINO GOMEZ",
-  title: "Ingeniero de Software Frontend",
-  cv_intro:
-    "Ingeniero de Software Frontend apasionado de 24 años con 3+ años de experiencia especializado en desarrollo web moderno, integración de IA y automatización DevOps. Experto en React, TypeScript y tecnologías de vanguardia incluyendo MCP (Model Context Protocol), integración con Claude Code y pipelines de despliegue automatizado. Dedicado a crear aplicaciones escalables y centradas en el usuario que aprovechan lo último en tecnologías web y flujos de trabajo de desarrollo asistido por IA.",
+  title: "Ingeniero de Software",
+  cv_intro: () => {
+    const birthDate = new Date(1999, 8, 24); // September 24, 1999 (month is 0-indexed)
+    const today = new Date();
+    const age = Math.floor(
+      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+    );
+
+    return `Ingeniero de Software de ${age} años con 4+ años de experiencia en desarrollo full-stack. Especializado en análisis de requerimientos, diseño de sistemas e implementación de aplicaciones web escalables. Sólido historial liderando proyectos desde la concepción hasta el despliegue usando React, TypeScript, Node.js e infraestructura en la nube.`;
+  },
 
   // Contact section
   contact_title: "CONTACTO",
@@ -35,19 +42,19 @@ export const dict = {
 
   // Work experience descriptions
   tecno_exp_1:
-    "Diseñé y desarrollé una aplicación móvil interna de planificación de recursos empresariales (ERP) para optimizar las ventas, el inventario y la gestión de clientes dentro de la empresa.",
+    "Desarrollé aplicación móvil ERP con React Native y Node.js, implementando seguimiento de inventario en tiempo real e integración CRM.",
   tecno_exp_2:
-    "Utilicé tecnologías como React, Ionic, TailwindCSS y Figma para crear una interfaz de usuario (UI) visualmente atractiva para la aplicación.",
+    "Construí dashboard responsivo con React, TypeScript y APIs REST, mejorando significativamente los tiempos de carga mediante optimización y code splitting.",
   tecno_exp_3:
-    "Creé una aplicación web de panel interno para gestionar el inventario de diversos clientes.",
+    "Migré aplicación legacy .NET Windows Forms a stack web moderno (React/Node.js), reduciendo costos de mantenimiento y mejorando adopción de usuarios.",
   tecno_exp_4:
-    "Trabajé en la portabilidad de un sistema contable que se hizo en Windows Forms, a una versión web más pulida y bien diseñada utilizando React, TypeScript y Node.js.",
+    "Establecí prácticas DevOps con testing automatizado (Jest/Cypress), pipelines CI/CD (GitHub Actions) y estándares de calidad, optimizando despliegues.",
   curbo_exp_1:
-    "Colaboré en el back-office y el sitio web principal, enfocándome en el desarrollo frontend para mejorar la experiencia del usuario.",
+    "Desarrollé funcionalidades e-commerce con React y Node.js, implementando algoritmos de búsqueda avanzada y filtros que mejoraron participación de usuarios.",
   curbo_exp_2:
-    "Implementé mejoras en la navegación y funcionalidades de filtrado en motores de búsqueda.",
+    "Implementé suite de automatización con Jest y Playwright, logrando alta cobertura de código y reduciendo significativamente el tiempo de testing QA.",
   curbo_exp_3:
-    "Mejoré la experiencia del usuario incorporando consultas de URL para filtros y varias opciones.",
+    "Mejoré rendimiento mediante optimización de base de datos, caché Redis y mejoras de API, entregando tiempos de carga más rápidos y mejor SEO.",
 
   // Skills section
   skills_title: "Habilidades Técnicas",
@@ -67,9 +74,9 @@ export const dict = {
 
   // Languages
   languages: "Idiomas",
-  lang_1: "Inglés",
+  lang_1: "Español",
   lang_2: "Mandarín",
-  lang_1_level: "Profesional",
+  lang_1_level: "Nativo",
   lang_2_level: "Básico",
 
   // Projects section

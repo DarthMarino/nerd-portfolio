@@ -79,7 +79,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <h1>{props.t("name")}</h1>
           <h2>{props.t("title")}</h2>
         </div>
-        <p>{props.t("cv_intro")}</p>
+        <p>{typeof props.t("cv_intro") === "function" ? props.t("cv_intro")() : props.t("cv_intro")}</p>
         <h1 class="subtitle">{props.t("contact_title")}</h1>
         <div class="flex flex-wrap gap-4 my-6">
           <Button
