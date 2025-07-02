@@ -74,10 +74,12 @@ export const dict = {
 
   // Languages
   languages: "Languages",
-  lang_1: "Spanish",
-  lang_2: "Mandarin",
-  lang_1_level: "Native",
-  lang_2_level: "Basic",
+  lang_1: "English",
+  lang_2: "Spanish",
+  lang_3: "Mandarin",
+  lang_1_level: "Professional",
+  lang_2_level: "Native",
+  lang_3_level: "Basic",
 
   // Projects section
   projects_title: "PROJECTS",

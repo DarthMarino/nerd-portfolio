@@ -21,6 +21,7 @@ import { loadImageAsBase64 } from "../utils/image_as_base64";
 import profile from "../assets/profile.jpg";
 import { certifications, technologies } from "../statics/objects";
 import { format } from "date-fns";
+import { isPhone } from "../utils/detect_phone";
 
 type CVPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
@@ -31,6 +32,7 @@ const CVPage: Component<CVPageProps> = (props) => {
   const [pdfUrl, setPdfUrl] = createSignal<string>();
   const [isLoading, setIsLoading] = createSignal(true);
   const [previousLocale, setPreviousLocale] = createSignal<Locale>();
+  const [isMobile] = createSignal(isPhone());
 
   const leftSide = 14;
 
@@ -231,6 +233,14 @@ const CVPage: Component<CVPageProps> = (props) => {
         description: props.t("lang_2_level"),
       });
 
+      currentY = genPdfBoldRow({
+        doc,
+        x: leftSide,
+        y: currentY,
+        boldText: props.t("lang_3"),
+        description: props.t("lang_3_level"),
+      });
+
       // Generate PDF and create blob URL with filename hint
       const pdfArrayBuffer = doc.output('arraybuffer');
       const blob = new Blob([pdfArrayBuffer], { 
@@ -282,14 +292,33 @@ const CVPage: Component<CVPageProps> = (props) => {
             </div>
           }
         >
-          <div class="w-full h-screen">
-            <iframe
-              id="pdf-viewer"
-              class="w-full h-full border-0"
-              src={pdfUrl()!}
-              title="marino_gomez_cv"
-            />
-          </div>
+          <Show
+            when={!isMobile()}
+            fallback={
+              <div class="flex flex-col justify-center items-center min-h-screen gap-4 p-8">
+                <div class="text-center">
+                  <h2 class="text-2xl font-bold mb-2">PDF Ready</h2>
+                  <p class="text-lg mb-4">Mobile browsers don't support PDF viewing. Download the PDF to view it.</p>
+                </div>
+                <a
+                  href={pdfUrl()!}
+                  download="marino_gomez_cv.pdf"
+                  class="btn btn-primary btn-lg"
+                >
+                  Download CV PDF
+                </a>
+              </div>
+            }
+          >
+            <div class="w-full h-screen">
+              <iframe
+                id="pdf-viewer"
+                class="w-full h-full border-0"
+                src={pdfUrl()!}
+                title="marino_gomez_cv"
+              />
+            </div>
+          </Show>
         </Show>
       </Show>
     </div>
