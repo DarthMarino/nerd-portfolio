@@ -140,6 +140,7 @@ const genPdfBoldRow = ({
   ); // Return next Y position with content height + spacing
 };
 
+// Updated genPdfBoldRowWithLink for consistent project layout
 const genPdfBoldRowWithLink = ({
   doc,
   x,
@@ -154,37 +155,68 @@ const genPdfBoldRowWithLink = ({
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(11);
   doc.setCharSpace(-0.005);
+
+  // Render the title (date) on the right
   if (title) doc.text(title, x + 22, y, { align: "right" });
+
+  // Fixed width for project titles (based on "TheQRKing Platform" length)
   doc.setFont("Satoshi", "bold");
+  const referenceText = "TheQRKing Platform,";
+  const fixedTitleWidth = doc.getTextWidth(referenceText) + 2;
   const boldTextToDisplay = description ? `${boldText},` : boldText;
-  const boldTextWidth = doc.getTextWidth(boldTextToDisplay) + 2;
-  doc.text(boldTextToDisplay, x + 26, y, { align: "left" });
-  doc.setFont("Satoshi", "regular");
 
-  const lines = description
-    ? doc.splitTextToSize(description, 160 - boldTextWidth)
-    : [];
-  lines.forEach((line: string, index: number) => {
-    doc.text(
-      line,
-      x + 26 + boldTextWidth,
-      y + index * PDF_SPACING.LINE_HEIGHT,
-      { align: "left" }
-    );
-  });
+  // Split the project title if it's too long for the fixed width
+  const titleLines = doc.splitTextToSize(
+    boldTextToDisplay,
+    fixedTitleWidth - 2
+  );
 
-  if (description && url) {
-    doc.textWithLink(description, x + 26 + boldTextWidth, y, {
-      url: url,
-      maxWidth: 160 - boldTextWidth,
-      align: "left",
+  // Render the project title with link
+  if (url) {
+    titleLines.forEach((line: string, index: number) => {
+      doc.textWithLink(line, x + 26, y + index * PDF_SPACING.LINE_HEIGHT, {
+        url: url,
+        align: "left",
+      });
+    });
+  } else {
+    titleLines.forEach((line: string, index: number) => {
+      doc.text(line, x + 26, y + index * PDF_SPACING.LINE_HEIGHT, {
+        align: "left",
+      });
     });
   }
 
-  const spacing = tight
-    ? PDF_SPACING.BOLD_ROW_TIGHT
-    : PDF_SPACING.BOLD_ROW_SPACING;
-  return y + Math.max(1, lines.length) * PDF_SPACING.LINE_HEIGHT + spacing; // Return next Y position with content height + spacing
+  // Calculate where description should start (always at fixed position)
+  const descriptionStartX = x + 26 + fixedTitleWidth;
+  const titleHeight = titleLines.length * PDF_SPACING.LINE_HEIGHT;
+
+  // Render the description (plain text, no link) starting at fixed position
+  doc.setFont("Satoshi", "regular");
+  if (description) {
+    const availableWidth = 160 - fixedTitleWidth;
+    const descriptionLines = doc.splitTextToSize(description, availableWidth);
+
+    descriptionLines.forEach((line: string, index: number) => {
+      doc.text(line, descriptionStartX, y + index * PDF_SPACING.LINE_HEIGHT, {
+        align: "left",
+      });
+    });
+
+    // Return the maximum height used by either title or description
+    const descriptionHeight = descriptionLines.length * PDF_SPACING.LINE_HEIGHT;
+    const maxHeight = Math.max(titleHeight, descriptionHeight);
+    const spacing = tight
+      ? PDF_SPACING.BOLD_ROW_TIGHT
+      : PDF_SPACING.BOLD_ROW_SPACING;
+    return y + maxHeight + spacing;
+  } else {
+    // No description, just return with title height
+    const spacing = tight
+      ? PDF_SPACING.BOLD_ROW_TIGHT
+      : PDF_SPACING.BOLD_ROW_SPACING;
+    return y + titleHeight + spacing;
+  }
 };
 
 type PDFWorkExpProps = {

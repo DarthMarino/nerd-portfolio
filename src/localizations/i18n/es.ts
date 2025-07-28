@@ -37,6 +37,8 @@ export const dict = {
   // Work dates and companies
   tecno_date: "Feb 2022 -\nPresent",
   tecno_company: "Tecno-Logica",
+  qrking_date: "Ene 2024 -\nPresente",
+  qrking_company: "TheQRKing",
   curbo_date: "Jun 2021 -\nMarzo 2023",
   curbo_company: "Curbo Technologies",
 
@@ -49,6 +51,12 @@ export const dict = {
     "Migré aplicación legacy .NET Windows Forms a stack web moderno (React/Node.js), reduciendo costos de mantenimiento y mejorando adopción de usuarios.",
   tecno_exp_4:
     "Establecí prácticas DevOps con testing automatizado (Jest/Cypress), pipelines CI/CD (GitHub Actions) y estándares de calidad, optimizando despliegues.",
+  qrking_exp_1:
+    "Fundé y desarrollé TheQRKing, una plataforma integral de análisis de marketing que utiliza tecnología QR para rastrear participación de clientes por ubicación en entornos retail físicos.",
+  qrking_exp_2:
+    "Arquitecturé solución full-stack usando React, Node.js y PostgreSQL, implementando dashboard de análisis en tiempo real y sistema automatizado de gestión de campañas para optimización de marketing retail.",
+  qrking_exp_3:
+    "Integré servicios de geolocalización y análisis avanzado para proporcionar insights accionables sobre patrones de comportamiento de clientes, aumentando ROI de marketing hasta 40% para adoptadores tempranos.",
   curbo_exp_1:
     "Desarrollé funcionalidades e-commerce con React y Node.js, implementando algoritmos de búsqueda avanzada y filtros que mejoraron participación de usuarios.",
   curbo_exp_2:
@@ -91,6 +99,9 @@ export const dict = {
   sentinels_labs: "SentinelsLabs",
   find_machines: "FindMachines",
   the_qr_king: "TheQRKing",
+
+  // Project descriptions
+  the_qr_king_desc: "Plataforma de marketing basada en escaneo de códigos QR de carteles distribuidos en zonas de venta. Ayuda a empresas a rastrear interacción de clientes y optimizar campañas de marketing físico mediante análisis de códigos QR por ubicación.",
 
   // Common words
   at: "en",

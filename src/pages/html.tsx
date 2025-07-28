@@ -125,6 +125,18 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           />
 
           <Range
+            year1={2024}
+            roleKey="software_eng_title"
+            companyKey="qrking_company"
+            link="https://www.theqrking.com/"
+          />
+          <Dropdown
+            text={props.t("the_qr_king")}
+            images={[]}
+            url={"https://www.theqrking.com/"}
+          />
+
+          <Range
             year1={2021}
             year2={2023}
             roleKey="frontend_eng_title"

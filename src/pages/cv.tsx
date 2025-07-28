@@ -17,8 +17,6 @@ import {
   loadFonts,
   PDF_SPACING,
 } from "../utils/pdf_templates";
-import { loadImageAsBase64 } from "../utils/image_as_base64";
-import profile from "../assets/profile.jpg";
 import { certifications, technologies } from "../statics/objects";
 import { format } from "date-fns";
 import { isPhone } from "../utils/detect_phone";
@@ -35,6 +33,165 @@ const CVPage: Component<CVPageProps> = (props) => {
   const [isMobile] = createSignal(isPhone());
 
   const leftSide = 14;
+  const pageHeight = 279; // Letter size height in mm
+  const pageWidth = 216; // Letter size width in mm
+  const rightMargin = 14;
+  const contentWidth = pageWidth - leftSide - rightMargin;
+
+  // Function to check if content fits on current page
+  const checkPageBreak = (
+    doc: jsPDF,
+    currentY: number,
+    requiredSpace: number
+  ) => {
+    if (currentY + requiredSpace > pageHeight - 20) {
+      // 20mm bottom margin
+      doc.addPage();
+      return 25; // Top margin for new page
+    }
+    return currentY;
+  };
+
+  // Fixed layout function for projects only
+  const genPdfBoldRowWithLinkFixed = ({
+    doc,
+    x,
+    y,
+    title,
+    boldText,
+    description,
+    url,
+    tight = false,
+  }: any): number => {
+    doc.setFont("Satoshi", "regular");
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(11);
+    doc.setCharSpace(-0.005);
+
+    // Render the title (date) on the right
+    if (title) doc.text(title, x + 22, y, { align: "right" });
+
+    // Fixed width for project titles (based on "TheQRKing Platform" length)
+    doc.setFont("Satoshi", "bold");
+    const referenceText = "TheQRKing Platform,";
+    const fixedTitleWidth = doc.getTextWidth(referenceText) + 2;
+    const boldTextToDisplay = description ? `${boldText},` : boldText;
+
+    // Split the project title if it's too long for the fixed width
+    const titleLines = doc.splitTextToSize(
+      boldTextToDisplay,
+      fixedTitleWidth - 2
+    );
+
+    // Render the project title with link
+    if (url) {
+      titleLines.forEach((line: string, index: number) => {
+        doc.textWithLink(line, x + 26, y + index * PDF_SPACING.LINE_HEIGHT, {
+          url: url,
+          align: "left",
+        });
+      });
+    } else {
+      titleLines.forEach((line: string, index: number) => {
+        doc.text(line, x + 26, y + index * PDF_SPACING.LINE_HEIGHT, {
+          align: "left",
+        });
+      });
+    }
+
+    // Calculate where description should start (always at fixed position)
+    const descriptionStartX = x + 26 + fixedTitleWidth;
+    const titleHeight = titleLines.length * PDF_SPACING.LINE_HEIGHT;
+
+    // Render the description (plain text, no link) starting at fixed position
+    doc.setFont("Satoshi", "regular");
+    if (description) {
+      const availableWidth = 160 - fixedTitleWidth;
+      const descriptionLines = doc.splitTextToSize(description, availableWidth);
+
+      descriptionLines.forEach((line: string, index: number) => {
+        doc.text(line, descriptionStartX, y + index * PDF_SPACING.LINE_HEIGHT, {
+          align: "left",
+        });
+      });
+
+      // Return the maximum height used by either title or description
+      const descriptionHeight =
+        descriptionLines.length * PDF_SPACING.LINE_HEIGHT;
+      const maxHeight = Math.max(titleHeight, descriptionHeight);
+      const spacing = tight
+        ? PDF_SPACING.BOLD_ROW_TIGHT
+        : PDF_SPACING.BOLD_ROW_SPACING;
+      return y + maxHeight + spacing;
+    } else {
+      // No description, just return with title height
+      const spacing = tight
+        ? PDF_SPACING.BOLD_ROW_TIGHT
+        : PDF_SPACING.BOLD_ROW_SPACING;
+      return y + titleHeight + spacing;
+    }
+  };
+
+  // Fixed genPdfBoldRowWithLink for certifications (link on boldText, not description)
+  const genPdfBoldRowWithLinkCerts = ({
+    doc,
+    x,
+    y,
+    title,
+    boldText,
+    description,
+    url,
+    tight = false,
+  }: any): number => {
+    doc.setFont("Satoshi", "regular");
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(11);
+    doc.setCharSpace(-0.005);
+
+    // Render the title (date) on the right
+    if (title) doc.text(title, x + 22, y, { align: "right" });
+
+    // Render the boldText with link (certification name should be clickable)
+    doc.setFont("Satoshi", "bold");
+    const boldTextToDisplay = description ? `${boldText},` : boldText;
+    const boldTextWidth = doc.getTextWidth(boldTextToDisplay) + 2;
+
+    if (url) {
+      // Make the boldText (certification name) clickable
+      doc.textWithLink(boldTextToDisplay, x + 26, y, {
+        url: url,
+        align: "left",
+      });
+    } else {
+      // No link, just regular bold text
+      doc.text(boldTextToDisplay, x + 26, y, { align: "left" });
+    }
+
+    // Render the description (plain text, no link)
+    doc.setFont("Satoshi", "regular");
+    if (description) {
+      const lines = doc.splitTextToSize(description, 160 - boldTextWidth);
+      lines.forEach((line: string, index: number) => {
+        doc.text(
+          line,
+          x + 26 + boldTextWidth,
+          y + index * PDF_SPACING.LINE_HEIGHT,
+          { align: "left" }
+        );
+      });
+
+      const spacing = tight
+        ? PDF_SPACING.BOLD_ROW_TIGHT
+        : PDF_SPACING.BOLD_ROW_SPACING;
+      return y + Math.max(1, lines.length) * PDF_SPACING.LINE_HEIGHT + spacing;
+    } else {
+      // No description, just return with spacing
+      const spacing = tight
+        ? PDF_SPACING.BOLD_ROW_TIGHT
+        : PDF_SPACING.BOLD_ROW_SPACING;
+      return y + PDF_SPACING.LINE_HEIGHT + spacing;
+    }
+  };
 
   const createPDF = async () => {
     try {
@@ -51,56 +208,55 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: "marino_gomez_cv",
         author: "Marino Gomez",
         subject: "Software Engineer CV",
-        keywords: "Software Engineer, React, TypeScript, Node.js, Full-Stack Developer",
+        keywords:
+          "Software Engineer, React, TypeScript, Node.js, Full-Stack Developer",
         creator: "Marino Gomez Portfolio",
       });
 
       // Add custom fonts to jsPDF
       await loadFonts(doc);
 
-      // Top Left Corner Column
-      try {
-        const imgData = await loadImageAsBase64(profile);
-        doc.addImage(imgData, "JPEG", leftSide, 14, 36, 36);
-      } catch (error) {
-        console.error("Error loading image", error);
-      }
-
+      // HEADER SECTION - More compact
       doc.setFont("Satoshi", "medium");
-      doc.setFontSize(34);
+      doc.setFontSize(30); // Smaller from 32
       doc.setCharSpace(-0.5);
-      doc.text("Marino Gomez", 52, 36);
+      doc.text("Marino Gomez", leftSide, 20); // Moved up from 22
 
-      // Top Right Corner Column
+      // Contact info - more compact
       doc.setCharSpace(0);
       doc.setFont("Satoshi", "italic");
-      doc.setFontSize(10);
-      doc.text("United States", 202, 18, { align: "right" });
-      doc.text("Passaic, New Jersey", 202, 22, { align: "right" });
-      doc.text("+18299265003", 202, 26, { align: "right" });
-      doc.text("+186228712411", 202, 30, { align: "right" });
-      doc.text("marinogomez24@gmail.com", 202, 34, { align: "right" });
-      doc.text("github.com/DarthMarino", 202, 38, { align: "right" });
-      doc.text("linkedin.com/in/maghiworks", 202, 42, { align: "right" });
+      doc.setFontSize(8.5); // Smaller from 9
+      const contactInfo = [
+        "United States • Passaic, New Jersey",
+        "+1 (829) 926-5003 • +1 (862) 287-1241",
+        "marinogomez24@gmail.com",
+        "github.com/DarthMarino • linkedin.com/in/maghiworks",
+      ];
 
-      // Main Description
-      doc.setFont("Satoshi", "regular");
-      doc.setFontSize(12);
-      doc.setCharSpace(0.07);
-      const introLines = doc.splitTextToSize(props.t("cv_intro"), 186);
-      introLines.forEach((line: string, index: number) => {
-        doc.text(line, leftSide, 56 + index * PDF_SPACING.LINE_HEIGHT, {
-          align: "justify",
-        });
+      contactInfo.forEach((info, index) => {
+        doc.text(info, pageWidth - rightMargin, 12 + index * 3.2, {
+          align: "right",
+        }); // Tighter spacing
       });
 
-      // Dynamic Y position tracker
-      let currentY =
-        56 +
-        introLines.length * PDF_SPACING.LINE_HEIGHT +
-        PDF_SPACING.INTRO_TO_FIRST;
+      // PROFESSIONAL SUMMARY - Enhanced with proper spacing
+      doc.setFont("Satoshi", "regular");
+      doc.setFontSize(11); // Back to standard size like other sections
+      doc.setCharSpace(0.07); // Match the spacing from other sections
 
-      // Work Experience Section
+      // Enhanced summary - authentic and personal
+      const enhancedSummary = props.t("cv_intro");
+      const introLines = doc.splitTextToSize(enhancedSummary, contentWidth);
+
+      let currentY = 32; // Keep the compact positioning
+      introLines.forEach((line: string, index: number) => {
+        doc.text(line, leftSide, currentY + index * 4.2, { align: "justify" }); // More generous line spacing like other sections
+      });
+
+      currentY += introLines.length * 4.2 + 2; // Better spacing after summary
+
+      // WORK EXPERIENCE SECTION
+      currentY = checkPageBreak(doc, currentY, 25); // Reduced more
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -108,6 +264,8 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("experience_title"),
       });
 
+      // Work experience entries - more compact
+      currentY = checkPageBreak(doc, currentY, 18); // Reduced more
       currentY = genPdfWorkExp({
         doc,
         x: leftSide,
@@ -123,6 +281,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         ],
       });
 
+      currentY = checkPageBreak(doc, currentY, 15); // Reduced more
       currentY = genPdfWorkExp({
         doc,
         x: leftSide,
@@ -137,7 +296,8 @@ const CVPage: Component<CVPageProps> = (props) => {
         ],
       });
 
-      // Technical Skills Section
+      // TECHNICAL SKILLS - More compact
+      currentY = checkPageBreak(doc, currentY, 18); // Reduced more
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -145,15 +305,29 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("skills_title"),
       });
 
-      currentY = genPdfRow({
-        doc,
-        x: leftSide,
-        y: currentY,
-        title: props.t("coding_tools_title"),
-        description: technologies.join(", "),
+      // Categorized skills - with even tighter spacing
+      const skillCategories = {
+        Frontend:
+          "React, TypeScript, JavaScript, TailwindCSS, Three.js, UI/UX Design",
+        Backend: "Node.js, GraphQL, RESTful APIs, MongoDB, PostgreSQL, Redis",
+        "Cloud & DevOps":
+          "AWS, GCP, Azure, Docker, CI/CD, Git, Performance Optimization",
+        Other: "React Native, Rust, Jest, Playwright, MCP",
+      };
+
+      Object.entries(skillCategories).forEach(([category, skills]) => {
+        currentY = checkPageBreak(doc, currentY, 5); // Reduced more
+        currentY = genPdfRow({
+          doc,
+          x: leftSide,
+          y: currentY,
+          title: category,
+          description: skills,
+        });
       });
 
-      // Education Section
+      // EDUCATION SECTION
+      currentY = checkPageBreak(doc, currentY, 12); // Reduced more
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -179,7 +353,8 @@ const CVPage: Component<CVPageProps> = (props) => {
         description: props.t("digital_electronics"),
       });
 
-      // Extra Certifications Section
+      // CERTIFICATIONS SECTION
+      currentY = checkPageBreak(doc, currentY, 12); // Reduced more
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -187,29 +362,22 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("certifications_title"),
       });
 
-      currentY = genPdfBoldRowWithLink({
-        doc,
-        x: leftSide,
-        y: currentY,
-        boldText: certifications[0].title,
-        title: format(certifications[0].date, "MMM yyyy"),
-        description: certifications[0].description,
-        url: `https://${certifications[0].description}`,
-        tight: true,
+      certifications.forEach((cert) => {
+        currentY = checkPageBreak(doc, currentY, 4); // Reduced more
+        currentY = genPdfBoldRowWithLinkCerts({
+          doc,
+          x: leftSide,
+          y: currentY,
+          boldText: cert.title,
+          title: format(cert.date, "MMM yyyy"),
+          description: cert.description,
+          url: `https://${cert.description}`,
+          tight: true,
+        });
       });
 
-      currentY = genPdfBoldRowWithLink({
-        doc,
-        x: leftSide,
-        y: currentY,
-        boldText: certifications[1].title,
-        title: format(certifications[1].date, "MMM yyyy"),
-        description: certifications[1].description,
-        url: `https://${certifications[1].description}`,
-        tight: true,
-      });
-
-      // Languages Section
+      // LANGUAGES SECTION - Very compact to fit on first page
+      currentY = checkPageBreak(doc, currentY, 10); // Reduced more
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -217,39 +385,83 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("languages"),
       });
 
-      currentY = genPdfBoldRow({
-        doc,
-        x: leftSide,
-        y: currentY,
-        boldText: props.t("lang_1"),
-        description: props.t("lang_1_level"),
+      const languages = [
+        { lang: props.t("lang_1"), level: props.t("lang_1_level") },
+        { lang: props.t("lang_2"), level: props.t("lang_2_level") },
+        { lang: props.t("lang_3"), level: props.t("lang_3_level") },
+      ];
+
+      languages.forEach(({ lang, level }) => {
+        currentY = checkPageBreak(doc, currentY, 4); // Reduced more
+        currentY = genPdfBoldRow({
+          doc,
+          x: leftSide,
+          y: currentY,
+          boldText: lang,
+          description: level,
+        });
       });
 
-      currentY = genPdfBoldRow({
+      // PROJECTS SECTION - Ensure this goes to second page only
+      // Force new page regardless of current position
+      doc.addPage();
+      currentY = 25; // Top margin for new page
+
+      currentY = genPdfSection({
         doc,
         x: leftSide,
         y: currentY,
-        boldText: props.t("lang_2"),
-        description: props.t("lang_2_level"),
+        title: props.t("projects_title"),
       });
 
-      currentY = genPdfBoldRow({
+      // TheQRKing project with fixed layout
+      currentY = checkPageBreak(doc, currentY, 10);
+      currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
         y: currentY,
-        boldText: props.t("lang_3"),
-        description: props.t("lang_3_level"),
+        boldText: props.t("the_qr_king"),
+        title: "2024",
+        description: props.t("the_qr_king_desc"),
+        url: "https://www.theqrking.com/",
+        tight: false,
       });
+
+      // Caribbean Coworking project with fixed layout
+      currentY = checkPageBreak(doc, currentY, 8);
+      currentY = genPdfBoldRowWithLinkFixed({
+        doc,
+        x: leftSide,
+        y: currentY,
+        boldText: props.t("caribbean_coworking"),
+        title: "2024",
+        description: props.t("caribbean_coworking_desc"),
+        url: "https://coworking.caribbeanbiz.com/",
+        tight: false,
+      });
+
+      // Add more projects if you have them
+      // currentY = checkPageBreak(doc, currentY, 8);
+      // currentY = genPdfBoldRowWithLink({
+      //   doc,
+      //   x: leftSide,
+      //   y: currentY,
+      //   boldText: "Personal Portfolio",
+      //   title: "2023",
+      //   description: "Interactive 3D portfolio with Three.js and SolidJS",
+      //   url: "https://your-portfolio-url.com",
+      //   tight: true,
+      // });
 
       // Generate PDF and create blob URL with filename hint
-      const pdfArrayBuffer = doc.output('arraybuffer');
-      const blob = new Blob([pdfArrayBuffer], { 
-        type: 'application/pdf' 
+      const pdfArrayBuffer = doc.output("arraybuffer");
+      const blob = new Blob([pdfArrayBuffer], {
+        type: "application/pdf",
       });
-      
+
       // Create object URL
       const url = URL.createObjectURL(blob);
-      setPdfUrl(url + '#filename=marino_gomez_cv.pdf');
+      setPdfUrl(url + "#filename=marino_gomez_cv.pdf");
       setIsLoading(false);
     } catch (error) {
       console.error("Error creating PDF:", error);
@@ -264,7 +476,6 @@ const CVPage: Component<CVPageProps> = (props) => {
 
   // Watch for locale changes and regenerate PDF
   createEffect(() => {
-    // Only regenerate if locale actually changed and we have a previous PDF
     if (previousLocale() !== undefined && previousLocale() !== props.locale) {
       setPreviousLocale(props.locale);
       createPDF();
@@ -298,7 +509,10 @@ const CVPage: Component<CVPageProps> = (props) => {
               <div class="flex flex-col justify-center items-center min-h-screen gap-4 p-8">
                 <div class="text-center">
                   <h2 class="text-2xl font-bold mb-2">PDF Ready</h2>
-                  <p class="text-lg mb-4">Mobile browsers don't support PDF viewing. Download the PDF to view it.</p>
+                  <p class="text-lg mb-4">
+                    Mobile browsers don't support PDF viewing. Download the PDF
+                    to view it.
+                  </p>
                 </div>
                 <a
                   href={pdfUrl()!}
