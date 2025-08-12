@@ -23,15 +23,9 @@ const Dropdown = ({
   };
 
   return (
-    <div class="collapse bg-transparent">
-      <input 
-        type="checkbox" 
-        checked={isActive()} 
-        onChange={toggleDropdown}
-        class="collapse-toggle"
-      />
-      <div class="collapse-title p-0">
-        <button
+    <div>
+      <div class="flex items-center justify-between w-full mb-2">
+        <button 
           class={`dropdown-button ${isActive() ? "active" : ""}`}
           onClick={toggleDropdown}
         >
@@ -39,19 +33,19 @@ const Dropdown = ({
           <div class="chevron">
             <img src={chevron} alt="chevron-arrow" />
           </div>
-          {url && (
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              class="link link-hover ml-8"
-            >
-              <span class="dropdown-title">Link to the project</span>
-            </a>
-          )}
         </button>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            class="link link-hover ml-8"
+          >
+            <span class="dropdown-title">Link to the project</span>
+          </a>
+        )}
       </div>
-      <div class="collapse-content p-0">
+      {isActive() && (
         <div class="carousel carousel-center w-full space-x-4 bg-transparent">
           <For each={images}>
             {(image, index) => (
@@ -66,7 +60,7 @@ const Dropdown = ({
             )}
           </For>
         </div>
-      </div>
+      )}
     </div>
   );
 };

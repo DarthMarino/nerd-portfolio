@@ -36,7 +36,7 @@ export const dict = {
 
   // Work dates and companies
   tecno_date: "Feb 2022 -\nPresent",
-  tecno_company: "Tecno-Logica",
+  tecno_company: "Xoultec",
   qrking_date: "Ene 2024 -\nPresente",
   qrking_company: "TheQRKing",
   curbo_date: "Jun 2021 -\nMarzo 2023",
@@ -94,7 +94,7 @@ export const dict = {
 
   // Project names and descriptions
   pventa_mobile: "PVenta Mobile",
-  sic_project: "SIC",
+  sic_project: "SIC Web",
   curbo_project: "Curbo",
   sentinels_labs: "SentinelsLabs",
   find_machines: "FindMachines",

@@ -255,7 +255,7 @@ const ThreePage: Component = () => {
             <div class="experience-header">
               <div>
                 <div class="job-title">Software Engineer</div>
-                <div class="company">Tecno-Logica</div>
+                <div class="company">Xoultec</div>
               </div>
               <div class="date">Feb 2022 - Present</div>
             </div>

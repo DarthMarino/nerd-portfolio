@@ -17,6 +17,13 @@ import curbo1 from "../assets/images/curbo-1.png";
 import curbo2 from "../assets/images/curbo-2.jpeg";
 import curbo3 from "../assets/images/curbo-3.png";
 import curbo4 from "../assets/images/curbo-4.png";
+import qrking1 from "../assets/images/the-qr-king-1.png";
+import qrking2 from "../assets/images/the-qr-king-2.png";
+import qrking3 from "../assets/images/the-qr-king-3.png";
+import qrking4 from "../assets/images/the-qr-king-4.png";
+import qrking5 from "../assets/images/the-qr-king-5.png";
+import qrking6 from "../assets/images/the-qr-king-6.png";
+import qrking7 from "../assets/images/the-qr-king-7.png";
 
 type HtmlPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
@@ -132,7 +139,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           />
           <Dropdown
             text={props.t("the_qr_king")}
-            images={[]}
+            images={[qrking1, qrking2, qrking3, qrking4, qrking5, qrking6, qrking7]}
             url={"https://www.theqrking.com/"}
           />
 

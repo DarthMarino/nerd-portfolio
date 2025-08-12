@@ -19,7 +19,7 @@ export const dict = {
       (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
     );
 
-    return `${age}-year-old Full-Stack Developer who builds real solutions for real problems. Founded TheQRKing platform, modernized legacy enterprise systems at Tecno-Logica, and developed scalable e-commerce features at Curbo. Passionate about React, TypeScript, and turning complex requirements into clean, performant applications.`;
+    return `${age}-year-old Full-Stack Developer who builds real solutions for real problems. Founded TheQRKing platform, modernized legacy enterprise systems at Xoultec, and developed scalable e-commerce features at Curbo. Passionate about React, TypeScript, and turning complex requirements into clean, performant applications.`;
   },
 
   // Contact section
@@ -37,7 +37,7 @@ export const dict = {
 
   // Work dates and companies
   tecno_date: "Feb 2022 -\nPresent",
-  tecno_company: "Tecno-Logica",
+  tecno_company: "Xoultec",
   qrking_date: "Jan 2024 -\nPresent",
   qrking_company: "TheQRKing (Contract)",
   curbo_date: "June 2021 -\nMarch 2023",
@@ -124,6 +124,10 @@ export const dict = {
   pventa_mobile: "PVenta Mobile ERP",
   pventa_mobile_desc:
     "Enterprise mobile application for inventory management and sales tracking built with React Native and Node.js backend.",
+
+  sic_project: "SIC Web",
+  sentinels_labs: "SentinelsLabs",
+  find_machines: "FindMachines",
 
   personal_portfolio: "Personal Portfolio",
   personal_portfolio_desc:
