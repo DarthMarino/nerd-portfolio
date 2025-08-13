@@ -220,7 +220,23 @@ const CVPage: Component<CVPageProps> = (props) => {
       doc.setFont("Satoshi", "medium");
       doc.setFontSize(30); // Smaller from 32
       doc.setCharSpace(-0.5);
-      doc.text("Marino Gomez", leftSide, 20); // Moved up from 22
+      doc.text("Marino Gomez", leftSide, 12 + 6); // Aligned with contactInfo height
+
+      // Add website URL under name
+      doc.setFont("Satoshi", "italic");
+      doc.setFontSize(8.5);
+      doc.setCharSpace(0);
+      doc.text("Website:", leftSide, 23, { align: "left" });
+      const websiteLabelWidth = doc.getTextWidth("Website:  ");
+      doc.textWithLink(
+        "www.marinogomez.dev",
+        leftSide + websiteLabelWidth,
+        23,
+        {
+          url: "https://www.marinogomez.dev/",
+          align: "left",
+        }
+      );
 
       // Contact info - more compact
       doc.setCharSpace(0);
@@ -230,7 +246,6 @@ const CVPage: Component<CVPageProps> = (props) => {
         "United States • Passaic, New Jersey",
         "+1 (829) 926-5003 • +1 (862) 287-1241",
         "marinogomez24@gmail.com",
-        "github.com/DarthMarino • linkedin.com/in/maghiworks",
       ];
 
       contactInfo.forEach((info, index) => {
@@ -238,6 +253,31 @@ const CVPage: Component<CVPageProps> = (props) => {
           align: "right",
         }); // Tighter spacing
       });
+
+      // Add clickable GitHub and LinkedIn links
+      const linkY = 12 + contactInfo.length * 3.2;
+
+      // GitHub link
+      doc.textWithLink(
+        "github.com/DarthMarino",
+        pageWidth - rightMargin,
+        linkY,
+        {
+          url: "https://github.com/DarthMarino",
+          align: "right",
+        }
+      );
+
+      // LinkedIn link
+      doc.textWithLink(
+        "linkedin.com/in/maghiworks",
+        pageWidth - rightMargin,
+        linkY + 3.2,
+        {
+          url: "https://linkedin.com/in/maghiworks",
+          align: "right",
+        }
+      );
 
       // PROFESSIONAL SUMMARY - Enhanced with proper spacing
       doc.setFont("Satoshi", "regular");
