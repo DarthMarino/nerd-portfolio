@@ -42,6 +42,8 @@ export const dict = {
   qrking_company: "TheQRKing (Contract)",
   curbo_date: "June 2021 -\nMarch 2023",
   curbo_company: "Curbo Technologies",
+  find_machines_date: "2025",
+  find_machines_company: "Find & Supply Solutions",
 
   // Enhanced work experience descriptions with realistic metrics
   tecno_exp_1:
@@ -127,7 +129,10 @@ export const dict = {
 
   sic_project: "SIC Web",
   sentinels_labs: "SentinelsLabs",
-  find_machines: "FindMachines",
+  find_machines: "Find & Supply Solutions",
+
+  find_machines_desc:
+    "Designed and developed a comprehensive WordPress e-commerce website for Find & Supply Solutions (findmachines.com.do), enabling the company to sell machinery and equipment online. Built custom WordPress theme with advanced product catalog, inventory management, and seamless checkout experience.",
 
   personal_portfolio: "Personal Portfolio",
   personal_portfolio_desc:
@@ -145,6 +150,10 @@ export const dict = {
   // Professional summary enhancement
   professional_summary:
     "Experienced full-stack developer specializing in React, TypeScript, and Node.js with a proven track record of delivering high-performance web applications. Expert in modern DevOps practices, performance optimization, and scalable architecture design.",
+
+  // Location information
+  location_us: "United States • Passaic, New Jersey",
+  location_dr: "República Dominicana, Distrito Nacional",
 
   // Common words
   at: "at",

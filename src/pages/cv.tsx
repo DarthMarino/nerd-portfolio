@@ -24,6 +24,7 @@ import { isPhone } from "../utils/detect_phone";
 type CVPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
   locale: Locale;
+  isDominican?: boolean;
 };
 
 const CVPage: Component<CVPageProps> = (props) => {
@@ -204,8 +205,9 @@ const CVPage: Component<CVPageProps> = (props) => {
         format: "letter",
       });
 
+      const filename = props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv";
       doc.setProperties({
-        title: "marino_gomez_cv",
+        title: filename,
         author: "Marino Gomez",
         subject: "Software Engineer CV",
         keywords:
@@ -243,8 +245,8 @@ const CVPage: Component<CVPageProps> = (props) => {
       doc.setFont("Satoshi", "italic");
       doc.setFontSize(8.5); // Smaller from 9
       const contactInfo = [
-        "United States • Passaic, New Jersey",
-        "+1 (829) 926-5003 • +1 (862) 287-1241",
+        props.isDominican ? props.t("location_dr") : props.t("location_us"),
+        props.isDominican ? "+1 (829) 926-5003" : "+1 (829) 926-5003 • +1 (862) 287-1241",
         "marinogomez24@gmail.com",
       ];
 
@@ -446,7 +448,6 @@ const CVPage: Component<CVPageProps> = (props) => {
       // Force new page regardless of current position
       doc.addPage();
       currentY = 25; // Top margin for new page
-
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -454,8 +455,20 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("projects_title"),
       });
 
-      // TheQRKing project with fixed layout
+      // Find & Supply Solutions project with fixed layout
       currentY = checkPageBreak(doc, currentY, 10);
+      currentY = genPdfBoldRowWithLinkFixed({
+        doc,
+        x: leftSide,
+        y: currentY,
+        boldText: props.t("find_machines"),
+        title: "2025",
+        description: props.t("find_machines_desc"),
+        url: "https://www.findmachines.com.do/",
+        tight: false,
+      });
+      // TheQRKing project with fixed layout
+      currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
@@ -468,7 +481,7 @@ const CVPage: Component<CVPageProps> = (props) => {
       });
 
       // Caribbean Coworking project with fixed layout
-      currentY = checkPageBreak(doc, currentY, 8);
+      currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
@@ -501,7 +514,7 @@ const CVPage: Component<CVPageProps> = (props) => {
 
       // Create object URL
       const url = URL.createObjectURL(blob);
-      setPdfUrl(url + "#filename=marino_gomez_cv.pdf");
+      setPdfUrl(url + `#filename=${filename}.pdf`);
       setIsLoading(false);
     } catch (error) {
       console.error("Error creating PDF:", error);
@@ -556,7 +569,7 @@ const CVPage: Component<CVPageProps> = (props) => {
                 </div>
                 <a
                   href={pdfUrl()!}
-                  download="marino_gomez_cv.pdf"
+                  download={`${props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv"}.pdf`}
                   class="btn btn-primary btn-lg"
                 >
                   Download CV PDF
@@ -569,7 +582,7 @@ const CVPage: Component<CVPageProps> = (props) => {
                 id="pdf-viewer"
                 class="w-full h-full border-0"
                 src={pdfUrl()!}
-                title="marino_gomez_cv"
+                title={props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv"}
               />
             </div>
           </Show>

@@ -19,6 +19,7 @@ const App: Component = () => {
         >
           <Route path="/" component={lazy(() => import("./routes/html"))} />
           <Route path="/cv" component={lazy(() => import("./routes/cv"))} />
+          <Route path="/cv-rd" component={lazy(() => import("./routes/cv-rd"))} />
         </Router>
       </ImagePreviewProvider>
     </LanguageProvider>

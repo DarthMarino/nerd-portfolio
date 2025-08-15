@@ -154,6 +154,13 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
             images={[curbo1, curbo2, curbo3, curbo4]}
             url={"https://curbo.do/"}
           />
+
+          <Range
+            year1={2025}
+            roleKey="frontend_eng_title"
+            companyKey="find_machines_company"
+            link="https://www.findmachines.com.do/"
+          />
         </div>
         <h1 class="subtitle">{props.t("skills_title_caps")}</h1>
         <Skills skillArray={technologies} />
@@ -201,10 +208,6 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Button
             text={props.t("sentinels_labs")}
             url="https://www.sentinelslabs.com/"
-          />
-          <Button
-            text={props.t("find_machines")}
-            url="https://www.findmachines.com.do/"
           />
           <Button
             text={props.t("the_qr_king")}

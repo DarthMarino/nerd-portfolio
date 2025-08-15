@@ -41,6 +41,8 @@ export const dict = {
   qrking_company: "TheQRKing",
   curbo_date: "Jun 2021 -\nMarzo 2023",
   curbo_company: "Curbo Technologies",
+  find_machines_date: "2025",
+  find_machines_company: "Find & Supply Solutions",
 
   // Work experience descriptions
   tecno_exp_1:
@@ -97,11 +99,23 @@ export const dict = {
   sic_project: "SIC Web",
   curbo_project: "Curbo",
   sentinels_labs: "SentinelsLabs",
-  find_machines: "FindMachines",
+  find_machines: "Find & Supply Solutions",
   the_qr_king: "TheQRKing",
 
   // Project descriptions
-  the_qr_king_desc: "Plataforma de marketing basada en escaneo de códigos QR de carteles distribuidos en zonas de venta. Ayuda a empresas a rastrear interacción de clientes y optimizar campañas de marketing físico mediante análisis de códigos QR por ubicación.",
+  find_machines_desc:
+    "Diseñé y desarrollé un sitio web e-commerce completo en WordPress para Find & Supply Solutions (findmachines.com.do), permitiendo a la empresa vender maquinaria y equipos en línea. Construí tema WordPress personalizado con catálogo de productos avanzado, gestión de inventario y experiencia de checkout fluida.",
+
+  caribbean_coworking: "Caribbean Business Coworking",
+  caribbean_coworking_desc:
+    "Landing Page con sistema de pago integrado y condicionales webhook para reservas de cupos en espacio de coworking en República Dominicana. Construida con diseño responsivo y pensado para pagos seguros y delimitados.",
+
+  the_qr_king_desc:
+    "Plataforma de marketing basada en escaneo de códigos QR en carteles distribuidos en zonas de venta. Ayuda a empresas a rastrear interacción de clientes y optimizar campañas de marketing físico mediante análisis de códigos QR por ubicación.",
+
+  // Location information
+  location_us: "Estados Unidos • Passaic, Nueva Jersey",
+  location_dr: "República Dominicana, Distrito Nacional",
 
   // Common words
   at: "en",
