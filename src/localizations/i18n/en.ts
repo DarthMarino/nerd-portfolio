@@ -153,7 +153,7 @@ export const dict = {
 
   // Location information
   location_us: "United States • Passaic, New Jersey",
-  location_dr: "República Dominicana, Distrito Nacional",
+  location_dr: "Dominican Republic, Distrito Nacional",
 
   // Common words
   at: "at",
