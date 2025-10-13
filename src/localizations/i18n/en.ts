@@ -16,10 +16,10 @@ export const dict = {
     const birthDate = new Date(1999, 8, 24); // September 24, 1999 (month is 0-indexed)
     const today = new Date();
     const age = Math.floor(
-      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000),
     );
 
-    return `${age}-year-old Full-Stack Developer who builds real solutions for real problems. Founded TheQRKing platform, modernized legacy enterprise systems at Xoultec, and developed scalable e-commerce features at Curbo. Passionate about React, TypeScript, and turning complex requirements into clean, performant applications.`;
+    return `${age}-year-old Software Engineer with 4+ years in full-stack development, specialized in React, TypeScript, Node.js, and Rust, with a strong track record leading projects from conception to deployment.`;
   },
 
   // Contact section
@@ -54,6 +54,8 @@ export const dict = {
     "Migrated legacy .NET Windows Forms application to modern React/Node.js stack, reducing maintenance costs and increasing user adoption substantially.",
   tecno_exp_4:
     "Implemented comprehensive DevOps pipeline with Jest/Cypress testing (90%+ coverage), GitHub Actions CI/CD, and automated deployments, streamlining release processes.",
+  tecno_exp_5:
+    "Developing Flutter-based inventory management application with cross-platform mobile support, while migrating backend API to Rust for enhanced performance and reduced operational costs, maintaining retrocompatibility with legacy systems.",
 
   // Updated QRKing descriptions with accurate context
   qrking_exp_1:
@@ -81,9 +83,9 @@ export const dict = {
   mobile_other_skills: "Mobile & Other",
 
   frontend_skills_list:
-    "React, TypeScript, JavaScript, TailwindCSS, Three.js, HTML5/CSS3, UI/UX Design",
+    "React, TypeScript, JavaScript, Flutter, TailwindCSS, Three.js, HTML5/CSS3, UI/UX Design",
   backend_skills_list:
-    "Node.js, Express.js, GraphQL, RESTful APIs, MongoDB, PostgreSQL, Redis",
+    "Node.js, Express.js, Rust, Go, GraphQL, RESTful APIs, MongoDB, PostgreSQL, Redis",
   cloud_devops_skills_list:
     "AWS, GCP, Azure, Docker, CI/CD, Git, GitHub Actions, Performance Optimization",
   mobile_other_skills_list:

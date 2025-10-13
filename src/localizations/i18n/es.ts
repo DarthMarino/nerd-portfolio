@@ -16,10 +16,10 @@ export const dict = {
     const birthDate = new Date(1999, 8, 24); // September 24, 1999 (month is 0-indexed)
     const today = new Date();
     const age = Math.floor(
-      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000),
     );
 
-    return `Ingeniero de Software de ${age} años con 4+ años de experiencia en desarrollo full-stack. Especializado en análisis de requerimientos, diseño de sistemas e implementación de aplicaciones web escalables. Sólido historial liderando proyectos desde la concepción hasta el despliegue usando React, TypeScript, Node.js e infraestructura en la nube.`;
+    return `Ingeniero de Software de ${age} años con 4+ años en desarrollo full-stack, especializado en React, TypeScript, Node.js y Rust, con sólido historial liderando proyectos desde la concepción hasta el despliegue.`;
   },
 
   // Contact section
@@ -53,6 +53,8 @@ export const dict = {
     "Migré aplicación legacy .NET Windows Forms a stack web moderno (React/Node.js), reduciendo costos de mantenimiento y mejorando adopción de usuarios.",
   tecno_exp_4:
     "Establecí prácticas DevOps con testing automatizado (Jest/Cypress), pipelines CI/CD (GitHub Actions) y estándares de calidad, optimizando despliegues.",
+  tecno_exp_5:
+    "Desarrollando aplicación de gestión de inventario con Flutter para soporte multiplataforma móvil, mientras migro la API backend a Rust para mayor rendimiento y reducción de costos de hosting, manteniendo retrocompatibilidad con sistemas legacy.",
   qrking_exp_1:
     "Fundé y desarrollé TheQRKing, una plataforma integral de análisis de marketing que utiliza tecnología QR para rastrear participación de clientes por ubicación en entornos retail físicos.",
   qrking_exp_2:
@@ -70,6 +72,21 @@ export const dict = {
   skills_title: "Habilidades Técnicas",
   skills_title_caps: "HABILIDADES",
   coding_tools_title: "Tecnologías",
+
+  // Categorized skills for better organization
+  frontend_skills: "Frontend",
+  backend_skills: "Backend",
+  cloud_devops_skills: "Cloud & DevOps",
+  mobile_other_skills: "Mobile & Otros",
+
+  frontend_skills_list:
+    "React, TypeScript, JavaScript, Flutter, TailwindCSS, Three.js, HTML5/CSS3, Diseño UI/UX",
+  backend_skills_list:
+    "Node.js, Express.js, Rust, Go, GraphQL, APIs RESTful, MongoDB, PostgreSQL, Redis",
+  cloud_devops_skills_list:
+    "AWS, GCP, Azure, Docker, CI/CD, Git, GitHub Actions, Optimización de Rendimiento",
+  mobile_other_skills_list:
+    "React Native, Flutter, Jest, Playwright, Cypress, MCP, Agile/Scrum",
 
   // Education section
   education_title: "Educación",

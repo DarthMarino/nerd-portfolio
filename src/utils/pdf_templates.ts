@@ -10,7 +10,7 @@ const color_blue = [37, 124, 163];
 // Spacing constants for easier adjustment
 export const PDF_SPACING = {
   SECTION_HEADER: 10, // Space after section headers
-  ROW_SPACING: 2, // Space after regular rows
+  ROW_SPACING: 1.5, // Space after regular rows (tighter for skills)
   BOLD_ROW_SPACING: 0, // Space after bold rows
   BOLD_ROW_TIGHT: 0.5, // Space for grouped rows (certifications)
   WORK_EXP_SPACING: 2, // Space after work experience blocks
@@ -129,7 +129,7 @@ const genPdfBoldRow = ({
       line,
       x + 26 + boldTextWidth,
       y + index * PDF_SPACING.LINE_HEIGHT,
-      { align: "left" }
+      { align: "left" },
     );
   });
 
@@ -168,7 +168,7 @@ const genPdfBoldRowWithLink = ({
   // Split the project title if it's too long for the fixed width
   const titleLines = doc.splitTextToSize(
     boldTextToDisplay,
-    fixedTitleWidth - 2
+    fixedTitleWidth - 2,
   );
 
   // Render the project title with link
@@ -262,7 +262,7 @@ const genPdfWorkExp = ({
         "    " + line,
         x + 26,
         currentY + index * PDF_SPACING.LINE_HEIGHT,
-        { align: "left" }
+        { align: "left" },
       );
     });
 

@@ -43,7 +43,7 @@ const CVPage: Component<CVPageProps> = (props) => {
   const checkPageBreak = (
     doc: jsPDF,
     currentY: number,
-    requiredSpace: number
+    requiredSpace: number,
   ) => {
     if (currentY + requiredSpace > pageHeight - 20) {
       // 20mm bottom margin
@@ -81,7 +81,7 @@ const CVPage: Component<CVPageProps> = (props) => {
     // Split the project title if it's too long for the fixed width
     const titleLines = doc.splitTextToSize(
       boldTextToDisplay,
-      fixedTitleWidth - 2
+      fixedTitleWidth - 2,
     );
 
     // Render the project title with link
@@ -177,7 +177,7 @@ const CVPage: Component<CVPageProps> = (props) => {
           line,
           x + 26 + boldTextWidth,
           y + index * PDF_SPACING.LINE_HEIGHT,
-          { align: "left" }
+          { align: "left" },
         );
       });
 
@@ -205,7 +205,9 @@ const CVPage: Component<CVPageProps> = (props) => {
         format: "letter",
       });
 
-      const filename = props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv";
+      const filename = props.isDominican
+        ? "marino_gomez_cv_rd"
+        : "marino_gomez_cv";
       doc.setProperties({
         title: filename,
         author: "Marino Gomez",
@@ -237,7 +239,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         {
           url: "https://www.marinogomez.dev/",
           align: "left",
-        }
+        },
       );
 
       // Contact info - more compact
@@ -246,7 +248,9 @@ const CVPage: Component<CVPageProps> = (props) => {
       doc.setFontSize(8.5); // Smaller from 9
       const contactInfo = [
         props.isDominican ? props.t("location_dr") : props.t("location_us"),
-        props.isDominican ? "+1 (829) 926-5003" : "+1 (829) 926-5003 • +1 (862) 287-1241",
+        props.isDominican
+          ? "+1 (829) 926-5003"
+          : "+1 (829) 926-5003 • +1 (862) 287-1241",
         "marinogomez24@gmail.com",
       ];
 
@@ -267,7 +271,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         {
           url: "https://github.com/DarthMarino",
           align: "right",
-        }
+        },
       );
 
       // LinkedIn link
@@ -278,7 +282,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         {
           url: "https://linkedin.com/in/maghiworks",
           align: "right",
-        }
+        },
       );
 
       // PROFESSIONAL SUMMARY - Enhanced with proper spacing
@@ -348,22 +352,32 @@ const CVPage: Component<CVPageProps> = (props) => {
       });
 
       // Categorized skills - with even tighter spacing
-      const skillCategories = {
-        Frontend:
-          "React, TypeScript, JavaScript, TailwindCSS, Three.js, UI/UX Design",
-        Backend: "Node.js, GraphQL, RESTful APIs, MongoDB, PostgreSQL, Redis",
-        "Cloud & DevOps":
-          "AWS, GCP, Azure, Docker, CI/CD, Git, Performance Optimization",
-        Other: "React Native, Rust, Jest, Playwright, MCP",
-      };
+      const skillCategories = [
+        {
+          title: props.t("frontend_skills"),
+          skills: props.t("frontend_skills_list"),
+        },
+        {
+          title: props.t("backend_skills"),
+          skills: props.t("backend_skills_list"),
+        },
+        {
+          title: props.t("cloud_devops_skills"),
+          skills: props.t("cloud_devops_skills_list"),
+        },
+        {
+          title: props.t("mobile_other_skills"),
+          skills: props.t("mobile_other_skills_list"),
+        },
+      ];
 
-      Object.entries(skillCategories).forEach(([category, skills]) => {
+      skillCategories.forEach(({ title, skills }) => {
         currentY = checkPageBreak(doc, currentY, 5); // Reduced more
         currentY = genPdfRow({
           doc,
           x: leftSide,
           y: currentY,
-          title: category,
+          title: title,
           description: skills,
         });
       });
@@ -582,7 +596,9 @@ const CVPage: Component<CVPageProps> = (props) => {
                 id="pdf-viewer"
                 class="w-full h-full border-0"
                 src={pdfUrl()!}
-                title={props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv"}
+                title={
+                  props.isDominican ? "marino_gomez_cv_rd" : "marino_gomez_cv"
+                }
               />
             </div>
           </Show>
