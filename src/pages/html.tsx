@@ -201,7 +201,7 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           />
         </div>
         <h1 class="subtitle">{props.t("projects_title")}</h1>
-        <div class="flex flex-wrap gap-4 my-6">
+        <div class="flex flex-wrap items-center gap-4 my-6">
           <Button
             text={props.t("pventa_mobile")}
             url="https://play.google.com/store/apps/details?id=pventa.mobile"
@@ -217,6 +217,10 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Button
             text={props.t("find_machines")}
             url="https://www.findmachines.com.do/"
+          />
+          <Button
+            text={`${props.t("caribbean_coworking")} (WIP)`}
+            url="https://coworking.caribbeanbiz.com/"
           />
         </div>
       </div>

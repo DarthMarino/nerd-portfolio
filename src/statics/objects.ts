@@ -10,6 +10,7 @@ const technologies = [
   "AWS/GCP/Azure",
   "Git",
   "Rust",
+  "Go",
   "MongoDB/PostgreSQL",
   "Testing (Jest/Playwright)",
   "UI/UX Design",
