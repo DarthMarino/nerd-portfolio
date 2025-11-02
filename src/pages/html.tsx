@@ -139,7 +139,15 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           />
           <Dropdown
             text={props.t("the_qr_king")}
-            images={[qrking1, qrking2, qrking3, qrking4, qrking5, qrking6, qrking7]}
+            images={[
+              qrking1,
+              qrking2,
+              qrking3,
+              qrking4,
+              qrking5,
+              qrking6,
+              qrking7,
+            ]}
             url={"https://www.theqrking.com/"}
           />
 
@@ -153,13 +161,6 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
             text={props.t("curbo_project")}
             images={[curbo1, curbo2, curbo3, curbo4]}
             url={"https://curbo.do/"}
-          />
-
-          <Range
-            year1={2025}
-            roleKey="frontend_eng_title"
-            companyKey="find_machines_company"
-            link="https://www.findmachines.com.do/"
           />
         </div>
         <h1 class="subtitle">{props.t("skills_title_caps")}</h1>
@@ -212,6 +213,10 @@ const HtmlPage: Component<HtmlPageProps> = (props) => {
           <Button
             text={props.t("the_qr_king")}
             url="https://www.theqrking.com/"
+          />
+          <Button
+            text={props.t("find_machines")}
+            url="https://www.findmachines.com.do/"
           />
         </div>
       </div>
