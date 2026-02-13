@@ -44,13 +44,33 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  // 2026
+  {
+    id: "tinacos-cibao",
+    titleKey: "tinacos_cibao",
+    slug: "tinacos-cibao",
+    year: 2026,
+    descriptionKey: "tinacos_cibao_desc",
+    category: "contract",
+    url: "https://www.tinacoscibao.com.do/",
+    images: [],
+    technologies: ["React", "TypeScript", "Node.js", "Google Apps Script", "Google Sheets API", "Figma", "PDF Generation"],
+    role: "Full-Stack Developer & Brand Designer",
+    duration: "4 months",
+    company: "Polímeros del Cibao",
+    problemKey: "tinacos_cibao_problem",
+    solutionKey: "tinacos_cibao_solution",
+    challengesKey: "tinacos_cibao_challenges",
+    resultsKey: "tinacos_cibao_results",
+  },
+  // 2025
   {
     id: "find-machines",
     titleKey: "find_machines",
     slug: "find-machines",
     year: 2025,
     descriptionKey: "find_machines_desc",
-    category: "contract",
+    category: "employment",
     url: "https://www.findmachines.com.do/",
     images: [],
     technologies: ["React", "TypeScript", "TailwindCSS", "Next.js"],
@@ -59,12 +79,30 @@ export const projects: Project[] = [
     company: "Find & Supply Solutions",
   },
   {
+    id: "event-detector",
+    titleKey: "event_detector",
+    slug: "event-detector",
+    year: 2025,
+    descriptionKey: "event_detector_desc",
+    category: "contract",
+    url: "https://www.eventdetector.com/",
+    images: [],
+    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Calendar API"],
+    role: "Full-Stack Developer",
+    duration: "3 months",
+    problemKey: "event_detector_problem",
+    solutionKey: "event_detector_solution",
+    challengesKey: "event_detector_challenges",
+    resultsKey: "event_detector_results",
+  },
+  // 2024
+  {
     id: "theqrking",
     titleKey: "the_qr_king",
     slug: "theqrking",
     year: 2024,
     descriptionKey: "the_qr_king_desc",
-    category: "business",
+    category: "contract",
     url: "https://www.theqrking.com/",
     images: [qrking1, qrking2, qrking3, qrking4, qrking5, qrking6, qrking7],
     technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
@@ -89,6 +127,7 @@ export const projects: Project[] = [
     duration: "2 months",
     company: "Caribbean Business",
   },
+  // 2022
   {
     id: "pventa-mobile",
     titleKey: "pventa_mobile",
@@ -99,7 +138,7 @@ export const projects: Project[] = [
     url: "https://play.google.com/store/apps/details?id=pventa.mobile",
     images: [pventa1, pventa2, pventa3, pventa4],
     technologies: ["React Native", "TypeScript", "Ionic", "C#", "Node.js"],
-    role: "Mobile Developer",
+    role: "Full Stack Developer",
     duration: "2022 - Present",
     company: "Xoultec",
     problemKey: "pventa_problem",
@@ -124,6 +163,7 @@ export const projects: Project[] = [
     challengesKey: "sic_challenges",
     resultsKey: "sic_results",
   },
+  // 2021
   {
     id: "curbo",
     titleKey: "curbo_project",

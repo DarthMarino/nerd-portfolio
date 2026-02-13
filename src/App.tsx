@@ -31,6 +31,8 @@ const App: Component = () => {
           <Route path="/contact" component={lazy(() => import("./routes/html"))} />
           <Route path="/cv" component={lazy(() => import("./routes/cv"))} />
           <Route path="/cv-rd" component={lazy(() => import("./routes/cv-rd"))} />
+          <Route path="/cv-img" component={lazy(() => import("./routes/cv-img"))} />
+          <Route path="/cv-rd-img" component={lazy(() => import("./routes/cv-rd-img"))} />
           <Route path="/project/:slug" component={lazy(() => import("./routes/project"))} />
         </Router>
       </ImagePreviewProvider>

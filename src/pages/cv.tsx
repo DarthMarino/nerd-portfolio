@@ -21,11 +21,13 @@ import {
 import { certifications, technologies } from "../statics/objects";
 import { format } from "date-fns";
 import { isPhone } from "../utils/detect_phone";
+import profileImage from "../assets/profile.jpg";
 
 type CVPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
   locale: Accessor<Locale>;
   isDominican?: boolean;
+  withImage?: boolean;
 };
 
 const CVPage: Component<CVPageProps> = (props) => {
@@ -243,6 +245,68 @@ const CVPage: Component<CVPageProps> = (props) => {
         },
       );
 
+      // Add profile image if withImage is true - positioned under website URL
+      if (props.withImage) {
+        const imageSize = 28; // 28mm diameter
+        const imageX = leftSide;
+        const imageY = 26; // Position under website URL
+        const centerX = imageX + imageSize / 2;
+        const centerY = imageY + imageSize / 2;
+        const radius = imageSize / 2;
+
+        // Circular profile image with proper clipping
+        const profileImageUrl = profileImage;
+        try {
+          // Save graphics state
+          doc.saveGraphicsState();
+
+          // Create circular clipping path using internal API
+          const pageHeight = doc.internal.pageSize.height;
+          (doc.internal as any).write("q"); // Save state
+
+          // Draw circle path and use as clipping path
+          // Convert mm to points for PDF (1mm = 2.83465 points)
+          const scale = 2.83465;
+          const pdfCenterX = centerX * scale;
+          const pdfCenterY = (pageHeight - centerY) * scale;
+          const pdfRadius = radius * scale;
+
+          // Bezier circle approximation
+          const k = 0.5522848;
+          (doc.internal as any).write([
+            pdfCenterX + pdfRadius, pdfCenterY, "m",
+            pdfCenterX + pdfRadius, pdfCenterY + pdfRadius * k, pdfCenterX + pdfRadius * k, pdfCenterY + pdfRadius, pdfCenterX, pdfCenterY + pdfRadius, "c",
+            pdfCenterX - pdfRadius * k, pdfCenterY + pdfRadius, pdfCenterX - pdfRadius, pdfCenterY + pdfRadius * k, pdfCenterX - pdfRadius, pdfCenterY, "c",
+            pdfCenterX - pdfRadius, pdfCenterY - pdfRadius * k, pdfCenterX - pdfRadius * k, pdfCenterY - pdfRadius, pdfCenterX, pdfCenterY - pdfRadius, "c",
+            pdfCenterX + pdfRadius * k, pdfCenterY - pdfRadius, pdfCenterX + pdfRadius, pdfCenterY - pdfRadius * k, pdfCenterX + pdfRadius, pdfCenterY, "c",
+            "W n" // Clip and end path
+          ].join(" "));
+
+          // Add image inside clipping path
+          doc.addImage(
+            profileImageUrl,
+            "JPEG",
+            imageX,
+            imageY,
+            imageSize,
+            imageSize,
+            undefined,
+            "NONE",
+            0
+          );
+
+          (doc.internal as any).write("Q"); // Restore state
+          doc.restoreGraphicsState();
+
+          // Draw circle border
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.3);
+          doc.circle(centerX, centerY, radius, "S");
+        } catch (error) {
+          console.warn("Profile image not loaded:", error);
+        }
+      }
+
       // Contact info - more compact
       doc.setCharSpace(0);
       doc.setFont("Satoshi", "italic");
@@ -255,14 +319,17 @@ const CVPage: Component<CVPageProps> = (props) => {
         "marinogomez24@gmail.com",
       ];
 
+      // Contact info stays in same position
+      const contactStartY = 12;
+
       contactInfo.forEach((info, index) => {
-        doc.text(info, pageWidth - rightMargin, 12 + index * 3.2, {
+        doc.text(info, pageWidth - rightMargin, contactStartY + index * 3.2, {
           align: "right",
         }); // Tighter spacing
       });
 
       // Add clickable GitHub and LinkedIn links
-      const linkY = 12 + contactInfo.length * 3.2;
+      const linkY = contactStartY + contactInfo.length * 3.2;
 
       // GitHub link
       doc.textWithLink(
@@ -293,14 +360,35 @@ const CVPage: Component<CVPageProps> = (props) => {
 
       // Enhanced summary - authentic and personal
       const enhancedSummary = props.t("cv_intro");
-      const introLines = doc.splitTextToSize(enhancedSummary, contentWidth);
 
-      let currentY = 32; // Keep the compact positioning
-      introLines.forEach((line: string, index: number) => {
-        doc.text(line, leftSide, currentY + index * 4.2, { align: "justify" }); // More generous line spacing like other sections
-      });
+      let currentY: number;
 
-      currentY += introLines.length * 4.2 + 2; // Better spacing after summary
+      if (props.withImage) {
+        // When image is present, position intro next to it
+        const imageSize = 28;
+        const imageMargin = 4;
+        const introX = leftSide + imageSize + imageMargin; // Start after image
+        const introWidth = contentWidth - imageSize - imageMargin - 38; // Narrower width (1.5 inches less) for vertical flow
+        const introLines = doc.splitTextToSize(enhancedSummary, introWidth);
+
+        const introY = 34; // Centered vertically with image (~0.5 rem down)
+        introLines.forEach((line: string, index: number) => {
+          doc.text(line, introX, introY + index * 4.2, { align: "justify" });
+        });
+
+        // Continue below both image and intro (whichever is taller)
+        const introEndY = introY + introLines.length * 4.2;
+        const imageEndY = 26 + imageSize;
+        currentY = Math.max(introEndY, imageEndY) + 4; // ~0.5 rem padding before Work Experience
+      } else {
+        // Normal layout without image
+        const introLines = doc.splitTextToSize(enhancedSummary, contentWidth);
+        currentY = 32;
+        introLines.forEach((line: string, index: number) => {
+          doc.text(line, leftSide, currentY + index * 4.2, { align: "justify" });
+        });
+        currentY += introLines.length * 4.2 + 2;
+      }
 
       // WORK EXPERIENCE SECTION
       currentY = checkPageBreak(doc, currentY, 25); // Reduced more
@@ -426,15 +514,23 @@ const CVPage: Component<CVPageProps> = (props) => {
           x: leftSide,
           y: currentY,
           boldText: cert.title,
-          title: format(cert.date, "MMM yyyy"),
-          description: cert.description,
-          url: `https://${cert.description}`,
+          title: typeof cert.date === 'string' ? cert.date : format(cert.date, "MMM yyyy"),
+          description: cert.description || "",
+          url: cert.credentialUrl,
           tight: true,
         });
       });
 
-      // LANGUAGES SECTION - Very compact to fit on first page
-      currentY = checkPageBreak(doc, currentY, 10); // Reduced more
+      // LANGUAGES SECTION - Move to page 2 if withImage is true
+      if (props.withImage) {
+        // Force languages to page 2 when image is present
+        doc.addPage();
+        currentY = 25; // Top margin for new page
+      } else {
+        // Keep on first page if no image
+        currentY = checkPageBreak(doc, currentY, 10);
+      }
+
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -449,7 +545,7 @@ const CVPage: Component<CVPageProps> = (props) => {
       ];
 
       languages.forEach(({ lang, level }) => {
-        currentY = checkPageBreak(doc, currentY, 4); // Reduced more
+        currentY = checkPageBreak(doc, currentY, 4);
         currentY = genPdfBoldRow({
           doc,
           x: leftSide,
@@ -459,10 +555,17 @@ const CVPage: Component<CVPageProps> = (props) => {
         });
       });
 
-      // PROJECTS SECTION - Ensure this goes to second page only
-      // Force new page regardless of current position
-      doc.addPage();
-      currentY = 25; // Top margin for new page
+      // PROJECTS SECTION
+      // If withImage is true, languages is already on page 2, so continue on same page
+      // If withImage is false, force new page for projects
+      if (!props.withImage) {
+        doc.addPage();
+        currentY = 25; // Top margin for new page
+      } else {
+        // Languages already on page 2, add some spacing
+        currentY += 5;
+      }
+
       currentY = genPdfSection({
         doc,
         x: leftSide,
@@ -470,8 +573,21 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("projects_title"),
       });
 
-      // Find & Supply Solutions project with fixed layout
+      // Tinacos Cibao project with fixed layout (2026)
       currentY = checkPageBreak(doc, currentY, 10);
+      currentY = genPdfBoldRowWithLinkFixed({
+        doc,
+        x: leftSide,
+        y: currentY,
+        boldText: props.t("tinacos_cibao"),
+        title: "2026",
+        description: props.t("tinacos_cibao_desc"),
+        url: "https://www.tinacoscibao.com.do/",
+        tight: false,
+      });
+
+      // Find & Supply Solutions project with fixed layout (2025)
+      currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
@@ -482,7 +598,21 @@ const CVPage: Component<CVPageProps> = (props) => {
         url: "https://www.findmachines.com.do/",
         tight: false,
       });
-      // TheQRKing project with fixed layout
+
+      // Event Detector project with fixed layout (2025)
+      currentY = checkPageBreak(doc, currentY + 4, 8);
+      currentY = genPdfBoldRowWithLinkFixed({
+        doc,
+        x: leftSide,
+        y: currentY,
+        boldText: props.t("event_detector"),
+        title: "2025",
+        description: props.t("event_detector_desc"),
+        url: "https://www.eventdetector.com/",
+        tight: false,
+      });
+
+      // TheQRKing project with fixed layout (2024)
       currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
