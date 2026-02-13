@@ -2,6 +2,7 @@ import { type Component } from "solid-js";
 import { A } from "@solidjs/router";
 import * as i18n from "@solid-primitives/i18n";
 import BackgroundScene from "../components/BackgroundScene";
+import profileImage from "../assets/profile.jpg";
 import "./Home.css";
 
 type HomeProps = {
@@ -16,6 +17,9 @@ const Home: Component<HomeProps> = (props) => {
       <div class="page-content">
         {/* Hero Section - Row 1 */}
         <div class="hero-section">
+          <div class="hero-profile-image">
+            <img src={profileImage} alt="Marino Gomez" />
+          </div>
           <h1 class="hero-name">Marino Gomez</h1>
           <h2 class="hero-title">{props.t("title")}</h2>
           <p class="hero-tagline">

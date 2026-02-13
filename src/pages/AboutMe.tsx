@@ -3,6 +3,7 @@ import * as i18n from "@solid-primitives/i18n";
 import BackgroundScene from "../components/BackgroundScene";
 import Breadcrumb, { type BreadcrumbItem } from "../components/Breadcrumb";
 import ContactForm from "../components/ContactForm";
+import profileImage from "../assets/profile.jpg";
 import "./AboutMe.css";
 
 type AboutMeProps = {
@@ -25,6 +26,9 @@ const AboutMe: Component<AboutMeProps> = (props) => {
 
         {/* Header */}
         <div class="page-header">
+          <div class="about-profile-image">
+            <img src={profileImage} alt="Marino Gomez" />
+          </div>
           <h1 class="page-title">About Me</h1>
           <h2 class="about-me-name">{props.t("name")}</h2>
           <p class="about-me-role">{props.t("title")}</p>
