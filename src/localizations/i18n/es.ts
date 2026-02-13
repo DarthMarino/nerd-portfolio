@@ -31,7 +31,7 @@ export const dict = {
   // Experience section
   experience_title: "Experiencia Laboral",
   experience_title_caps: "EXPERIENCIA",
-  software_eng_title: "Ingeniero de Software",
+  software_eng_title: "Desarrollador Full-stack",
   frontend_eng_title: "Ingeniero Frontend",
 
   // Work dates and companies

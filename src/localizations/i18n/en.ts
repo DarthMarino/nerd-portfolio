@@ -31,7 +31,7 @@ export const dict = {
   // Experience section
   experience_title: "Work Experience",
   experience_title_caps: "EXPERIENCE",
-  software_eng_title: "Software Engineer",
+  software_eng_title: "Full-stack Developer",
   frontend_eng_title: "Frontend Engineer",
   fullstack_eng_title: "Full-Stack Engineer",
 
