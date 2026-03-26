@@ -1,422 +1,277 @@
 import { onMount, onCleanup, type Component } from "solid-js";
-import * as THREE from "three";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+import Two from "two.js";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface Particle {
+  shape: InstanceType<typeof Two.Path> | InstanceType<typeof Two.Circle> | InstanceType<typeof Two.Text>;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  phase: number;
+  phaseSpeed: number;
+  orbitRadius: number;
+  orbitSpeed: number;
+  orbitAngle: number;
+  size: number;
+}
+
+// ─── Config ───────────────────────────────────────────────────────────────────
+
+const TECH_LABELS = [
+  { text: "TS",      color: "#3178c6" },
+  { text: "Go",      color: "#00ADD8" },
+  { text: "JS",      color: "#f7df1e" },
+  { text: "SQL",     color: "#4479A1" },
+  { text: "React",   color: "#61DAFB" },
+  { text: "Node",    color: "#339933" },
+  { text: "Solid",   color: "#2c4f7c" },
+  { text: "Flutter", color: "#02569B" },
+  { text: "SQLite",  color: "#003B57" },
+  { text: "PG",      color: "#336791" },
+  { text: "C#",      color: "#9b4f96" },
+  { text: "C++",     color: "#00599C" },
+  { text: "Rust",    color: "#CE412B" },
+];
+
+const SHAPE_COUNT   = 22;
+const CONNECT_DIST  = 160;   // px — max distance to draw a connection line
+const MAX_OPACITY   = 0.18;
+const BASE_SPEED    = 0.22;
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+const rand  = (lo: number, hi: number) => lo + Math.random() * (hi - lo);
+const randSign = () => (Math.random() < 0.5 ? 1 : -1);
+
+function hexToRgb(hex: string): [number, number, number] {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return [r, g, b];
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
 
 const BackgroundScene: Component = () => {
-  let canvasRef: HTMLCanvasElement | undefined;
-  let scene: THREE.Scene;
-  let camera: THREE.PerspectiveCamera;
-  let renderer: THREE.WebGLRenderer;
-  let animationId: number;
-  let geometries: THREE.Mesh[] = [];
-  let textMeshes: THREE.Mesh[] = [];
+  let containerRef: HTMLDivElement | undefined;
+  let two: InstanceType<typeof Two>;
+  let particles: Particle[] = [];
+  let lines: InstanceType<typeof Two.Line>[] = [];
+  let lineGroup: InstanceType<typeof Two.Group>;
+  let shapeGroup: InstanceType<typeof Two.Group>;
+  let animFrameId: number;
+
+  // ── Init ──────────────────────────────────────────────────────────────────
 
   const init = () => {
-    if (!canvasRef) return;
+    if (!containerRef) return;
 
-    // Scene setup
-    scene = new THREE.Scene();
+    const W = window.innerWidth;
+    const H = window.innerHeight;
 
-    // Camera setup
-    camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = 30;
+    two = new Two({ type: Two.Types.svg, width: W, height: H });
+    two.appendTo(containerRef);
 
-    // Renderer setup
-    renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef,
-      antialias: true,
-      alpha: true,
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    lineGroup  = two.makeGroup();
+    shapeGroup = two.makeGroup();
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    // ── Geometric shapes ──────────────────────────────────────────────────
+    // sides: 0 = circle, 2 = line (skip), 3..8 = polygons
+    const sideCounts = [0, 3, 4, 5, 6, 8];
 
-    const pointLight1 = new THREE.PointLight(0x4a9eff, 1, 100);
-    pointLight1.position.set(20, 20, 20);
-    scene.add(pointLight1);
+    for (let i = 0; i < SHAPE_COUNT; i++) {
+      const sides = sideCounts[Math.floor(Math.random() * sideCounts.length)];
+      const size = rand(10, 40);
+      const x = rand(0, W);
+      const y = rand(0, H);
+      const opacity = rand(0.04, MAX_OPACITY);
 
-    const pointLight2 = new THREE.PointLight(0xff4a9e, 0.8, 100);
-    pointLight2.position.set(-20, -20, 20);
-    scene.add(pointLight2);
+      let shape: InstanceType<typeof Two.Path> | InstanceType<typeof Two.Circle> | InstanceType<typeof Two.Polygon>;
 
-    // Create floating geometric shapes
-    createGeometries();
+      if (sides === 0) {
+        shape = two.makeCircle(x, y, size);
+      } else {
+        shape = two.makePolygon(x, y, size, sides);
+      }
 
-    // Create programming language 3D text meshes
-    createTextMeshes();
+      shape.stroke    = `rgba(200,210,255,${opacity * 1.5})`;
+      shape.linewidth = rand(0.5, 1.5);
+      (shape as any).noFill();
 
-    // Handle resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-    window.addEventListener("resize", handleResize);
+      shapeGroup.add(shape);
 
-    // Animation loop
+      particles.push({
+        shape,
+        x,
+        y,
+        vx: randSign() * rand(0.05, BASE_SPEED),
+        vy: randSign() * rand(0.05, BASE_SPEED),
+        phase: rand(0, Math.PI * 2),
+        phaseSpeed: rand(0.005, 0.02),
+        orbitRadius: rand(8, 30),
+        orbitSpeed: randSign() * rand(0.002, 0.008),
+        orbitAngle: rand(0, Math.PI * 2),
+        size,
+      });
+    }
+
+    // ── Tech label particles ───────────────────────────────────────────────
+    for (const { text, color } of TECH_LABELS) {
+      const x = rand(30, W - 30);
+      const y = rand(30, H - 30);
+      const opacity = rand(0.08, 0.28);
+      const [r, g, b] = hexToRgb(color);
+
+      const label = two.makeText(text, x, y);
+      label.size     = rand(11, 20);
+      label.fill     = `rgba(${r},${g},${b},${opacity})`;
+      label.stroke   = `rgba(${r},${g},${b},${opacity * 0.4})`;
+      (label as any).linewidth = 0.5;
+      (label as any).family    = "monospace";
+      label.weight   = "600";
+
+      shapeGroup.add(label);
+
+      particles.push({
+        shape: label as unknown as InstanceType<typeof Two.Path>,
+        x,
+        y,
+        vx: randSign() * rand(0.03, BASE_SPEED * 0.6),
+        vy: randSign() * rand(0.03, BASE_SPEED * 0.6),
+        phase: rand(0, Math.PI * 2),
+        phaseSpeed: rand(0.003, 0.012),
+        orbitRadius: rand(5, 18),
+        orbitSpeed: randSign() * rand(0.001, 0.006),
+        orbitAngle: rand(0, Math.PI * 2),
+        size: 14,
+      });
+    }
+
+    // Pre-allocate connection lines (max possible = n*(n-1)/2, but we reuse)
+    const maxLines = Math.floor((particles.length * (particles.length - 1)) / 2);
+    for (let i = 0; i < Math.min(maxLines, 200); i++) {
+      const line = two.makeLine(0, 0, 0, 0);
+      line.stroke  = "transparent";
+      line.opacity = 0;
+      lineGroup.add(line);
+      lines.push(line);
+    }
+
+    // ── Animation loop ────────────────────────────────────────────────────
+    let tick = 0;
     const animate = () => {
-      animationId = requestAnimationFrame(animate);
+      animFrameId = requestAnimationFrame(animate);
+      tick++;
 
-      const time = Date.now() * 0.0005;
+      const W2 = two.width;
+      const H2 = two.height;
 
-      // Animate geometries - same speed, random directions
-      const rotationSpeed = 0.3; // Uniform rotation speed for all shapes
-      geometries.forEach((mesh, i) => {
-        const speed = (mesh as any).rotationSpeed;
-        mesh.rotation.x = time * rotationSpeed * speed.x;
-        mesh.rotation.y = time * rotationSpeed * speed.y;
-        mesh.rotation.z = time * rotationSpeed * speed.z;
+      // Move particles
+      for (const p of particles) {
+        p.phase += p.phaseSpeed;
+        p.orbitAngle += p.orbitSpeed;
 
-        // Floating motion
-        mesh.position.y += Math.sin(time + i) * 0.002;
-        mesh.position.x += Math.cos(time + i * 0.5) * 0.002;
-      });
+        // Drift + gentle sine wave
+        p.x += p.vx + Math.sin(p.phase) * 0.12;
+        p.y += p.vy + Math.cos(p.phase * 0.7) * 0.09;
 
-      // Animate 3D text meshes with gentle floating and rotation
-      const textRotationSpeed = 0.15; // Slower uniform rotation for text
-      textMeshes.forEach((mesh, i) => {
-        const speed = (mesh as any).rotationSpeed;
-        if (speed) {
-          mesh.rotation.x += textRotationSpeed * speed.x * 0.01;
-          mesh.rotation.y += textRotationSpeed * speed.y * 0.01;
-          mesh.rotation.z += textRotationSpeed * speed.z * 0.01;
+        // Wrap around edges with margin
+        const margin = p.size + 20;
+        if (p.x < -margin)    p.x = W2 + margin;
+        if (p.x > W2 + margin) p.x = -margin;
+        if (p.y < -margin)    p.y = H2 + margin;
+        if (p.y > H2 + margin) p.y = -margin;
+
+        // Slow random drift nudge every ~180 frames
+        if (tick % 180 === 0) {
+          p.vx += randSign() * rand(0, 0.04);
+          p.vy += randSign() * rand(0, 0.04);
+          // Clamp speed
+          const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+          if (speed > BASE_SPEED) {
+            p.vx = (p.vx / speed) * BASE_SPEED;
+            p.vy = (p.vy / speed) * BASE_SPEED;
+          }
         }
 
-        // Floating motion (slower than geometries)
-        const initial = (mesh as any).initialPosition;
-        if (initial) {
-          mesh.position.y = initial.y + Math.sin(time * 0.5 + i) * 0.5;
-          mesh.position.x = initial.x + Math.cos(time * 0.3 + i * 0.7) * 0.5;
-        }
-      });
+        // Apply position
+        p.shape.translation.set(p.x, p.y);
 
-      renderer.render(scene, camera);
+        // Gentle rotation for geometric shapes (not text)
+        if (!(p.shape instanceof Two.Text)) {
+          p.shape.rotation += p.orbitSpeed * 0.4;
+        }
+      }
+
+      // Update connection lines
+      let lineIdx = 0;
+      for (let i = 0; i < particles.length && lineIdx < lines.length; i++) {
+        for (let j = i + 1; j < particles.length && lineIdx < lines.length; j++) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          const ln = lines[lineIdx];
+          if (dist < CONNECT_DIST) {
+            const alpha = (1 - dist / CONNECT_DIST) * 0.12;
+            ln.vertices[0].set(a.x, a.y);
+            ln.vertices[1].set(b.x, b.y);
+            ln.stroke  = `rgba(150,180,255,${alpha})`;
+            ln.opacity = 1;
+            lineIdx++;
+          }
+        }
+      }
+
+      // Hide unused lines
+      for (let k = lineIdx; k < lines.length; k++) {
+        lines[k].opacity = 0;
+      }
+
+      two.update();
     };
+
     animate();
-  };
 
-  // Check if two positions are too close (collision detection)
-  const isTooClose = (pos1: number[], pos2: number[], minDist: number): boolean => {
-    const dx = pos1[0] - pos2[0];
-    const dy = pos1[1] - pos2[1];
-    const dz = pos1[2] - pos2[2];
-    const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-    return distance < minDist;
-  };
-
-  // Generate a random position within bounds, avoiding collisions
-  const generateSafePosition = (
-    existingPositions: number[][],
-    bounds: { x: [number, number]; y: [number, number]; z: [number, number] },
-    minDistance: number,
-    maxAttempts: number = 50
-  ): number[] => {
-    for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      const candidate = [
-        bounds.x[0] + Math.random() * (bounds.x[1] - bounds.x[0]),
-        bounds.y[0] + Math.random() * (bounds.y[1] - bounds.y[0]),
-        bounds.z[0] + Math.random() * (bounds.z[1] - bounds.z[0]),
-      ];
-
-      // Check if this position is safe (not too close to existing shapes)
-      const isSafe = existingPositions.every(
-        (pos) => !isTooClose(candidate, pos, minDistance)
-      );
-
-      if (isSafe) {
-        return candidate;
-      }
-    }
-
-    // If we couldn't find a safe position, return a random one anyway
-    return [
-      bounds.x[0] + Math.random() * (bounds.x[1] - bounds.x[0]),
-      bounds.y[0] + Math.random() * (bounds.y[1] - bounds.y[0]),
-      bounds.z[0] + Math.random() * (bounds.z[1] - bounds.z[0]),
-    ];
-  };
-
-  const createGeometries = () => {
-    // Define 3D space bounds - expanded for more sparse distribution
-    const bounds = {
-      x: [-70, 70],   // Left to right (expanded)
-      y: [-45, 45],   // Bottom to top (expanded)
-      z: [-100, -15], // Far to near (wider depth range)
+    // ── Resize ────────────────────────────────────────────────────────────
+    const onResize = () => {
+      two.width  = window.innerWidth;
+      two.height = window.innerHeight;
+      const renderer = (two as any).renderer;
+      if (renderer && renderer.setSize) renderer.setSize(two.width, two.height);
     };
-
-    const existingPositions: number[][] = [];
-
-    // Depth range for calculating opacity and saturation
-    const zNear = bounds.z[1];  // -15 (closest)
-    const zFar = bounds.z[0];   // -100 (furthest)
-
-    // Create 25+ geometric shapes with variety - scaled down 35% for subtlety
-    const shapeTypes = [
-      () => new THREE.TorusGeometry(1.3 + Math.random() * 1.3, 0.3 + Math.random() * 0.3, 16, 100),
-      () => new THREE.OctahedronGeometry(1 + Math.random() * 1.3),
-      () => new THREE.TorusKnotGeometry(1 + Math.random() * 0.65, 0.2 + Math.random() * 0.2, 100, 16),
-      () => new THREE.IcosahedronGeometry(1 + Math.random() * 1),
-      () => new THREE.DodecahedronGeometry(1 + Math.random() * 1.3),
-      () => new THREE.TetrahedronGeometry(1.3 + Math.random() * 1.3),
-      () => new THREE.SphereGeometry(0.65 + Math.random() * 1.3, 32, 32),
-      () => new THREE.ConeGeometry(1 + Math.random() * 0.65, 1.3 + Math.random() * 1.3, 32),
-      () => new THREE.CylinderGeometry(0.65 + Math.random() * 0.65, 0.65 + Math.random() * 0.65, 1.3 + Math.random() * 0.65, 32),
-      () => new THREE.BoxGeometry(1.3 + Math.random() * 1.3, 1.3 + Math.random() * 1.3, 1.3 + Math.random() * 1.3),
-    ];
-
-    // Grid-based positioning for even distribution
-    const numShapes = 35;
-    const cols = 7; // 7 columns
-    const rows = 5; // 5 rows (7x5 = 35 shapes)
-
-    const cellWidth = (bounds.x[1] - bounds.x[0]) / cols;
-    const cellHeight = (bounds.y[1] - bounds.y[0]) / rows;
-
-    // Generate shapes in grid pattern
-    for (let i = 0; i < numShapes; i++) {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
-
-      // Calculate cell center
-      const cellCenterX = bounds.x[0] + (col + 0.5) * cellWidth;
-      const cellCenterY = bounds.y[0] + (row + 0.5) * cellHeight;
-
-      // Add random offset within cell (70% of cell size to prevent edge overlap)
-      const offsetX = (Math.random() - 0.5) * cellWidth * 0.7;
-      const offsetY = (Math.random() - 0.5) * cellHeight * 0.7;
-      const randomZ = bounds.z[0] + Math.random() * (bounds.z[1] - bounds.z[0]);
-
-      const position = [
-        cellCenterX + offsetX,
-        cellCenterY + offsetY,
-        randomZ
-      ];
-      existingPositions.push(position);
-
-      // Select random geometry type
-      const geometryCreator = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
-      const geometry = geometryCreator();
-
-      // Calculate depth factor (0 = far, 1 = near)
-      const depthFactor = (position[2] - zFar) / (zNear - zFar);
-
-      // Depth-based opacity: far objects more transparent, near objects more opaque
-      const minOpacity = 0.05;  // Far objects barely visible
-      const maxOpacity = 0.25;  // Near objects more visible
-      const opacity = minOpacity + (maxOpacity - minOpacity) * depthFactor;
-
-      // Depth-based saturation: far objects desaturated, near objects vibrant
-      const minSaturation = 0.2;  // Far objects grey-ish
-      const maxSaturation = 0.8;  // Near objects colorful
-      const saturation = minSaturation + (maxSaturation - minSaturation) * depthFactor;
-
-      // Create material with depth-based properties
-      const material = new THREE.MeshStandardMaterial({
-        color: new THREE.Color().setHSL((i * 0.05) % 1, saturation, 0.4 + Math.random() * 0.2),
-        roughness: 0.2 + Math.random() * 0.4,
-        metalness: 0.5 + Math.random() * 0.5,
-        transparent: true,
-        opacity: opacity,
-        wireframe: false,
-      });
-
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(position[0], position[1], position[2]);
-
-      // Random initial rotation
-      mesh.rotation.x = Math.random() * Math.PI * 2;
-      mesh.rotation.y = Math.random() * Math.PI * 2;
-      mesh.rotation.z = Math.random() * Math.PI * 2;
-
-      // Store random rotation direction (normalized) for consistent speed
-      const rotX = (Math.random() - 0.5) * 2;
-      const rotY = (Math.random() - 0.5) * 2;
-      const rotZ = (Math.random() - 0.5) * 2;
-      const magnitude = Math.sqrt(rotX * rotX + rotY * rotY + rotZ * rotZ);
-      (mesh as any).rotationSpeed = {
-        x: rotX / magnitude,
-        y: rotY / magnitude,
-        z: rotZ / magnitude,
-      };
-
-      scene.add(mesh);
-      geometries.push(mesh);
-    }
+    window.addEventListener("resize", onResize);
+    (two as any)._resizeHandler = onResize;
   };
 
-  const createTextMeshes = () => {
-    // Load font and create 3D text geometries
-    const loader = new FontLoader();
+  // ── Lifecycle ─────────────────────────────────────────────────────────────
 
-    // Load font from CDN
-    loader.load(
-      'https://threejs.org/examples/fonts/helvetiker_bold.typeface.json',
-      (font) => {
-        // Programming language text with their colors - Your tech stack
-        const languages = [
-          { text: 'TS', color: '#3178c6' },      // TypeScript Blue
-          { text: 'Go', color: '#00ADD8' },      // Go Cyan/Blue
-          { text: 'JS', color: '#f7df1e' },      // JavaScript Yellow
-          { text: 'SQL', color: '#4479A1' },     // SQL Blue
-          { text: 'React', color: '#61DAFB' },   // React Cyan
-          { text: 'Node', color: '#339933' },    // Node.js Green
-          { text: 'Solid', color: '#2c4f7c' },   // SolidJS Blue
-          { text: 'Flutter', color: '#02569B' }, // Flutter Blue
-          { text: 'SQLite', color: '#003B57' },  // SQLite Dark Blue
-          { text: 'PG', color: '#336791' },      // PostgreSQL Blue
-          { text: 'C#', color: '#9b4f96' },      // C# Purple
-          { text: 'C++', color: '#00599C' },     // C++ Blue
-          { text: 'Rust', color: '#CE412B' },    // Rust Orange
-        ];
-
-        // Expanded bounds for more sparse distribution
-        const bounds = {
-          x: [-70, 70],
-          y: [-45, 45],
-          z: [-100, -15],
-        };
-
-        // Depth range for calculating opacity
-        const zNear = bounds.z[1];  // -15 (closest)
-        const zFar = bounds.z[0];   // -100 (furthest)
-
-        // Grid-based positioning for text meshes (5 columns x 3 rows for 13+ items)
-        const cols = 5;
-        const rows = 3;
-        const cellWidth = (bounds.x[1] - bounds.x[0]) / cols;
-        const cellHeight = (bounds.y[1] - bounds.y[0]) / rows;
-
-        languages.forEach(({ text, color }, i) => {
-          const col = i % cols;
-          const row = Math.floor(i / cols);
-
-          // Calculate cell center with offset to avoid geometric shapes
-          const cellCenterX = bounds.x[0] + (col + 0.5) * cellWidth;
-          const cellCenterY = bounds.y[0] + (row + 0.5) * cellHeight;
-
-          // Add random offset within cell
-          const offsetX = (Math.random() - 0.5) * cellWidth * 0.6;
-          const offsetY = (Math.random() - 0.5) * cellHeight * 0.6;
-          const randomZ = bounds.z[0] + Math.random() * (bounds.z[1] - bounds.z[0]);
-
-          const position = [
-            cellCenterX + offsetX,
-            cellCenterY + offsetY,
-            randomZ
-          ];
-
-          // Create 3D text geometry - scaled down 35%
-          const textGeometry = new TextGeometry(text, {
-            font: font,
-            size: 2,
-            depth: 0.3,
-            curveSegments: 12,
-            bevelEnabled: true,
-            bevelThickness: 0.08,
-            bevelSize: 0.08,
-            bevelSegments: 5,
-          });
-
-          // Center the text geometry
-          textGeometry.computeBoundingBox();
-          const centerOffset = -0.5 * (textGeometry.boundingBox!.max.x - textGeometry.boundingBox!.min.x);
-          textGeometry.translate(centerOffset, 0, 0);
-
-          // Calculate depth factor for this text mesh
-          const depthFactor = (position[2] - zFar) / (zNear - zFar);
-
-          // Depth-based opacity for text: far = transparent, near = more visible
-          const minOpacity = 0.15;  // Far text barely visible
-          const maxOpacity = 0.5;   // Near text clearly visible
-          const textOpacity = minOpacity + (maxOpacity - minOpacity) * depthFactor;
-
-          // Create material with depth-based opacity
-          const material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color(color),
-            roughness: 0.3,
-            metalness: 0.8,
-            transparent: true,
-            opacity: textOpacity,
-          });
-
-          const textMesh = new THREE.Mesh(textGeometry, material);
-          textMesh.position.set(position[0], position[1], position[2]);
-
-          // Random initial rotation
-          textMesh.rotation.x = (Math.random() - 0.5) * 0.5;
-          textMesh.rotation.y = (Math.random() - 0.5) * 0.5;
-
-          // Store random rotation direction for consistent speed
-          const rotX = (Math.random() - 0.5) * 2;
-          const rotY = (Math.random() - 0.5) * 2;
-          const rotZ = (Math.random() - 0.5) * 2;
-          const magnitude = Math.sqrt(rotX * rotX + rotY * rotY + rotZ * rotZ);
-          (textMesh as any).rotationSpeed = {
-            x: rotX / magnitude,
-            y: rotY / magnitude,
-            z: rotZ / magnitude,
-          };
-
-          // Store initial position for animation
-          (textMesh as any).initialPosition = { x: position[0], y: position[1], z: position[2] };
-
-          scene.add(textMesh);
-          textMeshes.push(textMesh);
-        });
-      },
-      undefined,
-      (error) => {
-        console.error('Error loading font:', error);
-      }
-    );
-  };
-
-  onMount(() => {
-    init();
-  });
+  onMount(() => init());
 
   onCleanup(() => {
-    if (animationId) cancelAnimationFrame(animationId);
-    if (renderer) renderer.dispose();
-    geometries.forEach((mesh) => {
-      mesh.geometry.dispose();
-      if (Array.isArray(mesh.material)) {
-        mesh.material.forEach(mat => mat.dispose());
-      } else {
-        mesh.material.dispose();
-      }
-    });
-    textMeshes.forEach((mesh) => {
-      mesh.geometry.dispose();
-      if (Array.isArray(mesh.material)) {
-        mesh.material.forEach(mat => mat.dispose());
-      } else {
-        mesh.material.dispose();
-      }
-    });
-    window.removeEventListener("resize", () => {});
+    cancelAnimationFrame(animFrameId);
+    window.removeEventListener("resize", (two as any)?._resizeHandler);
+    two?.clear();
+    // Remove the SVG element
+    if (containerRef) containerRef.innerHTML = "";
   });
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={containerRef}
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
+        top: "0",
+        left: "0",
         width: "100vw",
         height: "100vh",
-        "z-index": 1,
+        "z-index": "1",
         "pointer-events": "none",
+        overflow: "hidden",
       }}
     />
   );

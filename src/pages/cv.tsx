@@ -21,7 +21,7 @@ import {
 import { certifications, technologies } from "../statics/objects";
 import { format } from "date-fns";
 import { isPhone } from "../utils/detect_phone";
-import profileImage from "../assets/profile.jpg";
+import profileImage from "../assets/profile.png";
 
 type CVPageProps = {
   t: i18n.Translator<i18n.Flatten<Record<string, any>>>;
@@ -273,14 +273,42 @@ const CVPage: Component<CVPageProps> = (props) => {
 
           // Bezier circle approximation
           const k = 0.5522848;
-          (doc.internal as any).write([
-            pdfCenterX + pdfRadius, pdfCenterY, "m",
-            pdfCenterX + pdfRadius, pdfCenterY + pdfRadius * k, pdfCenterX + pdfRadius * k, pdfCenterY + pdfRadius, pdfCenterX, pdfCenterY + pdfRadius, "c",
-            pdfCenterX - pdfRadius * k, pdfCenterY + pdfRadius, pdfCenterX - pdfRadius, pdfCenterY + pdfRadius * k, pdfCenterX - pdfRadius, pdfCenterY, "c",
-            pdfCenterX - pdfRadius, pdfCenterY - pdfRadius * k, pdfCenterX - pdfRadius * k, pdfCenterY - pdfRadius, pdfCenterX, pdfCenterY - pdfRadius, "c",
-            pdfCenterX + pdfRadius * k, pdfCenterY - pdfRadius, pdfCenterX + pdfRadius, pdfCenterY - pdfRadius * k, pdfCenterX + pdfRadius, pdfCenterY, "c",
-            "W n" // Clip and end path
-          ].join(" "));
+          (doc.internal as any).write(
+            [
+              pdfCenterX + pdfRadius,
+              pdfCenterY,
+              "m",
+              pdfCenterX + pdfRadius,
+              pdfCenterY + pdfRadius * k,
+              pdfCenterX + pdfRadius * k,
+              pdfCenterY + pdfRadius,
+              pdfCenterX,
+              pdfCenterY + pdfRadius,
+              "c",
+              pdfCenterX - pdfRadius * k,
+              pdfCenterY + pdfRadius,
+              pdfCenterX - pdfRadius,
+              pdfCenterY + pdfRadius * k,
+              pdfCenterX - pdfRadius,
+              pdfCenterY,
+              "c",
+              pdfCenterX - pdfRadius,
+              pdfCenterY - pdfRadius * k,
+              pdfCenterX - pdfRadius * k,
+              pdfCenterY - pdfRadius,
+              pdfCenterX,
+              pdfCenterY - pdfRadius,
+              "c",
+              pdfCenterX + pdfRadius * k,
+              pdfCenterY - pdfRadius,
+              pdfCenterX + pdfRadius,
+              pdfCenterY - pdfRadius * k,
+              pdfCenterX + pdfRadius,
+              pdfCenterY,
+              "c",
+              "W n", // Clip and end path
+            ].join(" "),
+          );
 
           // Add image inside clipping path
           doc.addImage(
@@ -292,7 +320,7 @@ const CVPage: Component<CVPageProps> = (props) => {
             imageSize,
             undefined,
             "NONE",
-            0
+            0,
           );
 
           (doc.internal as any).write("Q"); // Restore state
@@ -385,7 +413,9 @@ const CVPage: Component<CVPageProps> = (props) => {
         const introLines = doc.splitTextToSize(enhancedSummary, contentWidth);
         currentY = 32;
         introLines.forEach((line: string, index: number) => {
-          doc.text(line, leftSide, currentY + index * 4.2, { align: "justify" });
+          doc.text(line, leftSide, currentY + index * 4.2, {
+            align: "justify",
+          });
         });
         currentY += introLines.length * 4.2 + 2;
       }
@@ -514,7 +544,10 @@ const CVPage: Component<CVPageProps> = (props) => {
           x: leftSide,
           y: currentY,
           boldText: cert.title,
-          title: typeof cert.date === 'string' ? cert.date : format(cert.date, "MMM yyyy"),
+          title:
+            typeof cert.date === "string"
+              ? cert.date
+              : format(cert.date, "MMM yyyy"),
           description: cert.description || "",
           url: cert.credentialUrl,
           tight: true,

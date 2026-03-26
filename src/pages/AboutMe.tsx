@@ -3,7 +3,7 @@ import * as i18n from "@solid-primitives/i18n";
 import BackgroundScene from "../components/BackgroundScene";
 import Breadcrumb, { type BreadcrumbItem } from "../components/Breadcrumb";
 import ContactForm from "../components/ContactForm";
-import profileImage from "../assets/profile.jpg";
+import profileImage from "../assets/profile.png";
 import "./AboutMe.css";
 
 type AboutMeProps = {
@@ -13,7 +13,7 @@ type AboutMeProps = {
 const AboutMe: Component<AboutMeProps> = (props) => {
   const breadcrumbItems = (): BreadcrumbItem[] => [
     { label: props.t("home"), href: "/" },
-    { label: "About Me" }
+    { label: "About Me" },
   ];
 
   return (
@@ -74,11 +74,21 @@ const AboutMe: Component<AboutMeProps> = (props) => {
           <div class="contact-divider"></div>
           <p class="contact-text">Or connect with me on:</p>
           <div class="contact-links">
-            <a href="https://github.com/DarthMarino" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <a
+              href="https://github.com/DarthMarino"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
               <span class="contact-link-icon">🔗</span>
               <span class="contact-link-text">{props.t("github")}</span>
             </a>
-            <a href="https://www.linkedin.com/in/maghiworks/" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <a
+              href="https://www.linkedin.com/in/maghiworks/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
               <span class="contact-link-icon">🔗</span>
               <span class="contact-link-text">{props.t("linkedin")}</span>
             </a>

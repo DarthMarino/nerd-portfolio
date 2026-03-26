@@ -437,25 +437,25 @@ const StudiesSkills: Component<StudiesSkillsProps> = (props) => {
           <div class="education-block">
             <Range
               t={props.t}
-              year1={2017}
-              year2={2021}
+              year1={2014}
+              year2={2017}
               roleKey="digital_electronics"
               companyKey="loyola"
               link="https://ipl.edu.do/"
             />
             <div class="education-details">
               <p class="education-description">
-                Technical degree in Digital Electronics & Automation from
+                Technical degree in Digital Electronics & Microcomputing from
                 Instituto Politécnico Loyola. Focused on electronics, circuit
-                design, microcontrollers, and industrial automation systems.
+                design, microcontrollers, and embedded computing systems.
               </p>
               <ul class="education-highlights">
                 <li>Digital & Analog Circuit Design</li>
                 <li>Microcontroller Programming (Arduino, PIC)</li>
-                <li>Industrial Automation & PLC Programming</li>
+                <li>Embedded Systems & Microcomputing</li>
                 <li>Electronics Repair & Maintenance</li>
                 <li>Sensor Integration & Control Systems</li>
-                <li>Robotics & Mechatronics</li>
+                <li>Signal Processing & Logic Design</li>
               </ul>
               <Dropdown
                 text="Projects & Lab Work Gallery"

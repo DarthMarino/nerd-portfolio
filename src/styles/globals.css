@@ -20,10 +20,10 @@
   --color-text-subtle: rgba(255, 255, 255, 0.6);
 
   /* Background Colors */
-  --color-bg-primary: #188a66;
-  --color-bg-overlay: rgba(255, 255, 255, 0.1);
-  --color-bg-overlay-hover: rgba(255, 255, 255, 0.15);
-  --color-bg-overlay-active: rgba(255, 255, 255, 0.2);
+  --color-bg-primary: #1e3a2e;
+  --color-bg-overlay: rgba(255, 255, 255, 0.08);
+  --color-bg-overlay-hover: rgba(255, 255, 255, 0.12);
+  --color-bg-overlay-active: rgba(255, 255, 255, 0.16);
 
   /* Border Colors */
   --color-border-light: rgba(255, 255, 255, 0.1);
