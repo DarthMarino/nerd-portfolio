@@ -2,9 +2,11 @@ const technologies = [
   "React",
   "JavaScript/TypeScript",
   "Node.js",
+  "Next.js",
   "TailwindCSS",
   "Three.js",
   "GraphQL",
+  "SQL",
   "MCP",
   "Docker & CI/CD",
   "AWS/GCP/Azure",
@@ -17,6 +19,8 @@ const technologies = [
   "Performance Optimization",
   "Full-Stack Development",
   "RESTful APIs",
+  "Blender",
+  "Affinity",
 ];
 
 type Certification = {

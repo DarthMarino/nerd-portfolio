@@ -252,7 +252,7 @@ const genPdfWorkExp = ({
     doc.setFontSize(6);
     doc.setFont("Satoshi", "bold");
     setColorBlue(doc);
-    doc.text("○", x + 28, currentY - 0.7, { align: "right" });
+    doc.text("-", x + 28, currentY - 0.7, { align: "right" });
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
     doc.setFont("Satoshi", "regular");

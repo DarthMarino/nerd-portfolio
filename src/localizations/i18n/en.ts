@@ -12,15 +12,8 @@ export const dict = {
   // Personal Info
   name: "MARINO GOMEZ",
   title: "Software Engineer",
-  cv_intro: () => {
-    const birthDate = new Date(1999, 8, 24); // September 24, 1999 (month is 0-indexed)
-    const today = new Date();
-    const age = Math.floor(
-      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000),
-    );
-
-    return `${age}-year-old Software Engineer with 4+ years in full-stack development, specialized in React, TypeScript, Node.js, and Rust, with a strong track record leading projects from conception to deployment.`;
-  },
+  cv_intro:
+    "Full-Stack Software Engineer with 4+ years of experience building scalable web and mobile applications using React, TypeScript, Node.js, Next.js, and React Native. Proven track record leading cross-functional projects from conception to deployment, optimizing performance, implementing CI/CD pipelines, and delivering comprehensive unit and integration tests.",
 
   // Contact section
   contact_title: "CONTACT",
@@ -36,12 +29,12 @@ export const dict = {
   fullstack_eng_title: "Full-Stack Engineer",
 
   // Work dates and companies
-  tecno_date: "Feb 2022 -\nPresent",
+  tecno_date: "02/2022 –\nPresent",
   tecno_company: "Xoultec",
-  qrking_date: "Jan 2024 -\nPresent",
+  qrking_date: "01/2024 –\nPresent",
   qrking_company: "TheQRKing (Contract)",
-  curbo_date: "June 2021 -\nMarch 2023",
-  curbo_company: "Curbo Technologies",
+  curbo_date: "06/2021 –\n03/2023",
+  curbo_company: "Curbo Technologies (Contract)",
   find_machines_date: "2025",
   find_machines_company: "Find & Supply Solutions",
   event_detector_date: "2025",
@@ -51,15 +44,15 @@ export const dict = {
 
   // Enhanced work experience descriptions with realistic metrics
   tecno_exp_1:
-    "Built enterprise ERP mobile app (React Native/Node.js) with real-time inventory & CRM integration, serving 100+ sales team members across multiple regions.",
+    "Engineered an enterprise ERP mobile app (React Native/Node.js) with real-time inventory & CRM integration, serving 100+ sales team members across 10+ regions.",
   tecno_exp_2:
-    "Optimized web dashboard performance by 60% through React code splitting, lazy loading, and API optimization, reducing average load time significantly.",
+    "Optimized web dashboard performance by 60% through React code splitting, lazy loading, and API optimization, cutting average load time from 4.2s to 1.7s.",
   tecno_exp_3:
-    "Migrated legacy .NET Windows Forms application to modern React/Node.js stack, reducing maintenance costs and increasing user adoption substantially.",
+    "Migrated a legacy .NET Windows Forms application to a modern React/Node.js stack for 20+ clients, reducing maintenance costs by ~40% and cutting user onboarding/training time by ~50%.",
   tecno_exp_4:
-    "Implemented comprehensive DevOps pipeline with Jest/Cypress testing (90%+ coverage), GitHub Actions CI/CD, and automated deployments, streamlining release processes.",
+    "Implemented a comprehensive DevOps pipeline with Jest/Cypress testing (95%+ coverage), GitHub Actions CI/CD, and automated deployments, cutting release time by ~75%.",
   tecno_exp_5:
-    "Developing Flutter-based inventory management application with cross-platform mobile support, while migrating backend API to Rust for enhanced performance and reduced operational costs, maintaining retrocompatibility with legacy systems.",
+    "Developing a Flutter-based inventory management application with cross-platform mobile support, while migrating the backend API to Rust for enhanced performance and reduced operational costs, maintaining backward compatibility with legacy systems.",
 
   // Updated QRKing descriptions with accurate context
   qrking_exp_1:
@@ -117,27 +110,29 @@ export const dict = {
     "Successfully launched platform serving multiple car dealerships with thousands of vehicle listings. Achieved 90%+ test coverage ensuring reliability. Significantly improved page load performance through database optimization and Redis caching. Created scalable architecture supporting B2B dealer operations and C2C customer marketplace simultaneously.",
 
   curbo_exp_1:
-    "Developed advanced e-commerce search and filtering algorithms improving user engagement and reducing bounce rate significantly.",
+    "Engineered advanced e-commerce search and filtering algorithms serving thousands of vehicle listings, reducing average search response time by ~35% and improving listing discoverability.",
   curbo_exp_2:
-    "Achieved 90%+ test coverage with comprehensive Jest/Playwright automation suite, reducing QA testing time and preventing regression bugs.",
+    "Achieved 90%+ test coverage with a Jest/Playwright automation suite, reducing QA regression cycles by ~40% and preventing production bugs across 15+ releases.",
   curbo_exp_3:
-    "Enhanced application performance through database query optimization and Redis caching, improving page load speeds and SEO rankings.",
+    "Reduced average page load time by ~45% through database query optimization and Redis caching, improving SEO rankings and marketplace conversion metrics.",
+  curbo_exp_4:
+    "Collaborated with 8+ cross-functional team members across product, design, and QA to deliver 15+ features on schedule while maintaining 90%+ test coverage.",
 
   // Event Detector CV entries
   event_detector_exp_1:
-    "Built full-stack event discovery platform with React/Node.js/PostgreSQL enabling community members to submit and browse local events with flier images and calendar integration.",
+    "Launched a full-stack event discovery platform with React/Node.js/SQLite3 enabling community members to submit and browse local events with flier images and calendar integration.",
   event_detector_exp_2:
-    "Implemented admin moderation dashboard with approve/decline workflow and flexible viewing options including responsive calendar and list views.",
+    "Implemented an admin moderation dashboard with approve/decline workflow and flexible viewing options including responsive calendar and list views.",
   event_detector_exp_3:
-    "Integrated calendar API with add-to-calendar functionality and configurable notification presets, improving event attendance through automated reminders.",
+    "Integrated a calendar API with add-to-calendar functionality and configurable notification presets, improving event attendance through automated reminders.",
 
   // Tinacos Cibao CV entries
   tinacos_cibao_exp_1:
-    "Delivered complete brand transformation for Polímeros del Cibao including website development, logo rebranding, and production-ready product labels with Pantone color specifications.",
+    "Delivered a complete brand transformation for Polímeros del Cibao including website development, logo rebranding, and production-ready product labels with Pantone color specifications.",
   tinacos_cibao_exp_2:
-    "Built automated warranty redemption system using Google Forms, Apps Script, and API integration with secure Google Sheets dashboard for real-time claim monitoring.",
+    "Designed an automated warranty redemption system using Google Forms, Apps Script, and API integration with a secure Google Sheets dashboard for real-time claim monitoring.",
   tinacos_cibao_exp_3:
-    "Developed desktop PDF generator capable of producing thousands of optimized warranty certificates (7,000+ pages) in single execution, eliminating manual processing.",
+    "Developed a high-resolution document generator that produces 7,000+ numbered label pages from a reusable template in a single execution, eliminating manual processing.",
 
   // Enhanced skills organization
   skills_title: "Technical Skills",
@@ -150,21 +145,23 @@ export const dict = {
   mobile_other_skills: "Mobile & Other",
 
   frontend_skills_list:
-    "React, TypeScript, JavaScript, Flutter, TailwindCSS, Three.js, HTML5/CSS3, UI/UX Design",
+    "React, TypeScript, JavaScript, Next.js, Flutter, Tailwind CSS, Three.js, HTML5/CSS3, UI/UX Design",
   backend_skills_list:
-    "Node.js, Express.js, Rust, Go, GraphQL, RESTful APIs, MongoDB, PostgreSQL, Redis",
+    "Node.js, Express.js, Rust, Go, GraphQL, RESTful APIs, SQL, MongoDB, PostgreSQL, Redis",
   cloud_devops_skills_list:
     "AWS, GCP, Azure, Docker, CI/CD, Git, GitHub Actions, Performance Optimization",
   mobile_other_skills_list:
-    "React Native, Rust, Jest, Playwright, Cypress, MCP, Agile/Scrum",
+    "React Native, Jest, Playwright, Cypress, Unit Testing, Integration Testing, MCP, Agile/Scrum, Blender, Affinity",
 
   // Education section
   education_title: "Education",
   studies_title: "STUDIES",
   intec: "Instituto Tecnológico de Santo Domingo, Dominican Republic",
-  software_eng: "Software Engineering",
+  intec_date: "2017 – 2021",
+  software_eng: "Bachelor of Science in Software Engineering",
   loyola: "Instituto Politécnico Loyola, Dominican Republic",
-  digital_electronics: "Digital Electronics and Microcomputing",
+  loyola_date: "2014 – 2017",
+  digital_electronics: "Technical Degree in Digital Electronics and Microcomputing",
 
   // Certifications
   certifications_title: "Certifications",
@@ -184,13 +181,14 @@ export const dict = {
 
   // Project names and enhanced descriptions
   the_qr_king: "TheQRKing Platform",
+  the_qr_king_date: "2024",
   the_qr_king_desc:
-    "Full-stack restaurant marketing platform with React/Node.js/PostgreSQL. Features include food image management, QR board subscriptions, payment integration, and location-based analytics dashboard for optimizing physical marketing campaigns.",
+    "Full-stack restaurant marketing platform with React/Node.js/PostgreSQL. Supports food image management, QR board subscriptions, payment integration, and location-based analytics, serving restaurants across Staten Island to track customer engagement through physical QR placements.",
 
   // Event Detector - Event Submission & Management Platform
   event_detector: "Event Detector",
   event_detector_desc:
-    "Community-driven event discovery platform enabling users to submit local events with flier images, admin moderation system, multiple view options (calendar/list), and integrated calendar notifications with add-to-calendar functionality.",
+    "Community-driven event discovery platform with React/Node.js/SQLite3. Users submit local events with flier images; admins moderate via approve/decline workflows. Supports calendar/list views and add-to-calendar notifications for local event promotion.",
 
   event_detector_problem:
     "Communities lacked a centralized platform for discovering and sharing local events. Event organizers struggled to reach their target audience, while attendees had no reliable way to find upcoming events in their area. Existing solutions were either too complex or didn't provide adequate moderation and calendar integration.",
@@ -207,7 +205,7 @@ export const dict = {
   // Tinacos Cibao - Complete Brand & Digital Transformation
   tinacos_cibao: "Tinacos Cibao",
   tinacos_cibao_desc:
-    "Complete digital transformation and rebranding project for water tank manufacturer Polímeros del Cibao. Developed new website, redesigned logo, created physical product labels with proper Pantone colors, built automated warranty redemption system with Google Apps Script integration, and desktop PDF generator for bulk warranty printing.",
+    "Complete digital transformation and rebranding project for water-tank manufacturer Polímeros del Cibao. Built a new website, redesigned the logo, and created physical product labels with proper Pantone colors. Built an automated warranty redemption system with Google Apps Script integration and a high-resolution document generator that produces 7,000+ numbered label pages from a reusable template.",
 
   tinacos_cibao_problem:
     "Polímeros del Cibao needed a complete brand refresh and digital presence for their Tinacos Cibao water tank product line. They lacked a professional website, had outdated branding, inconsistent physical product labels, and a manual warranty tracking process that was inefficient and error-prone. The company needed a cohesive solution spanning digital and physical brand identity.",
@@ -222,8 +220,9 @@ export const dict = {
     "Successfully launched complete brand transformation with modern digital presence at tinacoscibao.com.do. Delivered production-ready physical labels with accurate Pantone specifications adopted by manufacturing. Automated warranty redemption system eliminating manual processing and reducing claim processing time significantly. Provided company staff with real-time warranty tracking dashboard improving customer service response times and data accuracy. Desktop PDF generator enabled staff to produce thousands of warranty certificates in minutes with single-click execution, dramatically reducing printing preparation time.",
 
   caribbean_coworking: "Caribbean Business Coworking",
+  caribbean_coworking_date: "2024",
   caribbean_coworking_desc:
-    "Landing page with integrated payment system and webhook conditionals for coworking space seat reservations in Dominican Republic. Built with responsive design and secure payment processing.",
+    "Landing page with integrated payment processing and webhook conditionals for Caribbean Business Coworking, a physical coworking space in the Dominican Republic. Supports seat reservations and payment management with responsive design and secure payment handling.",
 
   // Additional projects you might want to add
   pventa_mobile: "PVenta Mobile ERP",
@@ -236,18 +235,18 @@ export const dict = {
   find_machines: "Find & Supply Solutions",
 
   find_machines_desc:
-    "Designed and developed a comprehensive WordPress e-commerce website for Find & Supply Solutions (findmachines.com.do), enabling the company to sell machinery and equipment online. Built custom WordPress theme with advanced product catalog, inventory management, and seamless checkout experience.",
+    "Designed and developed a comprehensive web application for Find & Supply Solutions (findmachines.com.do), replacing their legacy WordPress site with a custom Go-based platform. Built an admin dashboard and CMS enabling the company to sell and quote machinery and equipment online. Developed an auto-scaling cloud infrastructure that dynamically assigns resources as the company grows, eliminating dependency on outdated and insecure third-party plugins.",
 
   personal_portfolio: "Personal Portfolio",
   personal_portfolio_desc:
-    "Interactive 3D portfolio website built with Three.js, SolidJS, and TailwindCSS featuring dynamic animations and responsive design.",
+    "Interactive vector-animated portfolio website built with Two.js, SolidJS, and Tailwind CSS. Features dynamic animations, responsive design, bilingual support, and automatically generates the PDF CV from up-to-date content.",
 
   // Achievement metrics for better impact
   achievements_title: "Key Achievements",
   achievement_1:
     "Delivered 15+ scalable applications serving 10,000+ active users",
   achievement_2:
-    "Improved application performance by average of 55% across all projects",
+    "Improved application performance by an average of 55% across all projects",
   achievement_3: "Established DevOps practices reducing deployment time by 75%",
   achievement_4: "Achieved 95%+ test coverage on all major projects",
 

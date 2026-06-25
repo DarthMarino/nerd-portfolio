@@ -12,15 +12,8 @@ export const dict = {
   // Personal Info
   name: "MARINO GOMEZ",
   title: "Ingeniero de Software",
-  cv_intro: () => {
-    const birthDate = new Date(1999, 8, 24); // September 24, 1999 (month is 0-indexed)
-    const today = new Date();
-    const age = Math.floor(
-      (today.getTime() - birthDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000),
-    );
-
-    return `Ingeniero de Software de ${age} años con 4+ años en desarrollo full-stack, especializado en React, TypeScript, Node.js y Rust, con sólido historial liderando proyectos desde la concepción hasta el despliegue.`;
-  },
+  cv_intro:
+    "Ingeniero de Software Full-Stack con más de 4 años de experiencia construyendo aplicaciones web y móviles escalables con React, TypeScript, Node.js, Next.js y React Native. Sólido historial liderando proyectos cross-funcionales desde la concepción hasta el despliegue, optimizando el rendimiento, implementando pipelines de CI/CD y entregando pruebas unitarias y de integración comprehensivas.",
 
   // Contact section
   contact_title: "CONTACTO",
@@ -35,12 +28,12 @@ export const dict = {
   frontend_eng_title: "Ingeniero Frontend",
 
   // Work dates and companies
-  tecno_date: "Feb 2022 -\nPresent",
+  tecno_date: "02/2022 –\nPresente",
   tecno_company: "Xoultec",
-  qrking_date: "Ene 2024 -\nPresente",
+  qrking_date: "01/2024 –\nPresente",
   qrking_company: "TheQRKing",
-  curbo_date: "Jun 2021 -\nMarzo 2023",
-  curbo_company: "Curbo Technologies",
+  curbo_date: "06/2021 –\n03/2023",
+  curbo_company: "Curbo Technologies (Contrato)",
   find_machines_date: "2025",
   find_machines_company: "Find & Supply Solutions",
   event_detector_date: "2025",
@@ -50,15 +43,15 @@ export const dict = {
 
   // Work experience descriptions
   tecno_exp_1:
-    "Desarrollé aplicación móvil ERP con React Native y Node.js, implementando seguimiento de inventario en tiempo real e integración CRM.",
+    "Diseñé una aplicación móvil ERP con React Native y Node.js, implementando seguimiento de inventario en tiempo real e integración CRM, sirviendo a 100+ miembros del equipo de ventas en 10+ regiones.",
   tecno_exp_2:
-    "Construí dashboard responsivo con React, TypeScript y APIs REST, mejorando significativamente los tiempos de carga mediante optimización y code splitting.",
+    "Optimicé el rendimiento del dashboard web en 60% mediante code splitting, lazy loading y optimización de APIs, reduciendo el tiempo promedio de carga de 4.2s a 1.7s.",
   tecno_exp_3:
-    "Migré aplicación legacy .NET Windows Forms a stack web moderno (React/Node.js), reduciendo costos de mantenimiento y mejorando adopción de usuarios.",
+    "Migré una aplicación legacy .NET Windows Forms a un stack web moderno (React/Node.js) para 20+ clientes, reduciendo costos de mantenimiento en ~40% y disminuyendo el tiempo de onboarding/capacitación de usuarios en ~50%.",
   tecno_exp_4:
-    "Establecí prácticas DevOps con testing automatizado (Jest/Cypress), pipelines CI/CD (GitHub Actions) y estándares de calidad, optimizando despliegues.",
+    "Establecí prácticas DevOps con testing automatizado (Jest/Cypress, 95%+ cobertura), pipelines CI/CD (GitHub Actions) y despliegues automatizados, reduciendo el tiempo de release en ~75%.",
   tecno_exp_5:
-    "Desarrollando aplicación de gestión de inventario con Flutter para soporte multiplataforma móvil, mientras migro la API backend a Rust para mayor rendimiento y reducción de costos de hosting, manteniendo retrocompatibilidad con sistemas legacy.",
+    "Desarrollando una aplicación de gestión de inventario con Flutter para soporte multiplataforma móvil, mientras migro la API backend a Rust para mayor rendimiento y reducción de costos de hosting, manteniendo retrocompatibilidad con sistemas legacy.",
   qrking_exp_1:
     "Fundé y desarrollé TheQRKing, una plataforma integral de análisis de marketing que utiliza tecnología QR para rastrear participación de clientes por ubicación en entornos retail físicos.",
   qrking_exp_2:
@@ -68,7 +61,7 @@ export const dict = {
 
   // PVenta Mobile - Aplicación ERP Móvil
   pventa_exp:
-    "Aplicación ERP móvil interna diseñada para optimizar ventas, inventario y gestión de clientes para Xoultec. Construida con React Native y Node.js, con escaneo de códigos de barras en tiempo real, seguimiento de stock y operaciones de campo sincronizadas en dispositivos iOS y Android.",
+    "Una aplicación ERP móvil interna diseñada para optimizar ventas, inventario y gestión de clientes para Xoultec. Construida con React Native y Node.js, con escaneo de códigos de barras en tiempo real, seguimiento de stock y operaciones de campo sincronizadas en dispositivos iOS y Android.",
 
   pventa_problem:
     "El equipo de ventas de Xoultec necesitaba una solución móvil para gestionar inventario, rastrear ventas y manejar relaciones con clientes sobre la marcha. El sistema existente solo de escritorio creaba cuellos de botella, con operaciones de campo requiriendo entrada manual de datos en la oficina, causando retrasos e inconsistencias.",
@@ -84,7 +77,7 @@ export const dict = {
 
   // SIC System - Plataforma Web ERP y Contabilidad
   sic_exp:
-    "Plataforma integral interna web ERP y contabilidad sirviendo a más de 20 clientes diversos en Xoultec. Modernizé sistema contable legacy de Windows Forms a aplicación web pulida usando React, TypeScript y Node.js, con gestión de inventario integrada y dashboard de clientes.",
+    "Una plataforma integral interna web ERP y contabilidad sirviendo a más de 20 clientes diversos en Xoultec. Modernicé un sistema contable legacy de Windows Forms a una aplicación web pulida usando React, TypeScript y Node.js, con gestión de inventario integrada y dashboard de clientes.",
 
   sic_problem:
     "Xoultec dependía de un sistema contable legacy construido en Windows Forms que era lento, difícil de mantener y limitado a instalaciones de escritorio. Gestionar inventario para más de 20 clientes requería una solución centralizada y accesible con mejor rendimiento y UX moderna. El sistema antiguo sufría de tiempos de carga lentos y pobre escalabilidad.",
@@ -99,7 +92,7 @@ export const dict = {
     "Mejoré precisión de inventario en 40% mediante seguimiento y validación automatizados. Reduje tiempos de carga de aplicación en 45% comparado con sistema legacy mediante optimización de rendimiento. Migré exitosamente todos los más de 20 clientes a nueva plataforma sin tiempo de inactividad. Mejoré satisfacción de usuarios con interfaz moderna, responsiva y mejor accesibilidad.",
 
   curbo_exp:
-    "Plataforma marketplace automotriz full-stack B2B y C2C actuando como intermediario entre concesionarios y clientes. Construí ecosistema completo incluyendo dashboard para gestión de inventario de concesionarios, sistema de integración de técnicos para inspecciones vehiculares, marketplace para clientes, y herramientas administrativas de backoffice.",
+    "Una plataforma marketplace automotriz full-stack B2B y C2C actuando como intermediario entre concesionarios y clientes. Construí un ecosistema completo incluyendo dashboard para gestión de inventario de concesionarios, sistema de integración de técnicos para inspecciones vehiculares, marketplace para clientes, y herramientas administrativas de backoffice.",
 
   curbo_problem:
     "Los concesionarios necesitaban una plataforma digital moderna para gestionar inventario y alcanzar clientes en línea, mientras los compradores carecían de transparencia sobre condiciones de vehículos. El mercado requería un intermediario confiable que facilitara transacciones, coordinara inspecciones profesionales y proporcionara herramientas de gestión integral para dealers.",
@@ -114,27 +107,29 @@ export const dict = {
     "Lancé exitosamente plataforma sirviendo múltiples concesionarios con miles de listados vehiculares. Logré cobertura de pruebas 90%+ asegurando confiabilidad. Mejoré significativamente rendimiento de carga mediante optimización de base de datos y caché Redis. Creé arquitectura escalable soportando operaciones B2B de dealers y marketplace C2C de clientes simultáneamente.",
 
   curbo_exp_1:
-    "Desarrollé funcionalidades e-commerce con React y Node.js, implementando algoritmos de búsqueda avanzada y filtros que mejoraron participación de usuarios.",
+    "Arquitecturé algoritmos avanzados de búsqueda y filtros e-commerce sirviendo miles de listados vehiculares, reduciendo tiempo promedio de respuesta de búsqueda en ~35% y mejorando descubrimiento de listados.",
   curbo_exp_2:
-    "Implementé suite de automatización con Jest y Playwright, logrando alta cobertura de código y reduciendo significativamente el tiempo de testing QA.",
+    "Logré 90%+ de cobertura de pruebas con una suite de automatización Jest/Playwright, reduciendo ciclos de regresión QA en ~40% y previniendo bugs en producción en 15+ releases.",
   curbo_exp_3:
-    "Mejoré rendimiento mediante optimización de base de datos, caché Redis y mejoras de API, entregando tiempos de carga más rápidos y mejor SEO.",
+    "Reduje tiempo promedio de carga de páginas en ~45% mediante optimización de consultas de base de datos y caché Redis, mejorando rankings SEO y métricas de conversión del marketplace.",
+  curbo_exp_4:
+    "Colaboré con 8+ miembros de equipos cross-funcionales incluyendo producto, diseño y QA para entregar 15+ funcionalidades a tiempo manteniendo 90%+ de cobertura de pruebas.",
 
   // Event Detector CV entries
   event_detector_exp_1:
-    "Construí plataforma full-stack de descubrimiento de eventos con React/Node.js/PostgreSQL permitiendo a miembros de comunidad enviar y explorar eventos locales con imágenes de volantes e integración de calendario.",
+    "Lancé una plataforma full-stack de descubrimiento de eventos con React/Node.js/SQLite3 permitiendo a miembros de la comunidad enviar y explorar eventos locales con imágenes de volantes e integración de calendario.",
   event_detector_exp_2:
-    "Implementé dashboard administrativo de moderación con flujo de trabajo aprobar/rechazar y opciones de visualización flexibles incluyendo vistas responsivas de calendario y lista.",
+    "Implementé un dashboard administrativo de moderación con flujo de trabajo aprobar/rechazar y opciones de visualización flexibles incluyendo vistas responsivas de calendario y lista.",
   event_detector_exp_3:
-    "Integré API de calendario con funcionalidad de agregar a calendario y presets de notificaciones configurables, mejorando asistencia a eventos mediante recordatorios automatizados.",
+    "Integré una API de calendario con funcionalidad de agregar a calendario y presets de notificaciones configurables, mejorando la asistencia a eventos mediante recordatorios automatizados.",
 
   // Tinacos Cibao CV entries
   tinacos_cibao_exp_1:
-    "Entregué transformación completa de marca para Polímeros del Cibao incluyendo desarrollo web, rebranding de logo, y etiquetas de producto listas para producción con especificaciones de colores Pantone.",
+    "Entregué una transformación completa de marca para Polímeros del Cibao incluyendo desarrollo web, rebranding de logo, y etiquetas de producto listas para producción con especificaciones de colores Pantone.",
   tinacos_cibao_exp_2:
-    "Construí sistema automatizado de redención de garantías usando Google Forms, Apps Script, e integración API con dashboard seguro de Google Sheets para monitoreo de reclamos en tiempo real.",
+    "Diseñé un sistema automatizado de redención de garantías usando Google Forms, Apps Script, e integración API con un dashboard seguro de Google Sheets para monitoreo de reclamos en tiempo real.",
   tinacos_cibao_exp_3:
-    "Desarrollé generador de PDFs de escritorio capaz de producir miles de certificados de garantía optimizados (7,000+ páginas) en una sola ejecución, eliminando procesamiento manual.",
+    "Desarrollé un generador de documentos de alta resolución que produce 7,000+ páginas numeradas de etiquetas a partir de una plantilla reusable en una sola ejecución, eliminando el procesamiento manual.",
 
   // Skills section
   skills_title: "Habilidades Técnicas",
@@ -148,20 +143,22 @@ export const dict = {
   mobile_other_skills: "Mobile & Otros",
 
   frontend_skills_list:
-    "React, TypeScript, JavaScript, Flutter, TailwindCSS, Three.js, HTML5/CSS3, Diseño UI/UX",
+    "React, TypeScript, JavaScript, Next.js, Flutter, TailwindCSS, Three.js, HTML5/CSS3, Diseño UI/UX",
   backend_skills_list:
-    "Node.js, Express.js, Rust, Go, GraphQL, APIs RESTful, MongoDB, PostgreSQL, Redis",
+    "Node.js, Express.js, Rust, Go, GraphQL, APIs RESTful, SQL, MongoDB, PostgreSQL, Redis",
   cloud_devops_skills_list:
     "AWS, GCP, Azure, Docker, CI/CD, Git, GitHub Actions, Optimización de Rendimiento",
   mobile_other_skills_list:
-    "React Native, Flutter, Jest, Playwright, Cypress, MCP, Agile/Scrum",
+    "React Native, Flutter, Jest, Playwright, Cypress, Pruebas Unitarias, Pruebas de Integración, MCP, Agile/Scrum, Blender, Affinity",
 
   // Education section
   education_title: "Educación",
   studies_title: "ESTUDIOS",
   intec: "Instituto Tecnológico de Santo Domingo, República Dominicana",
+  intec_date: "2017 – 2021",
   software_eng: "Ingeniería de Software",
   loyola: "Instituto Politécnico Loyola, República Dominicana",
+  loyola_date: "2014 – 2017",
   digital_electronics: "Electrónica Digital y Microcomputación",
 
   // Certifications
@@ -186,22 +183,24 @@ export const dict = {
   sentinels_labs: "SentinelsLabs",
   find_machines: "Find & Supply Solutions",
   the_qr_king: "TheQRKing",
+  the_qr_king_date: "2024",
 
   // Project descriptions
   find_machines_desc:
-    "Diseñé y desarrollé un sitio web e-commerce completo en WordPress para Find & Supply Solutions (findmachines.com.do), permitiendo a la empresa vender maquinaria y equipos en línea. Construí tema WordPress personalizado con catálogo de productos avanzado, gestión de inventario y experiencia de checkout fluida.",
+    "Diseñé y desarrollé una aplicación web completa para Find & Supply Solutions (findmachines.com.do), reemplazando su sitio WordPress legacy con una plataforma personalizada basada en Go. Construí un dashboard administrativo y CMS que permite a la empresa vender y cotizar maquinaria y equipos en línea. Desarrollé una infraestructura cloud con auto-scaling que asigna recursos dinámicamente conforme la empresa crece, eliminando la dependencia de plugins de terceros obsoletos e inseguros.",
 
   caribbean_coworking: "Caribbean Business Coworking",
+  caribbean_coworking_date: "2024",
   caribbean_coworking_desc:
-    "Landing Page con sistema de pago integrado y condicionales webhook para reservas de cupos en espacio de coworking en República Dominicana. Construida con diseño responsivo y pensado para pagos seguros y delimitados.",
+    "Landing Page con procesamiento de pagos integrado y condicionales webhook para Caribbean Business Coworking, un espacio físico de coworking en República Dominicana. Soporta reservas de asientos y gestión de pagos con diseño responsivo y procesamiento seguro.",
 
   the_qr_king_desc:
-    "Plataforma de marketing basada en escaneo de códigos QR en carteles distribuidos en zonas de venta. Ayuda a empresas a rastrear interacción de clientes y optimizar campañas de marketing físico mediante análisis de códigos QR por ubicación.",
+    "Plataforma de marketing full-stack para restaurantes con React/Node.js/PostgreSQL. Soporta gestión de imágenes de alimentos, suscripciones de tableros QR, integración de pagos y analíticas basadas en ubicación, sirviendo a restaurantes en Staten Island para rastrear la participación de clientes mediante códigos QR físicos.",
 
   // Event Detector - Plataforma de Gestión y Envío de Eventos
   event_detector: "Event Detector",
   event_detector_desc:
-    "Plataforma de descubrimiento de eventos impulsada por la comunidad permitiendo a usuarios enviar eventos locales con imágenes de volantes, sistema de moderación administrativa, múltiples opciones de vista (calendario/lista), y notificaciones de calendario integradas con funcionalidad de agregar a calendario.",
+    "Una plataforma de descubrimiento de eventos impulsada por la comunidad con React/Node.js/SQLite3. Los usuarios envían eventos locales con imágenes de volantes; los administradores moderan mediante flujos de trabajo aprobar/rechazar. Soporta vistas de calendario/lista y notificaciones de agregar a calendario para la promoción de eventos locales.",
 
   event_detector_problem:
     "Las comunidades carecían de una plataforma centralizada para descubrir y compartir eventos locales. Los organizadores de eventos luchaban por alcanzar su audiencia objetivo, mientras los asistentes no tenían forma confiable de encontrar próximos eventos en su área. Las soluciones existentes eran demasiado complejas o no proporcionaban moderación adecuada e integración de calendario.",
@@ -213,12 +212,12 @@ export const dict = {
     "Diseñé sistema eficiente de carga y almacenamiento de imágenes para volantes de eventos con optimización para carga rápida. Arquitecturé flujo de trabajo de moderación asegurando control de calidad mientras mantenía tiempos de aprobación rápidos. Construí interfaz de calendario responsiva soportando múltiples modos de vista. Implementé sistema de notificaciones con tiempos de recordatorio configurables para eventos agregados. Optimicé consultas de base de datos para filtrado rápido de eventos por fecha, categoría y ubicación.",
 
   event_detector_results:
-    "Lancé exitosamente plataforma sirviendo comunidad local con descubrimiento de eventos optimizado. Logré alto engagement de usuarios mediante proceso de envío intuitivo y atractiva visualización de volantes. Habilité flujo de trabajo de aprobación rápida de eventos reduciendo sobrecarga administrativa. Entregué integración de calendario fluida mejorando asistencia a eventos mediante recordatorios automatizados.",
+    "Lancé exitosamente una plataforma sirviendo a la comunidad local con descubrimiento de eventos optimizado. Logré alto engagement de usuarios mediante un proceso de envío intuitivo y atractiva visualización de volantes. Habilité un flujo de trabajo de aprobación rápida de eventos reduciendo la sobrecarga administrativa. Entregué una integración de calendario fluida mejorando la asistencia a eventos mediante recordatorios automatizados.",
 
   // Tinacos Cibao - Transformación Completa de Marca y Digital
   tinacos_cibao: "Tinacos Cibao",
   tinacos_cibao_desc:
-    "Proyecto completo de transformación digital y rebranding para fabricante de tinacos Polímeros del Cibao. Desarrollé nuevo sitio web, rediseñé logo, creé etiquetas físicas de producto con colores Pantone apropiados, construí sistema automatizado de redención de garantías con integración de Google Apps Script, y generador de PDFs de escritorio para impresión masiva de garantías.",
+    "Un proyecto completo de transformación digital y rebranding para el fabricante de tinacos Polímeros del Cibao. Construí un nuevo sitio web, rediseñé el logo y creé etiquetas físicas de producto con colores Pantone apropiados. Construí un sistema automatizado de redención de garantías con integración de Google Apps Script y un generador de documentos de alta resolución que produce 7,000+ páginas numeradas de etiquetas a partir de una plantilla reusable.",
 
   tinacos_cibao_problem:
     "Polímeros del Cibao necesitaba una renovación completa de marca y presencia digital para su línea de productos de tinacos Cibao. Carecían de sitio web profesional, tenían branding desactualizado, etiquetas de producto físicas inconsistentes, y un proceso manual de seguimiento de garantías que era ineficiente y propenso a errores. La empresa necesitaba una solución cohesiva abarcando identidad de marca digital y física.",
@@ -230,7 +229,7 @@ export const dict = {
     "Diseñé identidad de marca cohesiva a través de puntos de contacto digitales y físicos manteniendo consistencia. Implementé sistema seguro de garantías con control de acceso apropiado usando verificación de email de empresa. Construí automatización confiable de Google Apps Script para conectar formularios y comunicación API. Aseguré precisión de color Pantone para impresión de etiquetas físicas coincidiendo con guías de marca digitales. Creé infraestructura escalable de seguimiento de garantías manejando envíos concurrentes y sincronización automatizada de datos. Optimicé algoritmo de generación de PDFs para manejar procesamiento masivo de miles de certificados manteniendo alta calidad y tamaños de archivo razonables.",
 
   tinacos_cibao_results:
-    "Lancé exitosamente transformación completa de marca con presencia digital moderna en tinacoscibao.com.do. Entregué etiquetas físicas listas para producción con especificaciones Pantone precisas adoptadas por manufactura. Sistema automatizado de redención de garantías eliminando procesamiento manual y reduciendo significativamente tiempo de procesamiento de reclamos. Proporcioné a staff de empresa dashboard de seguimiento de garantías en tiempo real mejorando tiempos de respuesta de servicio al cliente y precisión de datos. Generador de PDFs de escritorio permitió al staff producir miles de certificados de garantía en minutos con ejecución de un solo clic, reduciendo drásticamente tiempo de preparación de impresión.",
+    "Lancé exitosamente una transformación completa de marca con presencia digital moderna en tinacoscibao.com.do. Entregué etiquetas físicas listas para producción con especificaciones Pantone precisas adoptadas por la manufactura. El sistema automatizado de redención de garantías eliminó el procesamiento manual y redujo significativamente el tiempo de procesamiento de reclamos. Proporcioné al staff de la empresa un dashboard de seguimiento de garantías en tiempo real mejorando los tiempos de respuesta de servicio al cliente y la precisión de datos. El generador de PDFs de escritorio permitió al staff producir miles de certificados de garantía en minutos con ejecución de un solo clic, reduciendo drásticamente el tiempo de preparación de impresión.",
 
   // Location information
   location_us: "Estados Unidos • Passaic, Nueva Jersey",

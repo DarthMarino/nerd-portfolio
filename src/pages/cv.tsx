@@ -458,6 +458,7 @@ const CVPage: Component<CVPageProps> = (props) => {
           props.t("curbo_exp_1"),
           props.t("curbo_exp_2"),
           props.t("curbo_exp_3"),
+          props.t("curbo_exp_4"),
         ],
       });
 
@@ -514,18 +515,18 @@ const CVPage: Component<CVPageProps> = (props) => {
         doc,
         x: leftSide,
         y: currentY,
-        title: "2017 - 2021",
-        boldText: props.t("intec"),
-        description: props.t("software_eng"),
+        title: props.t("intec_date"),
+        boldText: props.t("software_eng"),
+        description: props.t("intec"),
       });
 
       currentY = genPdfBoldRow({
         doc,
         x: leftSide,
         y: currentY,
-        title: "2014 - 2017",
-        boldText: props.t("loyola"),
-        description: props.t("digital_electronics"),
+        title: props.t("loyola_date"),
+        boldText: props.t("digital_electronics"),
+        description: props.t("loyola"),
       });
 
       // CERTIFICATIONS SECTION
@@ -589,15 +590,8 @@ const CVPage: Component<CVPageProps> = (props) => {
       });
 
       // PROJECTS SECTION
-      // If withImage is true, languages is already on page 2, so continue on same page
-      // If withImage is false, force new page for projects
-      if (!props.withImage) {
-        doc.addPage();
-        currentY = 25; // Top margin for new page
-      } else {
-        // Languages already on page 2, add some spacing
-        currentY += 5;
-      }
+      // Continue right after languages
+      currentY = checkPageBreak(doc, currentY, 25);
 
       currentY = genPdfSection({
         doc,
@@ -606,53 +600,53 @@ const CVPage: Component<CVPageProps> = (props) => {
         title: props.t("projects_title"),
       });
 
-      // Tinacos Cibao project with fixed layout (2026)
+      // Tinacos Cibao project with fixed layout
       currentY = checkPageBreak(doc, currentY, 10);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
         y: currentY,
         boldText: props.t("tinacos_cibao"),
-        title: "2026",
+        title: props.t("tinacos_cibao_date"),
         description: props.t("tinacos_cibao_desc"),
         url: "https://www.tinacoscibao.com.do/",
         tight: false,
       });
 
-      // Find & Supply Solutions project with fixed layout (2025)
+      // Find & Supply Solutions project with fixed layout
       currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
         y: currentY,
         boldText: props.t("find_machines"),
-        title: "2025",
+        title: props.t("find_machines_date"),
         description: props.t("find_machines_desc"),
         url: "https://www.findmachines.com.do/",
         tight: false,
       });
 
-      // Event Detector project with fixed layout (2025)
+      // Event Detector project with fixed layout
       currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
         y: currentY,
         boldText: props.t("event_detector"),
-        title: "2025",
+        title: props.t("event_detector_date"),
         description: props.t("event_detector_desc"),
         url: "https://www.eventdetector.com/",
         tight: false,
       });
 
-      // TheQRKing project with fixed layout (2024)
+      // TheQRKing project with fixed layout
       currentY = checkPageBreak(doc, currentY + 4, 8);
       currentY = genPdfBoldRowWithLinkFixed({
         doc,
         x: leftSide,
         y: currentY,
         boldText: props.t("the_qr_king"),
-        title: "2024",
+        title: props.t("the_qr_king_date"),
         description: props.t("the_qr_king_desc"),
         url: "https://www.theqrking.com/",
         tight: false,
@@ -665,7 +659,7 @@ const CVPage: Component<CVPageProps> = (props) => {
         x: leftSide,
         y: currentY,
         boldText: props.t("caribbean_coworking"),
-        title: "2024",
+        title: props.t("caribbean_coworking_date"),
         description: props.t("caribbean_coworking_desc"),
         url: "https://coworking.caribbeanbiz.com/",
         tight: false,
