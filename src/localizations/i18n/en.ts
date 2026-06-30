@@ -160,7 +160,7 @@ export const dict = {
   intec_date: "2017 – 2021",
   software_eng: "Bachelor of Science in Software Engineering",
   loyola: "Instituto Politécnico Loyola, Dominican Republic",
-  loyola_date: "2014 – 2017",
+  loyola_date: "2013 – 2017",
   digital_electronics: "Technical Degree in Digital Electronics and Microcomputing",
 
   // Certifications
